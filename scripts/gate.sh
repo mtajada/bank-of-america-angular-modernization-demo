@@ -12,8 +12,12 @@ else
   BOA_NPM="$(command -v npm)"
   BOA_NPX="$(command -v npx)"
 fi
+BOA_NODE="$(command -v node)"
 
 case "${1:-all}" in
+  start-state)
+    "$BOA_NODE" "$BOA_DEMO_ROOT/scripts/validate-demo-start.mjs"
+    ;;
   build)
     "$BOA_NPM" run build
     ;;
@@ -49,6 +53,7 @@ case "${1:-all}" in
     git status --short
     ;;
   all)
+    "$0" start-state
     "$0" typecheck
     "$0" lint
     "$0" unit

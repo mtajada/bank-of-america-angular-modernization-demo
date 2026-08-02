@@ -6,7 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { BankingIconComponent } from './banking-icon.component';
+
 @NgModule({
+  declarations: [BankingIconComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -16,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
   exports: [
+    BankingIconComponent,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

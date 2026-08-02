@@ -25,7 +25,8 @@ as non-production.
 
 ## Required gates
 
-Run `./scripts/gate.sh all` on the active branch. On `main`, this proves the
-Angular 14 rollback state. The Angular 18 feature branch adds the compliance,
-browser and downstream gates required by the upgrade. State the exact commands
-and results in the pull request.
+Run `./scripts/gate.sh start-state` before changing files, then run
+`./scripts/gate.sh all`. This branch must begin on Angular 14 with five
+registered consumers, a browser-only Angular surface, local integrations and a
+human release gate. The Angular 18 branch adds its migration compliance and
+Playwright gates. State the exact commands and results in the pull request.

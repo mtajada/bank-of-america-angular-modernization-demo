@@ -1,12 +1,8 @@
 <a class="skip-link" href="#main-content">Skip to transfer review</a>
 
 <div class="synthetic-banner" role="note">
-  <span class="environment-dot" aria-hidden="true"></span>
   <strong>Synthetic interview simulation</strong>
-  <span
-    >Local fixtures only · Not affiliated with or endorsed by Bank of
-    America</span
-  >
+  <span>Local fixtures · No customer systems connected</span>
 </div>
 
 <header class="bank-header">
@@ -16,10 +12,14 @@
       href="#main-content"
       aria-label="Bank of America Digital Banking simulation home"
     >
-      <span class="bank-brand__mark" aria-hidden="true">BA</span>
+      <bofa-demo-banking-icon
+        class="bank-brand__icon"
+        name="institution"
+        data-testid="bank-brand-icon"
+      ></bofa-demo-banking-icon>
       <span class="bank-brand__name">
         <strong>Bank of America</strong>
-        <small>Digital Banking</small>
+        <small>Digital Banking simulation</small>
       </span>
     </a>
 
@@ -31,9 +31,7 @@
         type="button"
         aria-label="Open profile for Alex Morgan"
       >
-        <span class="profile-control__avatar" aria-hidden="true">AM</span>
-        <span>Alex Morgan</span>
-        <span aria-hidden="true">⌄</span>
+        Alex M. <span aria-hidden="true">⌄</span>
       </button>
     </div>
   </div>
@@ -56,18 +54,12 @@
 
   <section class="retail-intro" aria-labelledby="retail-title">
     <div>
-      <span class="section-kicker">Between your accounts</span>
       <h1 id="retail-title">Review your transfer</h1>
-      <p>
-        Check the amount, recipient and delivery timing before you authorize the
-        transfer.
-      </p>
+      <p>Confirm the amount, recipient and arrival before you continue.</p>
     </div>
 
     <ol class="transfer-progress" aria-label="Transfer progress">
-      <li class="complete">
-        <span aria-hidden="true">✓</span><strong>Details</strong>
-      </li>
+      <li class="complete"><span>1</span><strong>Details</strong></li>
       <li
         [class.complete]="outcome === 'Confirmed by Retail Banking'"
         [class.current]="outcome !== 'Confirmed by Retail Banking'"
@@ -75,8 +67,7 @@
           outcome !== 'Confirmed by Retail Banking' ? 'step' : null
         "
       >
-        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '2' }}</span
-        ><strong>Review</strong>
+        <span>2</span><strong>Review</strong>
       </li>
       <li
         [class.complete]="outcome === 'Confirmed by Retail Banking'"
@@ -85,64 +76,12 @@
           outcome === 'Confirmed by Retail Banking' ? 'step' : null
         "
       >
-        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '3' }}</span
-        ><strong>Complete</strong>
+        <span>3</span><strong>Complete</strong>
       </li>
     </ol>
   </section>
 
   <section class="retail-workspace">
-    <aside class="retail-context" aria-label="Account and recipient context">
-      <article id="account-summary" class="account-summary">
-        <div class="card-label-row">
-          <span>From</span>
-          <span class="account-status"
-            ><i aria-hidden="true"></i> Available</span
-          >
-        </div>
-        <p class="account-name">Advantage Banking</p>
-        <p class="account-number">Checking · •••• 2201</p>
-        <div class="balance-row">
-          <div>
-            <span>Available balance</span>
-            <strong>$18,420.86</strong>
-          </div>
-          <span class="balance-change">Updated now</span>
-        </div>
-      </article>
-
-      <article class="recipient-summary">
-        <div class="recipient-avatar" aria-hidden="true">M</div>
-        <div>
-          <span class="summary-label">Recipient</span>
-          <strong>Morgan Household</strong>
-          <span>Verified account · •••• 8842</span>
-        </div>
-        <span class="verified-mark" aria-label="Verified recipient">✓</span>
-      </article>
-
-      <article id="security-note" class="security-note">
-        <span class="security-note__icon" aria-hidden="true">✓</span>
-        <div>
-          <strong>Your transfer is protected</strong>
-          <p>
-            {{
-              outcome === 'Confirmed by Retail Banking'
-                ? 'Your identity was verified before this transfer was scheduled.'
-                : outcome === 'Cancelled by Retail Banking'
-                ? 'No transfer was scheduled and no identity challenge was sent.'
-                : 'We will confirm your identity before the transfer can be scheduled.'
-            }}
-          </p>
-        </div>
-      </article>
-
-      <div id="relationship-summary" class="relationship-note">
-        <span>Relationship summary</span>
-        <strong>Banking and credit accounts connected</strong>
-      </div>
-    </aside>
-
     <section class="transfer-workspace" aria-label="Transfer confirmation">
       <bofa-demo-secure-transfer-confirmation
         [transfer]="transfer"
@@ -156,10 +95,67 @@
         <strong data-testid="consumer-status">{{ outcome }}</strong>
       </div>
     </section>
+
+    <aside class="retail-context" aria-label="Account and recipient context">
+      <section id="account-summary" class="account-context">
+        <header>
+          <span class="context-label">
+            <bofa-demo-banking-icon name="account"></bofa-demo-banking-icon>
+            <span>From</span>
+          </span>
+          <strong>Available</strong>
+        </header>
+        <h2>Advantage Banking</h2>
+        <p>Checking · •••• 2201</p>
+        <dl>
+          <div>
+            <dt>Available balance</dt>
+            <dd>$18,420.86</dd>
+          </div>
+          <div>
+            <dt>Last updated</dt>
+            <dd>Now</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="recipient-context">
+        <span class="context-label">
+          <bofa-demo-banking-icon name="recipient"></bofa-demo-banking-icon>
+          <span>Recipient</span>
+        </span>
+        <h2>Morgan Household</h2>
+        <p>Verified account · •••• 8842</p>
+      </section>
+
+      <section id="security-note" class="security-note">
+        <h2>
+          <bofa-demo-banking-icon name="shield"></bofa-demo-banking-icon>
+          <span>Transfer protection</span>
+        </h2>
+        <p>
+          {{
+            outcome === 'Confirmed by Retail Banking'
+              ? 'Identity verified before the transfer was scheduled.'
+              : outcome === 'Cancelled by Retail Banking'
+              ? 'No transfer was scheduled and no identity challenge was sent.'
+              : 'Identity verification is required before scheduling.'
+          }}
+        </p>
+      </section>
+
+      <section id="relationship-summary" class="relationship-note">
+        <span class="context-label">
+          <bofa-demo-banking-icon name="relationship"></bofa-demo-banking-icon>
+          <span>Relationship summary</span>
+        </span>
+        <strong>Banking and credit accounts connected</strong>
+      </section>
+    </aside>
   </section>
 </main>
 
 <footer class="retail-footer">
-  <span>Bank of America Angular modernization simulation</span>
-  <span>Retail Banking consumer · Synthetic data</span>
+  <span>Angular modernization simulation</span>
+  <span>Online Banking · Responsive web · Synthetic data</span>
 </footer>

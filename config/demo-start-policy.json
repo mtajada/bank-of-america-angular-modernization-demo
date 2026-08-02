@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "scenario": "Bank of America Angular 14-to-18 compliance simulation",
+  "startingAngularMajor": 14,
+  "targetAngularMajor": 18,
+  "requiredNodeVersion": "16.20.x",
+  "minimumRegisteredConsumers": 5,
+  "minimumFullApplicationConsumers": 2,
+  "minimumContractFixtureConsumers": 3,
+  "runtimeNetwork": "forbidden",
+  "releaseMode": "human-approval-required"
+}

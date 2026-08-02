@@ -7,7 +7,7 @@ tmp
 
 # dependencies
 node_modules
-.tools/
+.tools
 output/
 test-results/
 playwright-report/

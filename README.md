@@ -26,10 +26,12 @@ in a bank:
 - unit, contract and browser evidence;
 - a human code-owner and rollback gate.
 
-The public `main` branch preserves the Angular 14 implementation. The feature
-branch moves the same slice to the Angular 18 checkpoint named in the interview
-brief. That checkpoint is not presented as the final supported destination;
-the broader target is a discovery decision.
+The public `main` branch preserves the original Angular 14 implementation.
+`demo/angular-14-ready` is the presentation-ready live starting point: the same
+framework and contracts with the final synthetic interface. The prepared
+feature branch moves the slice to the Angular 18 checkpoint named in the
+interview brief. That checkpoint is not presented as the final supported
+destination; the broader target is a discovery decision.
 
 The brief describes a customer surface used by millions of retail customers
 and a compliance policy that does not permit unsupported frameworks in
@@ -41,6 +43,7 @@ evidence. It does not claim to reproduce production scale.
 ```bash
 nvm use
 npm ci
+./scripts/gate.sh start-state
 ./scripts/gate.sh all
 ```
 

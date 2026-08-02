@@ -8,6 +8,7 @@ const fail = (message) => {
 
 const packageJson = readJson('package.json');
 const policy = readJson('config/demo-start-policy.json');
+const nvmrc = readFileSync('.nvmrc', 'utf8').trim();
 const registry = readJson('config/downstream-consumers.json');
 const channelBoundary = readJson('config/digital-channel-boundaries.json');
 
@@ -31,8 +32,12 @@ if (policy.targetAngularMajor !== 18) {
 
 if (packageJson.engines?.node !== policy.requiredNodeVersion) {
   fail(
-    `expected Node ${policy.requiredNodeVersion}, found ${packageJson.engines?.node}`
+    `expected engines.node ${policy.requiredNodeVersion}, found ${packageJson.engines?.node}`
   );
+}
+
+if (nvmrc !== policy.requiredNodeVersion) {
+  fail(`expected .nvmrc ${policy.requiredNodeVersion}, found ${nvmrc}`);
 }
 
 if (registeredConsumers.length < policy.minimumRegisteredConsumers) {

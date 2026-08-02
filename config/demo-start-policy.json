@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "scenario": "Bank of America Angular 14-to-18 compliance simulation",
-  "startingAngularMajor": 14,
+  "scenario": "Bank of America Angular 18 compliance checkpoint",
+  "startingAngularMajor": 18,
   "targetAngularMajor": 18,
-  "requiredNodeVersion": "16.20.x",
+  "requiredNodeVersion": "20.19.5",
   "minimumRegisteredConsumers": 5,
   "minimumFullApplicationConsumers": 2,
   "minimumContractFixtureConsumers": 3,

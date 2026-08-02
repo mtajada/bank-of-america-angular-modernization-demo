@@ -9,11 +9,11 @@ tmp
 node_modules
 .tools
 output/
+
+# Playwright / browser evidence (kept as session & CI artifacts, not committed)
 test-results/
 playwright-report/
-evidence/browser/playwright-report/
-evidence/browser/test-results/
-evidence/browser/results.json
+evidence/browser/
 .nx/
 
 # IDEs and editors

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "angularRuntime": {
+    "surface": "retail-online-banking",
+    "delivery": "browser",
+    "responsiveMobileValidation": true,
+    "nativeApplication": false
+  },
+  "adjacentChannels": [
+    {
+      "surface": "mobile-banking-ios",
+      "delivery": "native application",
+      "implementation": "not asserted",
+      "angularConsumer": false
+    },
+    {
+      "surface": "mobile-banking-android",
+      "delivery": "native application",
+      "implementation": "not asserted",
+      "angularConsumer": false
+    }
+  ],
+  "sharedCrossChannelContracts": [
+    "identity-session-assurance",
+    "transaction-step-up",
+    "transfer-domain-contract",
+    "analytics-event-schema",
+    "financial-data-provider-contract"
+  ],
+  "forbiddenClaims": [
+    "Angular powers the Bank of America native mobile application",
+    "Public hiring signals describe Bank of America production architecture",
+    "A responsive browser test validates a native mobile application"
+  ]
+}

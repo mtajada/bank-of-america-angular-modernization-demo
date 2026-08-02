@@ -28,6 +28,7 @@ const policy = readJson('config/demo-scenario-policy.json');
 const packageJson = readJson('package.json');
 const packageLock = readJson('package-lock.json');
 const consumerRegistry = readJson('config/downstream-consumers.json');
+const channelBoundaries = readJson('config/digital-channel-boundaries.json');
 const nodeVersion = fs
   .readFileSync(path.join(repositoryRoot, '.nvmrc'), 'utf8')
   .trim();
@@ -37,6 +38,58 @@ if (policy.runtimeNetwork !== 'forbidden')
   fail('runtime network must remain forbidden');
 if (policy.releaseMode !== 'human-approval-required') {
   fail('the release mode must retain a human approval gate');
+}
+if (channelBoundaries.schemaVersion !== 1) {
+  fail('unsupported digital channel boundary schema version');
+}
+if (channelBoundaries.angularRuntime?.delivery !== 'browser') {
+  fail('the Angular runtime must remain a browser surface');
+}
+if (channelBoundaries.angularRuntime?.nativeApplication !== false) {
+  fail('the Angular runtime must not be presented as a native application');
+}
+if (channelBoundaries.angularRuntime?.responsiveMobileValidation !== true) {
+  fail('the browser surface must retain responsive mobile validation');
+}
+
+const adjacentChannels = channelBoundaries.adjacentChannels;
+if (!Array.isArray(adjacentChannels) || adjacentChannels.length !== 2) {
+  fail('the iOS and Android adjacent-channel boundaries must both be declared');
+}
+const adjacentSurfaces = new Set(
+  adjacentChannels.map(({ surface }) => surface)
+);
+if (
+  !adjacentSurfaces.has('mobile-banking-ios') ||
+  !adjacentSurfaces.has('mobile-banking-android')
+) {
+  fail('the adjacent channel registry must name iOS and Android');
+}
+if (
+  adjacentChannels.some(
+    ({ delivery, implementation, angularConsumer }) =>
+      delivery !== 'native application' ||
+      implementation !== 'not asserted' ||
+      angularConsumer !== false
+  )
+) {
+  fail('native channels must remain adjacent and must not consume Angular');
+}
+
+const requiredCrossChannelContracts = [
+  'identity-session-assurance',
+  'transaction-step-up',
+  'transfer-domain-contract',
+  'analytics-event-schema',
+  'financial-data-provider-contract',
+];
+const sharedCrossChannelContracts = new Set(
+  channelBoundaries.sharedCrossChannelContracts
+);
+for (const contract of requiredCrossChannelContracts) {
+  if (!sharedCrossChannelContracts.has(contract)) {
+    fail(`cross-channel contract is missing: ${contract}`);
+  }
 }
 if (nodeVersion !== policy.requiredNodeVersion) {
   fail(`.nvmrc is ${nodeVersion}; expected ${policy.requiredNodeVersion}`);
@@ -122,5 +175,6 @@ for (const { surface } of fullApplications) {
 console.log(
   `Demo scenario policy validated: Angular ${policy.requiredAngularMajor}, ` +
     `Node ${policy.requiredNodeVersion}, ${consumers.length} consumers, ` +
-    'local-only runtime and human release approval.'
+    'browser-only Angular scope, adjacent native channels, local-only runtime ' +
+    'and human release approval.'
 );

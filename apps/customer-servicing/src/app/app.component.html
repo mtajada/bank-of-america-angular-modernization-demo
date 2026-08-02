@@ -12,16 +12,38 @@
       href="#main-content"
       aria-label="Bank of America Customer Servicing simulation home"
     >
-      <strong>Bank of America</strong>
-      <small>Customer Servicing</small>
+      <bofa-demo-banking-icon
+        class="service-brand__icon"
+        name="institution"
+        data-testid="service-brand-icon"
+      ></bofa-demo-banking-icon>
+      <span>
+        <strong>Bank of America</strong>
+        <small>Customer Servicing</small>
+      </span>
     </a>
 
     <nav class="service-menu">
-      <a href="#case-summary">Overview</a>
-      <a href="#customer-profile">Customers</a>
-      <a class="active" href="#main-content" aria-current="page">Transfers</a>
-      <a href="#case-activity">Cases</a>
-      <a href="#control-evidence">Controls</a>
+      <a href="#case-summary">
+        <bofa-demo-banking-icon name="overview"></bofa-demo-banking-icon>
+        <span>Overview</span>
+      </a>
+      <a href="#customer-profile">
+        <bofa-demo-banking-icon name="customers"></bofa-demo-banking-icon>
+        <span>Customers</span>
+      </a>
+      <a class="active" href="#main-content" aria-current="page">
+        <bofa-demo-banking-icon name="transfer"></bofa-demo-banking-icon>
+        <span>Transfers</span>
+      </a>
+      <a href="#case-activity">
+        <bofa-demo-banking-icon name="case"></bofa-demo-banking-icon>
+        <span>Cases</span>
+      </a>
+      <a href="#control-evidence">
+        <bofa-demo-banking-icon name="controls"></bofa-demo-banking-icon>
+        <span>Controls</span>
+      </a>
     </nav>
 
     <div class="service-nav__footer">
@@ -34,11 +56,15 @@
     <header class="service-topbar">
       <label class="case-search">
         <span class="visually-hidden">Search customers or cases</span>
+        <bofa-demo-banking-icon name="search"></bofa-demo-banking-icon>
         <input type="search" placeholder="Search customers or cases" />
       </label>
       <div class="topbar-context">
         <span>Training queue</span>
-        <button type="button" aria-label="Open notifications">2 alerts</button>
+        <button type="button" aria-label="Open notifications">
+          <bofa-demo-banking-icon name="bell"></bofa-demo-banking-icon>
+          <span>2 alerts</span>
+        </button>
         <button class="agent-control" type="button">
           Agent workspace <span aria-hidden="true">⌄</span>
         </button>
@@ -71,9 +97,15 @@
       >
         <header>
           <div>
-            <span>Customer</span>
-            <strong>Jordan Carter</strong>
-            <small>Synthetic customer</small>
+            <bofa-demo-banking-icon
+              class="customer-record__icon"
+              name="recipient"
+            ></bofa-demo-banking-icon>
+            <span class="customer-record__copy">
+              <span>Customer</span>
+              <strong>Jordan Carter</strong>
+              <small>Synthetic customer</small>
+            </span>
           </div>
           <span class="identity-state">
             SSO verified ·
@@ -131,7 +163,10 @@
         >
           <section class="control-section">
             <header>
-              <h2>Control evidence</h2>
+              <h2>
+                <bofa-demo-banking-icon name="shield"></bofa-demo-banking-icon>
+                <span>Control evidence</span>
+              </h2>
               <span>Live</span>
             </header>
             <dl class="control-list">
@@ -168,7 +203,12 @@
 
           <section class="control-section provider-section">
             <header>
-              <h2>Provider status</h2>
+              <h2>
+                <bofa-demo-banking-icon
+                  name="relationship"
+                ></bofa-demo-banking-icon>
+                <span>Provider status</span>
+              </h2>
               <span>3 / 3 ready</span>
             </header>
             <dl>
@@ -189,7 +229,10 @@
 
           <section id="case-activity" class="control-section activity-section">
             <header>
-              <h2>Case activity</h2>
+              <h2>
+                <bofa-demo-banking-icon name="case"></bofa-demo-banking-icon>
+                <span>Case activity</span>
+              </h2>
               <span>Now</span>
             </header>
             <ol>

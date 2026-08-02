@@ -17,8 +17,13 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expect(
     page.getByRole('heading', { name: 'Review your transfer' })
   ).toBeVisible();
+  await expect(page.getByTestId('bank-brand-icon')).toBeVisible();
+  await expect(
+    page.getByTestId('bank-brand-icon').locator('svg')
+  ).toHaveAttribute('aria-hidden', 'true');
   await expect(page.locator('.bank-brand__mark')).toHaveCount(0);
   await expect(page.locator('.brand-rail')).toHaveCount(0);
+  await expect(page.locator('img')).toHaveCount(0);
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
     path: 'evidence/browser/redesign/retail-initial-desktop.png',
@@ -35,8 +40,13 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
 
   await page.setViewportSize({ width: 1440, height: 980 });
   await page.goto('http://127.0.0.1:4300');
+  await expect(page.getByTestId('service-brand-icon')).toBeVisible();
+  await expect(
+    page.getByTestId('service-brand-icon').locator('svg')
+  ).toHaveAttribute('aria-hidden', 'true');
   await expect(page.locator('.service-brand__mark')).toHaveCount(0);
   await expect(page.locator('.brand-rail')).toHaveCount(0);
+  await expect(page.locator('img')).toHaveCount(0);
   await page.getByTestId('mfa-code').fill('482931');
   await page.getByTestId('confirm-transfer').click();
   await expect(page.getByTestId('status')).toContainText('Transfer confirmed');

@@ -126,11 +126,24 @@ input:focus-visible {
 }
 
 .service-brand {
+  align-items: center;
   color: #fff;
   display: grid;
-  gap: 4px;
+  gap: 10px;
+  grid-template-columns: auto minmax(0, 1fr);
   margin: 0 9px 32px;
   text-decoration: none;
+}
+
+.service-brand__icon {
+  color: #fff;
+  height: 25px;
+  width: 25px;
+}
+
+.service-brand > span {
+  display: grid;
+  gap: 4px;
 }
 
 .service-brand strong {
@@ -150,13 +163,20 @@ input:focus-visible {
 }
 
 .service-menu a {
+  align-items: center;
   border-left: 2px solid transparent;
   color: #b9c6da;
+  display: flex;
   font-size: 0.78rem;
   font-weight: 600;
+  gap: 10px;
   min-height: 40px;
   padding: 11px 12px;
   text-decoration: none;
+}
+
+.service-menu a bofa-demo-banking-icon {
+  font-size: 1rem;
 }
 
 .service-menu a:hover,
@@ -201,7 +221,18 @@ input:focus-visible {
 }
 
 .case-search {
+  position: relative;
   width: min(360px, 38vw);
+}
+
+.case-search > bofa-demo-banking-icon {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  left: 12px;
+  pointer-events: none;
+  position: absolute;
+  top: 11px;
+  z-index: 1;
 }
 
 .case-search input {
@@ -211,7 +242,7 @@ input:focus-visible {
   color: var(--color-text-strong);
   font-size: 0.83rem;
   height: 38px;
-  padding: 0 12px;
+  padding: 0 12px 0 36px;
   width: 100%;
 }
 
@@ -234,11 +265,14 @@ input:focus-visible {
 }
 
 .topbar-context button {
+  align-items: center;
   background: transparent;
   border: 0;
   border-left: 1px solid var(--color-border-subtle);
   color: var(--color-brand-navy);
   cursor: pointer;
+  display: inline-flex;
+  gap: 6px;
   min-height: 38px;
   padding: 0 11px;
 }
@@ -330,16 +364,27 @@ input:focus-visible {
 }
 
 .customer-record > header > div {
+  align-items: center;
+  display: flex;
+  gap: 9px;
+}
+
+.customer-record__copy {
   align-items: baseline;
   display: flex;
   gap: 9px;
 }
 
-.customer-record header div > span {
+.customer-record__copy > span:first-child {
   color: var(--color-text-muted);
   font-size: 0.69rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.customer-record__icon {
+  color: var(--color-action-primary);
+  font-size: 1.1rem;
 }
 
 .customer-record header strong {
@@ -428,8 +473,16 @@ input:focus-visible {
 }
 
 .control-section h2 {
+  align-items: center;
+  display: flex;
   font-size: 0.79rem;
+  gap: 7px;
   margin: 0;
+}
+
+.control-section h2 bofa-demo-banking-icon {
+  color: var(--color-action-primary);
+  font-size: 0.95rem;
 }
 
 .control-section header > span {
@@ -652,11 +705,20 @@ input:focus-visible {
     padding: 16px;
   }
 
-  .customer-record > header,
-  .customer-record > header > div {
+  .customer-record > header {
     align-items: start;
     flex-direction: column;
     gap: 4px;
+  }
+
+  .customer-record > header > div {
+    align-items: start;
+  }
+
+  .customer-record__copy {
+    align-items: start;
+    flex-direction: column;
+    gap: 3px;
   }
 
   .identity-state {

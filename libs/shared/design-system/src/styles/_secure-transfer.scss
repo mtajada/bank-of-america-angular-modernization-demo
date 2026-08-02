@@ -30,6 +30,17 @@
       letter-spacing: 0.02em;
     }
 
+    .transfer-kind {
+      align-items: center;
+      display: inline-flex;
+      gap: 7px;
+    }
+
+    .transfer-kind bofa-demo-banking-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 1rem;
+    }
+
     .review-status {
       color: var(--color-brand-navy, #012169);
       font-size: 0.75rem;
@@ -73,11 +84,19 @@
     }
 
     .route-label {
+      align-items: center;
       color: var(--color-text-muted, #596577);
+      display: inline-flex;
       font-size: 0.71rem;
       font-weight: 650;
+      gap: 6px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+    }
+
+    .route-label bofa-demo-banking-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 0.95rem;
     }
 
     .account-route strong {
@@ -147,10 +166,22 @@
       padding: 16px 18px;
     }
 
-    .mfa-copy,
+    .mfa-copy {
+      align-items: start;
+      display: grid;
+      gap: 11px;
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
     .mfa-copy > div {
       display: grid;
       gap: 4px;
+    }
+
+    .mfa-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 1.25rem;
+      margin-top: 1px;
     }
 
     .mfa-copy strong {
@@ -278,10 +309,18 @@
     }
 
     .assurance-list dt {
+      align-items: center;
       color: var(--color-text-muted, #596577);
+      display: flex;
       font-size: 0.68rem;
+      gap: 6px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+    }
+
+    .assurance-list dt bofa-demo-banking-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 0.9rem;
     }
 
     .assurance-list dd {

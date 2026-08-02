@@ -6,9 +6,12 @@
   >
     <header class="transfer-heading">
       <div class="transfer-heading__meta">
-        <span>{{
-          channel === 'retail' ? 'Transfer review' : 'Agent-assisted transfer'
-        }}</span>
+        <span class="transfer-kind">
+          <bofa-demo-banking-icon name="transfer"></bofa-demo-banking-icon>
+          <span>{{
+            channel === 'retail' ? 'Transfer review' : 'Agent-assisted transfer'
+          }}</span>
+        </span>
         <span class="review-status">{{
           status === 'confirmed'
             ? 'MFA verified'
@@ -27,7 +30,10 @@
 
     <section class="account-route" aria-label="Transfer route">
       <article>
-        <span class="route-label">From</span>
+        <span class="route-label">
+          <bofa-demo-banking-icon name="account"></bofa-demo-banking-icon>
+          <span>From</span>
+        </span>
         <strong>{{
           channel === 'retail'
             ? 'Advantage Banking'
@@ -39,7 +45,10 @@
       </article>
       <span class="route-arrow" aria-hidden="true">to</span>
       <article>
-        <span class="route-label">To</span>
+        <span class="route-label">
+          <bofa-demo-banking-icon name="recipient"></bofa-demo-banking-icon>
+          <span>To</span>
+        </span>
         <strong>{{ transfer.recipientAlias }}</strong>
         <small>Verified · {{ transfer.destinationMask }}</small>
       </article>
@@ -70,6 +79,10 @@
       aria-labelledby="mfa-title"
     >
       <div class="mfa-copy">
+        <bofa-demo-banking-icon
+          class="mfa-icon"
+          name="shield"
+        ></bofa-demo-banking-icon>
         <div>
           <strong id="mfa-title">Confirm your identity</strong>
           <span id="mfa-code-help"
@@ -157,12 +170,18 @@
 
     <dl class="assurance-list" aria-label="Transfer control evidence">
       <div>
-        <dt>Session</dt>
+        <dt>
+          <bofa-demo-banking-icon name="account"></bofa-demo-banking-icon>
+          <span>Session</span>
+        </dt>
         <dd>SSO session verified</dd>
         <small>Authenticated session</small>
       </div>
       <div>
-        <dt>Identity</dt>
+        <dt>
+          <bofa-demo-banking-icon name="shield"></bofa-demo-banking-icon>
+          <span>Identity</span>
+        </dt>
         <dd>{{ status === 'confirmed' ? 'MFA verified' : 'MFA step-up' }}</dd>
         <small>{{
           status === 'confirmed'
@@ -173,7 +192,10 @@
         }}</small>
       </div>
       <div>
-        <dt>Analytics</dt>
+        <dt>
+          <bofa-demo-banking-icon name="controls"></bofa-demo-banking-icon>
+          <span>Analytics</span>
+        </dt>
         <dd>Identifiers protected</dd>
         <small>{{
           status === 'confirmed'

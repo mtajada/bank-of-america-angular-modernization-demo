@@ -128,8 +128,17 @@ input:focus-visible {
 }
 
 .bank-brand {
+  align-items: center;
   color: var(--color-brand-navy-deep);
+  display: flex;
+  gap: 11px;
   text-decoration: none;
+}
+
+.bank-brand__icon {
+  color: var(--color-action-primary);
+  height: 29px;
+  width: 29px;
 }
 
 .bank-brand__name {
@@ -333,13 +342,19 @@ input:focus-visible {
   justify-content: space-between;
 }
 
-.account-context header span,
-.recipient-context > span,
-.relationship-note > span {
+.context-label {
+  align-items: center;
   color: var(--color-text-muted);
+  display: inline-flex;
   font-size: 0.69rem;
+  gap: 6px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.context-label bofa-demo-banking-icon {
+  color: var(--color-action-primary);
+  font-size: 0.95rem;
 }
 
 .account-context header strong {
@@ -406,7 +421,15 @@ input:focus-visible {
 }
 
 .security-note h2 {
+  align-items: center;
+  display: flex;
+  gap: 7px;
   margin-top: 0;
+}
+
+.security-note h2 bofa-demo-banking-icon {
+  color: var(--color-state-success);
+  font-size: 1rem;
 }
 
 .relationship-note {
@@ -479,6 +502,11 @@ input:focus-visible {
 
   .bank-brand__name strong {
     font-size: 0.92rem;
+  }
+
+  .bank-brand__icon {
+    height: 26px;
+    width: 26px;
   }
 
   .utility-link {
@@ -557,6 +585,15 @@ input:focus-visible {
 }
 
 @media (max-width: 340px) {
+  .bank-brand {
+    gap: 8px;
+  }
+
+  .bank-brand__icon {
+    height: 24px;
+    width: 24px;
+  }
+
   .bank-brand__name small {
     display: none;
   }

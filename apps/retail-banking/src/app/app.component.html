@@ -12,6 +12,11 @@
       href="#main-content"
       aria-label="Bank of America Digital Banking simulation home"
     >
+      <bofa-demo-banking-icon
+        class="bank-brand__icon"
+        name="institution"
+        data-testid="bank-brand-icon"
+      ></bofa-demo-banking-icon>
       <span class="bank-brand__name">
         <strong>Bank of America</strong>
         <small>Digital Banking simulation</small>
@@ -94,7 +99,10 @@
     <aside class="retail-context" aria-label="Account and recipient context">
       <section id="account-summary" class="account-context">
         <header>
-          <span>From</span>
+          <span class="context-label">
+            <bofa-demo-banking-icon name="account"></bofa-demo-banking-icon>
+            <span>From</span>
+          </span>
           <strong>Available</strong>
         </header>
         <h2>Advantage Banking</h2>
@@ -112,13 +120,19 @@
       </section>
 
       <section class="recipient-context">
-        <span>Recipient</span>
+        <span class="context-label">
+          <bofa-demo-banking-icon name="recipient"></bofa-demo-banking-icon>
+          <span>Recipient</span>
+        </span>
         <h2>Morgan Household</h2>
         <p>Verified account · •••• 8842</p>
       </section>
 
       <section id="security-note" class="security-note">
-        <h2>Transfer protection</h2>
+        <h2>
+          <bofa-demo-banking-icon name="shield"></bofa-demo-banking-icon>
+          <span>Transfer protection</span>
+        </h2>
         <p>
           {{
             outcome === 'Confirmed by Retail Banking'
@@ -131,7 +145,10 @@
       </section>
 
       <section id="relationship-summary" class="relationship-note">
-        <span>Relationship summary</span>
+        <span class="context-label">
+          <bofa-demo-banking-icon name="relationship"></bofa-demo-banking-icon>
+          <span>Relationship summary</span>
+        </span>
         <strong>Banking and credit accounts connected</strong>
       </section>
     </aside>

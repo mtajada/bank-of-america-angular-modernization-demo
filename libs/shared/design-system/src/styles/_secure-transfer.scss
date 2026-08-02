@@ -199,21 +199,14 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .mfa-panel .mat-form-field,
     .mfa-panel .mat-mdc-form-field {
       width: 100%;
-    }
-
-    .mfa-panel .mat-form-field-wrapper,
-    .mfa-panel .mat-mdc-form-field-subscript-wrapper {
-      padding-bottom: 0;
     }
 
     .mfa-panel .mat-mdc-form-field-subscript-wrapper {
       display: none;
     }
 
-    .mfa-panel .mat-form-field-flex,
     .mfa-panel .mat-mdc-text-field-wrapper {
       background: #fff;
       border-radius: var(--radius-control, 6px);
@@ -268,17 +261,14 @@
       padding-inline: 18px;
     }
 
-    .actions .mat-flat-button:not(:disabled),
     .actions .mat-mdc-unelevated-button:not(:disabled) {
       background: var(--color-action-primary, #0053a0);
     }
 
-    .actions .mat-flat-button:not(:disabled):hover,
     .actions .mat-mdc-unelevated-button:not(:disabled):hover {
       background: var(--color-action-hover, #003f7a);
     }
 
-    .actions .mat-flat-button:disabled,
     .actions .mat-mdc-unelevated-button:disabled {
       background: #dfe4ea;
       color: #697586;
@@ -290,7 +280,6 @@
       vertical-align: middle;
     }
 
-    .actions .mat-progress-spinner circle,
     .actions .mdc-circular-progress__indeterminate-circle-graphic {
       stroke: currentColor;
     }

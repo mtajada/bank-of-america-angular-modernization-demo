@@ -22,7 +22,7 @@ as output from the live session.
 ## Baseline evidence
 
 On August 2, 2026, a clean `npm ci` with Node 16.20.2 completed. Typecheck,
-lint, eleven unit and contract tests, both production builds and the local
+lint, fourteen unit and contract tests, both production builds and the local
 security scan passed after the Angular 14 Material theme aliases were restored.
 
 The browser exercise then confirmed:

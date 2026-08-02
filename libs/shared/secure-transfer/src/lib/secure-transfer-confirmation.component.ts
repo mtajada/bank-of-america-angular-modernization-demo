@@ -46,6 +46,7 @@ export class SecureTransferConfirmationComponent implements OnInit {
   mfaCode = '';
   status: TransferStatus = 'ready';
   sessionVerified = false;
+  mfaChallengeStarted = false;
 
   constructor(
     @Inject(MFA_GATEWAY) private readonly mfa: MfaGateway,
@@ -74,6 +75,7 @@ export class SecureTransferConfirmationComponent implements OnInit {
       return;
 
     this.status = 'verifying';
+    this.mfaChallengeStarted = true;
     const outcome = await this.mfa.challenge(this.mfaCode.trim());
 
     // The user can cancel while the asynchronous challenge is in flight.

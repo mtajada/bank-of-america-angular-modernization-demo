@@ -17,6 +17,8 @@
             ? 'MFA verified'
             : status === 'cancelled'
             ? 'Review stopped'
+            : !sessionVerified
+            ? 'SSO required'
             : 'MFA required'
         }}</span>
       </div>
@@ -176,8 +178,12 @@
           <bofa-demo-banking-icon name="account"></bofa-demo-banking-icon>
           <span>Session</span>
         </dt>
-        <dd>SSO session verified</dd>
-        <small>Authenticated session</small>
+        <dd>{{
+          sessionVerified ? 'SSO session verified' : 'SSO session unavailable'
+        }}</dd>
+        <small>{{
+          sessionVerified ? 'Authenticated session' : 'Confirmation disabled'
+        }}</small>
       </div>
       <div>
         <dt>
@@ -189,7 +195,9 @@
           status === 'confirmed'
             ? 'Challenge approved'
             : status === 'cancelled'
-            ? 'No challenge sent'
+            ? mfaChallengeStarted
+              ? 'Late response ignored'
+              : 'No challenge sent'
             : 'Required to continue'
         }}</small>
       </div>

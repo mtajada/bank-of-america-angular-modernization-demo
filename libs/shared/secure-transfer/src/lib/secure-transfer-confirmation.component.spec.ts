@@ -99,6 +99,7 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(analytics.recordedEvents()).toEqual([]);
     expect(fixture.componentInstance.status).toBe('cancelled');
     expect(cancelled).toHaveBeenCalledTimes(1);
+    expect(fixture.nativeElement.textContent).toContain('No challenge sent');
     expect(
       fixture.debugElement.query(By.css('[data-testid="confirm-transfer"]'))
     ).toBeNull();
@@ -130,6 +131,11 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(analytics.recordedEvents()).toEqual([]);
     expect(fixture.componentInstance.status).toBe('ready');
     expect(confirmed).not.toHaveBeenCalled();
+    expect(fixture.nativeElement.textContent).toContain(
+      'SSO session unavailable'
+    );
+    expect(fixture.nativeElement.textContent).toContain('Confirmation disabled');
+    expect(fixture.nativeElement.textContent).toContain('SSO required');
   });
 
   it('keeps cancellation terminal when MFA resolves later', async () => {
@@ -151,11 +157,13 @@ describe('SecureTransferConfirmationComponent', () => {
     fixture.componentInstance.cancel();
     resolveChallenge('approved');
     await pendingConfirmation;
+    fixture.detectChanges();
 
     expect(fixture.componentInstance.status).toBe('cancelled');
     expect(analytics.recordedEvents()).toEqual([]);
     expect(confirmed).not.toHaveBeenCalled();
     expect(cancelled).toHaveBeenCalledTimes(1);
+    expect(fixture.nativeElement.textContent).toContain('Late response ignored');
   });
 
   it('has no side effects after a rejected challenge', async () => {

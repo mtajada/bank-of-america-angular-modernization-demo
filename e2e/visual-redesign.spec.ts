@@ -17,13 +17,26 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expect(
     page.getByRole('heading', { name: 'Review your transfer' })
   ).toBeVisible();
+  await expect(page.locator('.bank-brand__mark')).toHaveCount(0);
+  await expect(page.locator('.brand-rail')).toHaveCount(0);
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
     path: 'evidence/browser/redesign/retail-initial-desktop.png',
     fullPage: true,
   });
 
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await page.goto('http://127.0.0.1:4200');
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({
+    path: 'evidence/browser/redesign/retail-initial-tablet.png',
+    fullPage: true,
+  });
+
+  await page.setViewportSize({ width: 1440, height: 980 });
   await page.goto('http://127.0.0.1:4300');
+  await expect(page.locator('.service-brand__mark')).toHaveCount(0);
+  await expect(page.locator('.brand-rail')).toHaveCount(0);
   await page.getByTestId('mfa-code').fill('482931');
   await page.getByTestId('confirm-transfer').click();
   await expect(page.getByTestId('status')).toContainText('Transfer confirmed');
@@ -45,6 +58,15 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
     fullPage: true,
   });
 
+  await page.setViewportSize({ width: 320, height: 760 });
+  await page.goto('http://127.0.0.1:4200');
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({
+    path: 'evidence/browser/redesign/retail-initial-compact.png',
+    fullPage: true,
+  });
+
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('http://127.0.0.1:4300');
   await page.getByTestId('mfa-code').fill('000000');
   await page.getByTestId('confirm-transfer').click();
@@ -55,6 +77,14 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
     path: 'evidence/browser/redesign/servicing-rejected-mobile.png',
+    fullPage: true,
+  });
+
+  await page.setViewportSize({ width: 320, height: 760 });
+  await page.goto('http://127.0.0.1:4300');
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({
+    path: 'evidence/browser/redesign/servicing-initial-compact.png',
     fullPage: true,
   });
 });

@@ -1,6 +1,4 @@
 <mat-card class="transfer-card" data-testid="transfer-card">
-  <div class="brand-rail" aria-hidden="true"><span></span><span></span></div>
-
   <form
     (ngSubmit)="confirm()"
     aria-labelledby="transfer-title"
@@ -11,7 +9,7 @@
         <span>{{
           channel === 'retail' ? 'Transfer review' : 'Agent-assisted transfer'
         }}</span>
-        <span class="review-chip">{{
+        <span class="review-status">{{
           status === 'confirmed'
             ? 'MFA verified'
             : status === 'cancelled'
@@ -23,8 +21,7 @@
         Confirm {{ transfer.amount | currency : transfer.currency }}
       </h2>
       <p id="transfer-intro">
-        Review the funding account, recipient and delivery details before
-        continuing.
+        Check the transfer details before you authorize and schedule it.
       </p>
     </header>
 
@@ -40,7 +37,7 @@
           >Checking · •••• {{ transfer.sourceAccountId | slice : -4 }}</small
         >
       </article>
-      <span class="route-arrow" aria-hidden="true">→</span>
+      <span class="route-arrow" aria-hidden="true">to</span>
       <article>
         <span class="route-label">To</span>
         <strong>{{ transfer.recipientAlias }}</strong>
@@ -73,11 +70,10 @@
       aria-labelledby="mfa-title"
     >
       <div class="mfa-copy">
-        <span class="shield-icon" aria-hidden="true">✓</span>
         <div>
           <strong id="mfa-title">Confirm your identity</strong>
           <span id="mfa-code-help"
-            >For this simulation, use code <b>482 931</b>.</span
+            >Use <b>482 931</b> for this local simulation.</span
           >
         </div>
       </div>
@@ -104,8 +100,8 @@
       tabindex="-1"
       data-testid="status"
     >
-      <span aria-hidden="true">!</span>The synthetic challenge was rejected. No
-      transfer or analytics event was created.
+      The synthetic challenge was rejected. No transfer or analytics event was
+      created.
     </p>
     <p
       #statusMessage
@@ -115,8 +111,7 @@
       tabindex="-1"
       data-testid="status"
     >
-      <span aria-hidden="true">✓</span>Transfer confirmed. One redacted
-      analytics event was recorded.
+      Transfer confirmed. One redacted analytics event was recorded.
     </p>
     <p
       #statusMessage
@@ -126,8 +121,7 @@
       tabindex="-1"
       data-testid="status"
     >
-      <span aria-hidden="true">×</span>Transfer cancelled. No side effects were
-      created.
+      Transfer cancelled. No side effects were created.
     </p>
 
     <div
@@ -156,47 +150,39 @@
           aria-hidden="true"
         ></mat-spinner>
         <span>{{
-          status === 'verifying' ? 'Verifying transfer…' : 'Verify and schedule'
+          status === 'verifying' ? 'Verifying…' : 'Verify and schedule'
         }}</span>
       </button>
     </div>
 
-    <ul class="assurance-list" aria-label="Transfer control evidence">
-      <li>
-        <span aria-hidden="true">✓</span>
-        <div>
-          <strong>SSO session verified</strong
-          ><small>Authenticated session</small>
-        </div>
-      </li>
-      <li>
-        <span aria-hidden="true">✓</span>
-        <div>
-          <strong>{{
-            status === 'confirmed' ? 'MFA verified' : 'MFA step-up'
-          }}</strong>
-          <small>{{
-            status === 'confirmed'
-              ? 'Challenge approved'
-              : status === 'cancelled'
-              ? 'No challenge sent'
-              : 'Required to continue'
-          }}</small>
-        </div>
-      </li>
-      <li>
-        <span aria-hidden="true">✓</span>
-        <div>
-          <strong>Analytics protected</strong>
-          <small>{{
-            status === 'confirmed'
-              ? 'Redacted event recorded'
-              : status === 'cancelled'
-              ? 'No event created'
-              : 'Identifiers redacted'
-          }}</small>
-        </div>
-      </li>
-    </ul>
+    <dl class="assurance-list" aria-label="Transfer control evidence">
+      <div>
+        <dt>Session</dt>
+        <dd>SSO session verified</dd>
+        <small>Authenticated session</small>
+      </div>
+      <div>
+        <dt>Identity</dt>
+        <dd>{{ status === 'confirmed' ? 'MFA verified' : 'MFA step-up' }}</dd>
+        <small>{{
+          status === 'confirmed'
+            ? 'Challenge approved'
+            : status === 'cancelled'
+            ? 'No challenge sent'
+            : 'Required to continue'
+        }}</small>
+      </div>
+      <div>
+        <dt>Analytics</dt>
+        <dd>Identifiers protected</dd>
+        <small>{{
+          status === 'confirmed'
+            ? 'Redacted event recorded'
+            : status === 'cancelled'
+            ? 'No event created'
+            : 'Identifiers redacted'
+        }}</small>
+      </div>
+    </dl>
   </form>
 </mat-card>

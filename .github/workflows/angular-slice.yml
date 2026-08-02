@@ -1,0 +1,31 @@
+name: Bank of America Angular 14 Baseline
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Typecheck both applications
+        run: ./scripts/gate.sh typecheck
+      - name: Lint every project
+        run: ./scripts/gate.sh lint
+      - name: Run unit and downstream contract tests
+        run: ./scripts/gate.sh unit
+      - name: Build both full application consumers
+        run: ./scripts/gate.sh build
+      - name: Scan the synthetic repository boundary
+        run: ./scripts/gate.sh security

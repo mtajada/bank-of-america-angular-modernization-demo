@@ -1,0 +1,274 @@
+<a class="skip-link" href="#main-content">Skip to customer transfer</a>
+
+<div class="synthetic-banner" role="note">
+  <span class="environment-dot" aria-hidden="true"></span>
+  <strong>Synthetic interview simulation</strong>
+  <span
+    >Training workspace · Local fixtures only · No customer systems
+    connected</span
+  >
+</div>
+
+<div class="servicing-layout">
+  <aside class="service-nav" aria-label="Customer Servicing navigation">
+    <a
+      class="service-brand"
+      href="#main-content"
+      aria-label="Bank of America Customer Servicing simulation home"
+    >
+      <span class="service-brand__mark" aria-hidden="true">BA</span>
+      <span
+        ><strong>Bank of America</strong><small>Customer Servicing</small></span
+      >
+    </a>
+
+    <nav class="service-menu">
+      <a href="#case-summary"><span aria-hidden="true">OV</span>Overview</a>
+      <a href="#customer-profile"
+        ><span aria-hidden="true">CU</span>Customers</a
+      >
+      <a class="active" href="#main-content" aria-current="page"
+        ><span aria-hidden="true">TR</span>Transfers</a
+      >
+      <a href="#case-activity"><span aria-hidden="true">CA</span>Cases</a>
+      <a href="#control-evidence"><span aria-hidden="true">CO</span>Controls</a>
+    </nav>
+
+    <div class="service-nav__footer">
+      <span class="agent-avatar" aria-hidden="true">MT</span>
+      <div><strong>Miguel T.</strong><span>Training agent</span></div>
+      <span class="online-dot" aria-label="Available"></span>
+    </div>
+  </aside>
+
+  <div class="service-body">
+    <header class="service-topbar">
+      <label class="case-search">
+        <span aria-hidden="true">⌕</span>
+        <span class="visually-hidden">Search customers or cases</span>
+        <input type="search" placeholder="Search customers or cases" />
+      </label>
+      <div class="topbar-context">
+        <span>Training queue</span>
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <button type="button" aria-label="Open notifications">2 alerts</button>
+        <button class="agent-control" type="button">
+          Agent workspace <span aria-hidden="true">⌄</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content" class="service-main">
+      <section class="service-heading" aria-labelledby="service-title">
+        <div>
+          <div class="service-breadcrumb">
+            <span>Cases</span><span aria-hidden="true">/</span
+            ><strong>CS-80417</strong>
+          </div>
+          <span class="section-kicker">Assisted transfer review</span>
+          <h1 id="service-title">Confirm with the customer</h1>
+          <p>
+            Review the requested transfer and complete the required identity
+            step-up before scheduling it.
+          </p>
+        </div>
+        <div class="consumer-outcome" role="status" aria-live="polite">
+          <span>Case status</span>
+          <strong data-testid="consumer-status">{{ outcome }}</strong>
+        </div>
+      </section>
+
+      <section class="service-workspace">
+        <aside
+          id="customer-profile"
+          class="customer-column"
+          aria-label="Synthetic customer context"
+        >
+          <article class="customer-card">
+            <div class="customer-card__top">
+              <span class="customer-avatar" aria-hidden="true">JC</span>
+              <div>
+                <strong>Jordan Carter</strong><span>Synthetic customer</span>
+              </div>
+              <span class="relationship-chip">Client since 2014</span>
+            </div>
+
+            <dl>
+              <div>
+                <dt>Customer ID</dt>
+                <dd>•••• 3387</dd>
+              </div>
+              <div>
+                <dt>Primary phone</dt>
+                <dd>••• ••• 0188</dd>
+              </div>
+              <div>
+                <dt>Relationship</dt>
+                <dd>Banking + Credit</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article id="case-summary" class="case-card">
+            <div class="panel-title">
+              <span>Case summary</span><strong>CS-80417</strong>
+            </div>
+            <ul>
+              <li><span>Reason</span><strong>High-value transfer</strong></li>
+              <li><span>Channel</span><strong>Authenticated call</strong></li>
+              <li>
+                <span>Priority</span
+                ><strong class="priority-standard">Standard</strong>
+              </li>
+            </ul>
+          </article>
+
+          <article class="verification-card">
+            <div class="verification-icon" aria-hidden="true">✓</div>
+            <div>
+              <strong>Identity session active</strong>
+              <span>
+                SSO verified ·
+                {{
+                  outcome === 'Confirmed in Customer Servicing'
+                    ? 'MFA verified'
+                    : outcome === 'Cancelled in Customer Servicing'
+                    ? 'step-up not started'
+                    : 'step-up pending'
+                }}
+              </span>
+            </div>
+          </article>
+        </aside>
+
+        <section
+          class="agent-transfer"
+          aria-label="Shared transfer confirmation"
+        >
+          <bofa-demo-secure-transfer-confirmation
+            [transfer]="transfer"
+            channel="servicing"
+            (confirmed)="outcome = 'Confirmed in Customer Servicing'"
+            (cancelled)="outcome = 'Cancelled in Customer Servicing'"
+          ></bofa-demo-secure-transfer-confirmation>
+        </section>
+
+        <aside
+          id="control-evidence"
+          class="control-column"
+          aria-label="Control and activity evidence"
+        >
+          <article class="control-card">
+            <div class="panel-title">
+              <span>Control evidence</span><strong>Live</strong>
+            </div>
+            <ul class="control-list">
+              <li>
+                <span class="status-check" aria-hidden="true">✓</span>
+                <div><strong>SSO session</strong><span>Verified</span></div>
+              </li>
+              <li>
+                <span
+                  [class.status-check]="
+                    outcome === 'Confirmed in Customer Servicing'
+                  "
+                  [class.status-pending]="
+                    outcome !== 'Confirmed in Customer Servicing'
+                  "
+                  aria-hidden="true"
+                  >{{
+                    outcome === 'Confirmed in Customer Servicing' ? '✓' : '2'
+                  }}</span
+                >
+                <div>
+                  <strong>MFA step-up</strong>
+                  <span>{{
+                    outcome === 'Confirmed in Customer Servicing'
+                      ? 'Verified'
+                      : outcome === 'Cancelled in Customer Servicing'
+                      ? 'Not started'
+                      : 'Required'
+                  }}</span>
+                </div>
+              </li>
+              <li>
+                <span class="status-check" aria-hidden="true">✓</span>
+                <div>
+                  <strong>Analytics</strong>
+                  <span>{{
+                    outcome === 'Confirmed in Customer Servicing'
+                      ? 'Redacted event recorded'
+                      : outcome === 'Cancelled in Customer Servicing'
+                      ? 'No event created'
+                      : 'Identifiers redacted'
+                  }}</span>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="provider-card">
+            <div class="panel-title">
+              <span>Provider status</span><strong>3 / 3</strong>
+            </div>
+            <div class="provider-row">
+              <span>Rates</span><strong><i aria-hidden="true"></i>Ready</strong>
+            </div>
+            <div class="provider-row">
+              <span>Clearing</span
+              ><strong><i aria-hidden="true"></i>Ready</strong>
+            </div>
+            <div class="provider-row">
+              <span>Holiday calendar</span
+              ><strong><i aria-hidden="true"></i>Ready</strong>
+            </div>
+          </article>
+
+          <article id="case-activity" class="activity-card">
+            <div class="panel-title">
+              <span>Case activity</span><strong>Now</strong>
+            </div>
+            <ol>
+              <li *ngIf="outcome !== 'Assisted review in progress'">
+                <span></span>
+                <div>
+                  <strong>{{
+                    outcome === 'Confirmed in Customer Servicing'
+                      ? 'Transfer confirmed'
+                      : 'Transfer review cancelled'
+                  }}</strong>
+                  <small>{{
+                    outcome === 'Confirmed in Customer Servicing'
+                      ? 'MFA verified · just now'
+                      : 'No transfer scheduled · just now'
+                  }}</small>
+                </div>
+              </li>
+              <li>
+                <span></span>
+                <div>
+                  <strong>Transfer review opened</strong
+                  ><small>Agent workspace · just now</small>
+                </div>
+              </li>
+              <li>
+                <span></span>
+                <div>
+                  <strong>Authenticated session found</strong
+                  ><small>SSO gateway · 1 min ago</small>
+                </div>
+              </li>
+              <li>
+                <span></span>
+                <div>
+                  <strong>Case assigned</strong
+                  ><small>Training queue · 3 min ago</small>
+                </div>
+              </li>
+            </ol>
+          </article>
+        </aside>
+      </section>
+    </main>
+  </div>
+</div>

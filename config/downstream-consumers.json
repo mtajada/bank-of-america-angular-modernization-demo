@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "library": "@bank-of-america-demo/secure-transfer",
+  "consumers": [
+    {
+      "team": "Retail Transfers",
+      "surface": "retail-banking",
+      "validation": "full build, unit and browser flow"
+    },
+    {
+      "team": "Customer Servicing",
+      "surface": "customer-servicing",
+      "validation": "full build, unit and browser flow"
+    },
+    {
+      "team": "Scheduled Payments",
+      "surface": "contract fixture",
+      "validation": "public TypeScript contract"
+    },
+    {
+      "team": "Disputes and Claims",
+      "surface": "contract fixture",
+      "validation": "public TypeScript contract"
+    },
+    {
+      "team": "Financial Wellness",
+      "surface": "contract fixture",
+      "validation": "public TypeScript contract"
+    }
+  ]
+}

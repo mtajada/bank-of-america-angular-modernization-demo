@@ -1,0 +1,202 @@
+<mat-card class="transfer-card" data-testid="transfer-card">
+  <div class="brand-rail" aria-hidden="true"><span></span><span></span></div>
+
+  <form
+    (ngSubmit)="confirm()"
+    aria-labelledby="transfer-title"
+    aria-describedby="transfer-intro"
+  >
+    <header class="transfer-heading">
+      <div class="transfer-heading__meta">
+        <span>{{
+          channel === 'retail' ? 'Transfer review' : 'Agent-assisted transfer'
+        }}</span>
+        <span class="review-chip">{{
+          status === 'confirmed'
+            ? 'MFA verified'
+            : status === 'cancelled'
+            ? 'Review stopped'
+            : 'MFA required'
+        }}</span>
+      </div>
+      <h2 id="transfer-title">
+        Confirm {{ transfer.amount | currency : transfer.currency }}
+      </h2>
+      <p id="transfer-intro">
+        Review the funding account, recipient and delivery details before
+        continuing.
+      </p>
+    </header>
+
+    <section class="account-route" aria-label="Transfer route">
+      <article>
+        <span class="route-label">From</span>
+        <strong>{{
+          channel === 'retail'
+            ? 'Advantage Banking'
+            : 'Customer funding account'
+        }}</strong>
+        <small
+          >Checking · •••• {{ transfer.sourceAccountId | slice : -4 }}</small
+        >
+      </article>
+      <span class="route-arrow" aria-hidden="true">→</span>
+      <article>
+        <span class="route-label">To</span>
+        <strong>{{ transfer.recipientAlias }}</strong>
+        <small>Verified · {{ transfer.destinationMask }}</small>
+      </article>
+    </section>
+
+    <dl class="transfer-details">
+      <div>
+        <dt>Delivery</dt>
+        <dd>{{ quote?.expectedArrival || 'Calculating…' }}</dd>
+      </div>
+      <div>
+        <dt>Fee</dt>
+        <dd>{{ quote?.fee || 0 | currency : transfer.currency }}</dd>
+      </div>
+      <div>
+        <dt>Reference</dt>
+        <dd>{{ transfer.transferReference }}</dd>
+      </div>
+      <div>
+        <dt>Provider checks</dt>
+        <dd>3 local sources ready</dd>
+      </div>
+    </dl>
+
+    <section
+      class="mfa-panel"
+      *ngIf="status !== 'confirmed' && status !== 'cancelled'"
+      aria-labelledby="mfa-title"
+    >
+      <div class="mfa-copy">
+        <span class="shield-icon" aria-hidden="true">✓</span>
+        <div>
+          <strong id="mfa-title">Confirm your identity</strong>
+          <span id="mfa-code-help"
+            >For this simulation, use code <b>482 931</b>.</span
+          >
+        </div>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Six-digit code</mat-label>
+        <input
+          matInput
+          name="mfaCode"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          maxlength="6"
+          aria-describedby="mfa-code-help"
+          [(ngModel)]="mfaCode"
+          data-testid="mfa-code"
+        />
+      </mat-form-field>
+    </section>
+
+    <p
+      #statusMessage
+      class="status rejected"
+      *ngIf="status === 'rejected'"
+      role="alert"
+      tabindex="-1"
+      data-testid="status"
+    >
+      <span aria-hidden="true">!</span>The synthetic challenge was rejected. No
+      transfer or analytics event was created.
+    </p>
+    <p
+      #statusMessage
+      class="status confirmed"
+      *ngIf="status === 'confirmed'"
+      role="status"
+      tabindex="-1"
+      data-testid="status"
+    >
+      <span aria-hidden="true">✓</span>Transfer confirmed. One redacted
+      analytics event was recorded.
+    </p>
+    <p
+      #statusMessage
+      class="status cancelled"
+      *ngIf="status === 'cancelled'"
+      role="status"
+      tabindex="-1"
+      data-testid="status"
+    >
+      <span aria-hidden="true">×</span>Transfer cancelled. No side effects were
+      created.
+    </p>
+
+    <div
+      class="actions"
+      *ngIf="status !== 'confirmed' && status !== 'cancelled'"
+    >
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="cancel()"
+        data-testid="cancel-transfer"
+      >
+        Cancel transfer
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="mfaCode.length !== 6 || status === 'verifying'"
+        [attr.aria-busy]="status === 'verifying'"
+        data-testid="confirm-transfer"
+      >
+        <mat-spinner
+          *ngIf="status === 'verifying'"
+          diameter="17"
+          aria-hidden="true"
+        ></mat-spinner>
+        <span>{{
+          status === 'verifying' ? 'Verifying transfer…' : 'Verify and schedule'
+        }}</span>
+      </button>
+    </div>
+
+    <ul class="assurance-list" aria-label="Transfer control evidence">
+      <li>
+        <span aria-hidden="true">✓</span>
+        <div>
+          <strong>SSO session verified</strong
+          ><small>Authenticated session</small>
+        </div>
+      </li>
+      <li>
+        <span aria-hidden="true">✓</span>
+        <div>
+          <strong>{{
+            status === 'confirmed' ? 'MFA verified' : 'MFA step-up'
+          }}</strong>
+          <small>{{
+            status === 'confirmed'
+              ? 'Challenge approved'
+              : status === 'cancelled'
+              ? 'No challenge sent'
+              : 'Required to continue'
+          }}</small>
+        </div>
+      </li>
+      <li>
+        <span aria-hidden="true">✓</span>
+        <div>
+          <strong>Analytics protected</strong>
+          <small>{{
+            status === 'confirmed'
+              ? 'Redacted event recorded'
+              : status === 'cancelled'
+              ? 'No event created'
+              : 'Identifiers redacted'
+          }}</small>
+        </div>
+      </li>
+    </ul>
+  </form>
+</mat-card>

@@ -1,0 +1,704 @@
+@use '@angular/material' as mat;
+@use '../../../libs/shared/design-system/src/styles/secure-transfer' as transfer;
+@use '../../../libs/shared/design-system/src/styles/tokens' as bank;
+
+@include mat.core();
+
+$bofa-demo-primary: mat.define-palette(mat.$blue-palette, 800, 600, 900);
+$bofa-demo-accent: mat.define-palette(mat.$red-palette, 600, 400, 800);
+$bofa-demo-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $bofa-demo-primary,
+      accent: $bofa-demo-accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($bofa-demo-theme);
+@include transfer.component;
+
+:root {
+  @include bank.semantic-tokens;
+  --space-panel: 26px;
+  --radius-surface: 14px;
+  --elevation-workspace: 0 14px 38px rgba(0, 19, 63, 0.09);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-surface-canvas);
+  color: var(--color-text-strong);
+  font-family: var(--font-sans);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  background: #fff;
+  color: var(--color-brand-navy);
+  font-weight: 700;
+  left: 16px;
+  padding: 12px 16px;
+  position: absolute;
+  top: -100px;
+  transition: top 160ms ease;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.synthetic-banner {
+  align-items: center;
+  background: #edf1f5;
+  color: #485566;
+  display: flex;
+  font-size: 0.75rem;
+  gap: 8px;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 18px;
+}
+
+.synthetic-banner strong {
+  color: #27364a;
+}
+
+.environment-dot {
+  background: var(--color-brand-red);
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+}
+
+.bank-header {
+  background: var(--color-brand-navy);
+  color: #fff;
+  position: relative;
+}
+
+.bank-header::after {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-red) 0 34%,
+    #fff 34% 36%,
+    #1783d5 36% 100%
+  );
+  bottom: 0;
+  content: '';
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.bank-header__top,
+.primary-nav,
+.retail-main,
+.retail-footer {
+  margin: 0 auto;
+  max-width: 1320px;
+}
+
+.bank-header__top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 82px;
+  padding: 14px 32px 12px;
+}
+
+.bank-brand {
+  align-items: center;
+  color: #fff;
+  display: inline-flex;
+  gap: 13px;
+  text-decoration: none;
+}
+
+.bank-brand__mark {
+  align-items: center;
+  background: #fff;
+  border-bottom: 3px solid #55a7e5;
+  border-radius: 9px;
+  border-top: 3px solid var(--color-brand-red);
+  color: var(--color-brand-navy);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 850;
+  height: 38px;
+  justify-content: center;
+  letter-spacing: -0.04em;
+  width: 38px;
+}
+
+.bank-brand__name {
+  display: grid;
+  line-height: 1.08;
+}
+
+.bank-brand__name strong {
+  font-size: 1.18rem;
+  font-weight: 720;
+  letter-spacing: -0.015em;
+}
+
+.bank-brand__name small {
+  color: #cad7ec;
+  font-size: 0.72rem;
+  margin-top: 5px;
+}
+
+.header-utilities {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.utility-link,
+.profile-control {
+  background: transparent;
+  border: 0;
+  color: #e8eef8;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.utility-link {
+  padding: 0 12px;
+}
+
+.profile-control {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  display: flex;
+  gap: 9px;
+  padding: 5px 12px 5px 6px;
+}
+
+.profile-control__avatar {
+  align-items: center;
+  background: #fff;
+  border-radius: 50%;
+  color: var(--color-brand-navy);
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 800;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.primary-nav {
+  display: flex;
+  gap: 34px;
+  padding: 0 32px;
+}
+
+.primary-nav a {
+  border-bottom: 3px solid transparent;
+  color: #dfe8f6;
+  font-size: 0.86rem;
+  min-height: 44px;
+  padding: 13px 0 11px;
+  text-decoration: none;
+}
+
+.primary-nav a:hover,
+.primary-nav a.active {
+  border-bottom-color: var(--color-brand-red);
+  color: #fff;
+}
+
+.primary-nav a.active {
+  position: relative;
+}
+
+.primary-nav a.active::after {
+  background: var(--color-brand-red);
+  bottom: 6px;
+  content: '';
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.retail-main {
+  padding: 26px 32px 54px;
+}
+
+.breadcrumb {
+  color: var(--color-text-muted);
+  display: flex;
+  font-size: 0.76rem;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.breadcrumb strong {
+  color: var(--color-text-strong);
+}
+
+.retail-intro {
+  align-items: end;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.section-kicker,
+.summary-label,
+.card-label-row > span:first-child {
+  color: var(--color-action-primary);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.retail-intro h1 {
+  color: var(--color-brand-navy-deep);
+  font-size: clamp(2rem, 4vw, 2.65rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin: 7px 0 8px;
+}
+
+.retail-intro p {
+  color: var(--color-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 620px;
+}
+
+.transfer-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(86px, 1fr));
+  list-style: none;
+  margin: 0;
+  min-width: 330px;
+  padding: 0;
+}
+
+.transfer-progress li {
+  align-items: start;
+  color: #7b8795;
+  display: grid;
+  font-size: 0.76rem;
+  gap: 6px;
+  grid-template-rows: 28px auto;
+  justify-items: start;
+  position: relative;
+}
+
+.transfer-progress li:not(:last-child)::after {
+  background: var(--color-border-subtle);
+  content: '';
+  height: 1px;
+  left: 28px;
+  position: absolute;
+  top: 14px;
+  width: calc(100% - 14px);
+}
+
+.transfer-progress li > span {
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 800;
+  height: 28px;
+  justify-content: center;
+  position: relative;
+  width: 28px;
+  z-index: 1;
+}
+
+.transfer-progress .complete,
+.transfer-progress .current {
+  color: var(--color-brand-navy);
+}
+
+.transfer-progress .complete > span {
+  background: var(--color-brand-navy);
+  border-color: var(--color-brand-navy);
+  color: #fff;
+}
+
+.transfer-progress .current > span {
+  border: 2px solid var(--color-brand-red);
+  color: var(--color-brand-red);
+}
+
+.transfer-progress .current.complete > span {
+  background: var(--color-brand-red);
+  border-color: var(--color-brand-red);
+  color: #fff;
+}
+
+.retail-workspace {
+  align-items: start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(270px, 0.66fr) minmax(520px, 1.34fr);
+}
+
+.retail-context {
+  display: grid;
+  gap: 14px;
+}
+
+.account-summary,
+.recipient-summary,
+.security-note,
+.relationship-note,
+.consumer-outcome {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-surface);
+}
+
+.account-summary {
+  overflow: hidden;
+  padding: 21px 22px 22px;
+  position: relative;
+}
+
+.account-summary::before {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-red) 0 52%,
+    var(--color-action-primary) 52% 100%
+  );
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.card-label-row,
+.balance-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.account-status {
+  color: var(--color-state-success);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.account-status i {
+  background: var(--color-state-success);
+  border-radius: 50%;
+  display: inline-block;
+  height: 6px;
+  margin-right: 5px;
+  width: 6px;
+}
+
+.account-name {
+  color: var(--color-brand-navy-deep);
+  font-size: 1rem;
+  font-weight: 720;
+  margin: 17px 0 3px;
+}
+
+.account-number {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  margin: 0 0 22px;
+}
+
+.balance-row {
+  align-items: end;
+}
+
+.balance-row div {
+  display: grid;
+  gap: 4px;
+}
+
+.balance-row span {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+}
+
+.balance-row strong {
+  color: var(--color-brand-navy-deep);
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+}
+
+.balance-row .balance-change {
+  color: #697586;
+  padding-bottom: 4px;
+}
+
+.recipient-summary {
+  align-items: center;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 42px 1fr auto;
+  padding: 16px 18px;
+}
+
+.recipient-avatar {
+  align-items: center;
+  background: #e8f0fb;
+  border-radius: 50%;
+  color: var(--color-brand-navy);
+  display: flex;
+  font-weight: 800;
+  height: 42px;
+  justify-content: center;
+}
+
+.recipient-summary > div:nth-child(2) {
+  display: grid;
+  gap: 3px;
+}
+
+.recipient-summary strong {
+  font-size: 0.9rem;
+}
+
+.recipient-summary span:not(.summary-label):not(.verified-mark) {
+  color: var(--color-text-muted);
+  font-size: 0.73rem;
+}
+
+.verified-mark,
+.security-note__icon {
+  align-items: center;
+  background: var(--color-state-success-bg);
+  border-radius: 50%;
+  color: var(--color-state-success);
+  display: flex;
+  font-weight: 800;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.security-note {
+  align-items: start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 32px 1fr;
+  padding: 17px 18px;
+}
+
+.security-note__icon {
+  height: 32px;
+  width: 32px;
+}
+
+.security-note strong {
+  color: var(--color-brand-navy-deep);
+  font-size: 0.85rem;
+}
+
+.security-note p {
+  color: var(--color-text-muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  margin: 5px 0 0;
+}
+
+.relationship-note {
+  display: grid;
+  gap: 4px;
+  padding: 14px 18px;
+}
+
+.relationship-note span {
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+}
+
+.relationship-note strong {
+  color: var(--color-action-primary);
+  font-size: 0.78rem;
+}
+
+.transfer-workspace {
+  min-width: 0;
+}
+
+.consumer-outcome {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 12px 16px;
+}
+
+.consumer-outcome span {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+}
+
+.consumer-outcome strong {
+  color: var(--color-brand-navy);
+  font-size: 0.78rem;
+}
+
+.retail-footer {
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+  display: flex;
+  font-size: 0.72rem;
+  justify-content: space-between;
+  padding: 22px 32px 28px;
+}
+
+@media (max-width: 980px) {
+  .retail-intro {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .retail-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .retail-context {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .account-summary {
+    grid-row: span 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .synthetic-banner span:last-child,
+  .utility-link,
+  .profile-control > span:not(.profile-control__avatar) {
+    display: none;
+  }
+
+  .bank-header__top,
+  .retail-main,
+  .retail-footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .primary-nav {
+    gap: 24px;
+    overflow-x: auto;
+    padding: 0 18px;
+  }
+
+  .primary-nav a {
+    white-space: nowrap;
+  }
+
+  .primary-nav a:last-child {
+    display: none;
+  }
+
+  .retail-main {
+    padding-top: 20px;
+  }
+
+  .transfer-progress {
+    min-width: 100%;
+  }
+
+  .retail-context {
+    grid-template-columns: 1fr;
+    order: 2;
+  }
+
+  .transfer-workspace {
+    order: 1;
+  }
+
+  .account-summary {
+    grid-row: auto;
+  }
+
+  .relationship-note {
+    display: none;
+  }
+
+  .retail-footer {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 420px) {
+  .bank-brand__name strong {
+    font-size: 1rem;
+  }
+
+  .bank-brand__name small {
+    font-size: 0.67rem;
+  }
+
+  .retail-intro h1 {
+    font-size: 2rem;
+  }
+
+  .transfer-progress li strong {
+    font-size: 0.68rem;
+  }
+
+  .balance-row strong {
+    font-size: 1.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

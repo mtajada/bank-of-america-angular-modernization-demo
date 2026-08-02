@@ -81,18 +81,27 @@ describe('SecureTransferConfirmationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('cancels without starting MFA or emitting analytics', () => {
+  it('keeps a native cancel click free of submission side effects', async () => {
     const button = fixture.debugElement.query(
       By.css('[data-testid="cancel-transfer"]')
     );
     const cancelled = jest.spyOn(fixture.componentInstance.cancelled, 'emit');
+    fixture.componentInstance.mfaCode = '482931';
+    fixture.detectChanges();
 
-    button.triggerEventHandler('click', new MouseEvent('click'));
+    const nativeButton = button.nativeElement as HTMLButtonElement;
+    expect(nativeButton.type).toBe('button');
+    nativeButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
     expect(challenge).not.toHaveBeenCalled();
     expect(analytics.recordedEvents()).toEqual([]);
     expect(fixture.componentInstance.status).toBe('cancelled');
     expect(cancelled).toHaveBeenCalledTimes(1);
+    expect(
+      fixture.debugElement.query(By.css('[data-testid="confirm-transfer"]'))
+    ).toBeNull();
   });
 
   it('requires an approved MFA challenge before confirming', async () => {

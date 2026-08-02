@@ -65,7 +65,12 @@ export class SecureTransferConfirmationComponent implements OnInit {
   }
 
   async confirm(): Promise<void> {
-    if (this.status === 'verifying' || this.status === 'confirmed') return;
+    if (
+      this.status === 'verifying' ||
+      this.status === 'confirmed' ||
+      this.status === 'cancelled'
+    )
+      return;
 
     this.status = 'verifying';
     const outcome = await this.mfa.challenge(this.mfaCode.trim());

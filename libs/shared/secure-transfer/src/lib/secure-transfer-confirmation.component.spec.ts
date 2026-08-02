@@ -101,6 +101,25 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(analytics.recordedEvents()).toHaveLength(1);
   });
 
+  it('does not start MFA or confirm until the SSO session is verified', async () => {
+    const confirmed = jest.spyOn(fixture.componentInstance.confirmed, 'emit');
+    fixture.componentInstance.sessionVerified = false;
+    fixture.componentInstance.mfaCode = '482931';
+    fixture.detectChanges();
+
+    const confirmButton = fixture.debugElement.query(
+      By.css('[data-testid="confirm-transfer"]')
+    ).nativeElement as HTMLButtonElement;
+    expect(confirmButton.disabled).toBe(true);
+
+    await fixture.componentInstance.confirm();
+
+    expect(challenge).not.toHaveBeenCalled();
+    expect(analytics.recordedEvents()).toEqual([]);
+    expect(fixture.componentInstance.status).toBe('ready');
+    expect(confirmed).not.toHaveBeenCalled();
+  });
+
   it('has no side effects after a rejected challenge', async () => {
     fixture.componentInstance.mfaCode = '000000';
     await fixture.componentInstance.confirm();

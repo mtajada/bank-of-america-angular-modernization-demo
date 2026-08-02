@@ -132,11 +132,10 @@
 
     <div
       class="actions"
-      *ngIf="status !== 'confirmed' && status !== 'cancelled'"
+      *ngIf="status !== 'confirmed'"
     >
       <button
         mat-stroked-button
-        type="button"
         (click)="cancel()"
         data-testid="cancel-transfer"
       >

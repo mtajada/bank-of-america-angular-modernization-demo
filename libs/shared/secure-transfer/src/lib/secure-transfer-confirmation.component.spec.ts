@@ -85,11 +85,14 @@ describe('SecureTransferConfirmationComponent', () => {
     const button = fixture.debugElement.query(
       By.css('[data-testid="cancel-transfer"]')
     );
+    const cancelled = jest.spyOn(fixture.componentInstance.cancelled, 'emit');
+
     button.triggerEventHandler('click', new MouseEvent('click'));
 
     expect(challenge).not.toHaveBeenCalled();
     expect(analytics.recordedEvents()).toEqual([]);
     expect(fixture.componentInstance.status).toBe('cancelled');
+    expect(cancelled).toHaveBeenCalledTimes(1);
   });
 
   it('requires an approved MFA challenge before confirming', async () => {

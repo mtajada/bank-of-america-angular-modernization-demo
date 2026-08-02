@@ -32,7 +32,7 @@
     },
     {
       "title": "Angular upgrade and downstream compatibility",
-      "purpose": "Describe docs/migration/angular-upgrade-ladder.md, package.json, config/downstream-consumers.json and scripts/gate.sh: the Angular 14 baseline, Angular 18 checkpoint, consumer impact, evidence gates and rollback state.",
+      "purpose": "Describe docs/migration/angular-upgrade-ladder.md, package.json, config/downstream-consumers.json and scripts/gate.sh: the Angular 14 baseline, Angular 18 checkpoint, consumer impact, evidence gates and named rollback points.",
       "parent": "Architecture overview"
     }
   ]

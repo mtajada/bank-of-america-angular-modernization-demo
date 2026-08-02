@@ -68,12 +68,18 @@ export class SecureTransferConfirmationComponent implements OnInit {
     if (
       !this.sessionVerified ||
       this.status === 'verifying' ||
-      this.status === 'confirmed'
+      this.status === 'confirmed' ||
+      this.status === 'cancelled'
     )
       return;
 
     this.status = 'verifying';
     const outcome = await this.mfa.challenge(this.mfaCode.trim());
+
+    // A cancel during the in-flight challenge is terminal: never let a late
+    // provider response revive a cancelled flow with a transfer or analytics
+    // side effect.
+    if (this.isCancelled()) return;
 
     if (outcome === 'rejected') {
       this.status = 'rejected';
@@ -95,5 +101,9 @@ export class SecureTransferConfirmationComponent implements OnInit {
 
   private focusResult(): void {
     setTimeout(() => this.statusMessage?.nativeElement.focus());
+  }
+
+  private isCancelled(): boolean {
+    return this.status === 'cancelled';
   }
 }

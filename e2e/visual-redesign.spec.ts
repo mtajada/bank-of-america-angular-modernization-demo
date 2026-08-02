@@ -1,4 +1,8 @@
 import { expect, Page, test } from '@playwright/test';
+import { join } from 'node:path';
+
+const evidenceRoot =
+  process.env['BOFA_PLAYWRIGHT_EVIDENCE_DIR'] ?? 'evidence/browser';
 
 async function expectNoHorizontalOverflow(page: Page): Promise<void> {
   const hasOverflow = await page.evaluate(
@@ -26,7 +30,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expect(page.locator('img')).toHaveCount(0);
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/retail-initial-desktop.png',
+    path: join(evidenceRoot, 'redesign', 'retail-initial-desktop.png'),
     fullPage: true,
   });
 
@@ -34,7 +38,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await page.goto('http://127.0.0.1:4200');
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/retail-initial-tablet.png',
+    path: join(evidenceRoot, 'redesign', 'retail-initial-tablet.png'),
     fullPage: true,
   });
 
@@ -53,7 +57,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expect(page.getByTestId('status')).toBeFocused();
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/servicing-confirmed-desktop.png',
+    path: join(evidenceRoot, 'redesign', 'servicing-confirmed-desktop.png'),
     fullPage: true,
   });
 
@@ -64,7 +68,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expect(page.getByTestId('status')).toContainText('Transfer confirmed');
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/retail-confirmed-mobile.png',
+    path: join(evidenceRoot, 'redesign', 'retail-confirmed-mobile.png'),
     fullPage: true,
   });
 
@@ -72,7 +76,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await page.goto('http://127.0.0.1:4200');
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/retail-initial-compact.png',
+    path: join(evidenceRoot, 'redesign', 'retail-initial-compact.png'),
     fullPage: true,
   });
 
@@ -86,7 +90,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await expect(page.getByTestId('status')).toBeFocused();
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/servicing-rejected-mobile.png',
+    path: join(evidenceRoot, 'redesign', 'servicing-rejected-mobile.png'),
     fullPage: true,
   });
 
@@ -94,7 +98,7 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
   await page.goto('http://127.0.0.1:4300');
   await expectNoHorizontalOverflow(page);
   await page.screenshot({
-    path: 'evidence/browser/redesign/servicing-initial-compact.png',
+    path: join(evidenceRoot, 'redesign', 'servicing-initial-compact.png'),
     fullPage: true,
   });
 });

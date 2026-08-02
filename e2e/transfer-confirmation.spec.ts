@@ -1,4 +1,8 @@
 import { expect, test } from '@playwright/test';
+import { join } from 'node:path';
+
+const evidenceRoot =
+  process.env['BOFA_PLAYWRIGHT_EVIDENCE_DIR'] ?? 'evidence/browser';
 
 test('records the positive path in both downstream applications', async ({ page }) => {
   await page.goto('http://127.0.0.1:4200');
@@ -11,7 +15,7 @@ test('records the positive path in both downstream applications', async ({ page 
     'Confirmed by Retail Banking'
   );
   await page.screenshot({
-    path: 'evidence/browser/retail-confirmed.png',
+    path: join(evidenceRoot, 'retail-confirmed.png'),
     fullPage: true,
   });
 
@@ -26,7 +30,7 @@ test('records the positive path in both downstream applications', async ({ page 
     'Confirmed in Customer Servicing'
   );
   await page.screenshot({
-    path: 'evidence/browser/servicing-confirmed.png',
+    path: join(evidenceRoot, 'servicing-confirmed.png'),
     fullPage: true,
   });
 });
@@ -44,7 +48,7 @@ test('cancel has no MFA, confirmation or analytics side effect', async ({ page }
   );
   await expect(page.getByText('One redacted analytics event')).toHaveCount(0);
   await page.screenshot({
-    path: 'evidence/browser/retail-cancelled.png',
+    path: join(evidenceRoot, 'retail-cancelled.png'),
     fullPage: true,
   });
 });

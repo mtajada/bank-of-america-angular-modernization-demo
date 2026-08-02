@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const evidenceRoot =
+  process.env['BOFA_PLAYWRIGHT_EVIDENCE_DIR'] ?? 'evidence/browser';
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: false,
@@ -8,14 +11,14 @@ export default defineConfig({
   workers: 1,
   timeout: 45_000,
   expect: { timeout: 8_000 },
-  outputDir: 'evidence/browser/test-results',
+  outputDir: `${evidenceRoot}/test-results`,
   reporter: [
     ['line'],
     [
       'html',
-      { outputFolder: 'evidence/browser/playwright-report', open: 'never' },
+      { outputFolder: `${evidenceRoot}/playwright-report`, open: 'never' },
     ],
-    ['json', { outputFile: 'evidence/browser/results.json' }],
+    ['json', { outputFile: `${evidenceRoot}/results.json` }],
   ],
   use: {
     baseURL: 'http://127.0.0.1:4200',

@@ -153,7 +153,9 @@
         mat-flat-button
         color="primary"
         type="submit"
-        [disabled]="mfaCode.length !== 6 || status === 'verifying'"
+        [disabled]="
+          !sessionVerified || mfaCode.length !== 6 || status === 'verifying'
+        "
         [attr.aria-busy]="status === 'verifying'"
         data-testid="confirm-transfer"
       >

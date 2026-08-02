@@ -66,6 +66,7 @@ export class SecureTransferConfirmationComponent implements OnInit {
 
   async confirm(): Promise<void> {
     if (
+      !this.sessionVerified ||
       this.status === 'verifying' ||
       this.status === 'confirmed' ||
       this.status === 'cancelled'
@@ -74,6 +75,10 @@ export class SecureTransferConfirmationComponent implements OnInit {
 
     this.status = 'verifying';
     const outcome = await this.mfa.challenge(this.mfaCode.trim());
+
+    // The user can cancel while the asynchronous challenge is in flight.
+    // Never let a late provider response revive a terminally cancelled flow.
+    if (this.isCancelled()) return;
 
     if (outcome === 'rejected') {
       this.status = 'rejected';
@@ -95,5 +100,9 @@ export class SecureTransferConfirmationComponent implements OnInit {
 
   private focusResult(): void {
     setTimeout(() => this.statusMessage?.nativeElement.focus());
+  }
+
+  private isCancelled(): boolean {
+    return this.status === 'cancelled';
   }
 }

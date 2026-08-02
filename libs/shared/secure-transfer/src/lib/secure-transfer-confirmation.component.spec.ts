@@ -113,6 +113,51 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(analytics.recordedEvents()).toHaveLength(1);
   });
 
+  it('does not start MFA until the SSO session is verified', async () => {
+    const confirmed = jest.spyOn(fixture.componentInstance.confirmed, 'emit');
+    fixture.componentInstance.sessionVerified = false;
+    fixture.componentInstance.mfaCode = '482931';
+    fixture.detectChanges();
+
+    const confirmButton = fixture.debugElement.query(
+      By.css('[data-testid="confirm-transfer"]')
+    ).nativeElement as HTMLButtonElement;
+
+    expect(confirmButton.disabled).toBe(true);
+    await fixture.componentInstance.confirm();
+
+    expect(challenge).not.toHaveBeenCalled();
+    expect(analytics.recordedEvents()).toEqual([]);
+    expect(fixture.componentInstance.status).toBe('ready');
+    expect(confirmed).not.toHaveBeenCalled();
+  });
+
+  it('keeps cancellation terminal when MFA resolves later', async () => {
+    let resolveChallenge: (outcome: 'approved' | 'rejected') => void = () =>
+      undefined;
+    challenge.mockImplementationOnce(
+      () =>
+        new Promise<'approved' | 'rejected'>((resolve) => {
+          resolveChallenge = resolve;
+        })
+    );
+    const confirmed = jest.spyOn(fixture.componentInstance.confirmed, 'emit');
+    const cancelled = jest.spyOn(fixture.componentInstance.cancelled, 'emit');
+    fixture.componentInstance.mfaCode = '482931';
+
+    const pendingConfirmation = fixture.componentInstance.confirm();
+    expect(fixture.componentInstance.status).toBe('verifying');
+
+    fixture.componentInstance.cancel();
+    resolveChallenge('approved');
+    await pendingConfirmation;
+
+    expect(fixture.componentInstance.status).toBe('cancelled');
+    expect(analytics.recordedEvents()).toEqual([]);
+    expect(confirmed).not.toHaveBeenCalled();
+    expect(cancelled).toHaveBeenCalledTimes(1);
+  });
+
   it('has no side effects after a rejected challenge', async () => {
     fixture.componentInstance.mfaCode = '000000';
     await fixture.componentInstance.confirm();

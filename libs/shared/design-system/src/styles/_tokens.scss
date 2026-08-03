@@ -1,26 +1,33 @@
 @mixin semantic-tokens {
-  --color-brand-navy: #012169;
-  --color-brand-navy-deep: #00133f;
-  --color-brand-red: #e31837;
-  --color-action-primary: #005eb8;
-  --color-action-hover: #00488f;
-  --color-surface-canvas: #f4f6f8;
+  // Minimal Mono — near-monochrome scale with one restrained signal accent.
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #1c1c1c;
+  --color-brand-navy: #0a0a0a;
+  --color-brand-navy-deep: #000000;
+  --color-brand-red: #d92b00;
+  --color-action-primary: #0a0a0a;
+  --color-action-hover: #2e2e2e;
+  --color-accent: #d92b00;
+  --color-surface-canvas: #ffffff;
   --color-surface-raised: #ffffff;
-  --color-surface-subtle: #f0f4f8;
-  --color-text-strong: #17212b;
-  --color-text-muted: #5d6977;
-  --color-border-subtle: #d9dfe6;
-  --color-border-strong: #bbc4cf;
-  --color-state-success: #127357;
-  --color-state-success-bg: #e9f7f1;
-  --color-state-danger: #a51c30;
-  --color-state-danger-bg: #fff0f2;
-  --color-focus-ring: #7db7ff;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif;
-  --radius-control: 8px;
-  --radius-surface: 12px;
-  --radius-card: 16px;
-  --space-panel: 24px;
-  --elevation-workspace: 0 10px 30px rgba(0, 19, 63, 0.08);
+  --color-surface-subtle: #f6f6f6;
+  --color-text-strong: #0a0a0a;
+  --color-text-muted: #6b6b6b;
+  --color-border-subtle: #e6e6e6;
+  --color-border-strong: #0a0a0a;
+  --color-state-success: #0a0a0a;
+  --color-state-success-bg: #ffffff;
+  --color-state-danger: #d92b00;
+  --color-state-danger-bg: #ffffff;
+  --color-focus-ring: #d92b00;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+    Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius-control: 0;
+  --radius-surface: 0;
+  --radius-card: 0;
+  --space-panel: 0;
+  --elevation-workspace: none;
+  --hairline: 1px solid var(--color-border-subtle);
+  --rule-strong: 1px solid var(--color-ink);
 }

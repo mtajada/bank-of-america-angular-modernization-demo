@@ -173,4 +173,19 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(fixture.componentInstance.status).toBe('rejected');
     expect(analytics.recordedEvents()).toEqual([]);
   });
+
+  it('does not report a late response when cancelling after a rejection', async () => {
+    fixture.componentInstance.mfaCode = '000000';
+    await fixture.componentInstance.confirm();
+    expect(fixture.componentInstance.status).toBe('rejected');
+
+    fixture.componentInstance.cancel();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.status).toBe('cancelled');
+    expect(fixture.nativeElement.textContent).not.toContain(
+      'Late response ignored'
+    );
+    expect(fixture.nativeElement.textContent).toContain('No challenge sent');
+  });
 });

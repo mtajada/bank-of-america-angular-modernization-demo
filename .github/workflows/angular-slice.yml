@@ -43,9 +43,7 @@ jobs:
         with:
           name: bank-of-america-demo-browser-evidence
           path: |
-            evidence/browser/playwright-report
-            evidence/browser/test-results
-            evidence/browser/results.json
+            evidence/browser
             coverage
           if-no-files-found: ignore
           retention-days: 7

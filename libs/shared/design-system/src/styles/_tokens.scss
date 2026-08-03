@@ -1,26 +1,43 @@
 @mixin semantic-tokens {
-  --color-brand-navy: #012169;
-  --color-brand-navy-deep: #00133f;
-  --color-brand-red: #e31837;
-  --color-action-primary: #005eb8;
-  --color-action-hover: #00488f;
-  --color-surface-canvas: #f4f6f8;
-  --color-surface-raised: #ffffff;
-  --color-surface-subtle: #f0f4f8;
-  --color-text-strong: #17212b;
-  --color-text-muted: #5d6977;
-  --color-border-subtle: #d9dfe6;
-  --color-border-strong: #bbc4cf;
-  --color-state-success: #127357;
-  --color-state-success-bg: #e9f7f1;
-  --color-state-danger: #a51c30;
-  --color-state-danger-bg: #fff0f2;
-  --color-focus-ring: #7db7ff;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif;
-  --radius-control: 8px;
-  --radius-surface: 12px;
-  --radius-card: 16px;
+  // "Art Deco Vault" — 1920s bank-lobby grandeur.
+  // Deep navy/black with lustrous gold. Semantic names are repurposed to a
+  // cohesive dark palette so every consumer of these tokens reads as Deco.
+
+  // Deco-specific accents.
+  --color-gold: #c8a94e;
+  --color-gold-bright: #f2d98a;
+  --color-gold-deep: #9c7d2f;
+  --color-ivory: #f4ecd2;
+  --color-vault-black: #05070f;
+
+  // Repurposed semantic tokens (kept names for backward compatibility).
+  --color-brand-navy: #0d1b3a;
+  --color-brand-navy-deep: #f4ecd2; // used as heading text on dark surfaces
+  --color-brand-red: #c8a94e; // repurposed accent -> gold
+  --color-action-primary: #d8b95c;
+  --color-action-hover: #f2d98a;
+  --color-surface-canvas: #070b18;
+  --color-surface-raised: #0e1a34;
+  --color-surface-subtle: #0a142c;
+  --color-text-strong: #f4ecd2;
+  --color-text-muted: #aeb8ce;
+  --color-border-subtle: rgba(200, 169, 78, 0.34);
+  --color-border-strong: rgba(200, 169, 78, 0.6);
+  --color-state-success: #7bd6a3;
+  --color-state-success-bg: rgba(123, 214, 163, 0.12);
+  --color-state-danger: #f0929f;
+  --color-state-danger-bg: rgba(240, 146, 159, 0.13);
+  --color-focus-ring: #f2d98a;
+
+  --font-sans: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+    Arial, sans-serif;
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-deco: 'Poiret One', 'Jost', sans-serif;
+
+  // Deco favours crisp, near-square corners over soft rounding.
+  --radius-control: 2px;
+  --radius-surface: 3px;
+  --radius-card: 4px;
   --space-panel: 24px;
-  --elevation-workspace: 0 10px 30px rgba(0, 19, 63, 0.08);
+  --elevation-workspace: 0 18px 48px rgba(0, 0, 0, 0.55);
 }

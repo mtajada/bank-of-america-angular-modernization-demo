@@ -101,6 +101,32 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(analytics.recordedEvents()).toHaveLength(1);
   });
 
+  it('keeps a cancellation issued while MFA is in flight', async () => {
+    let approveChallenge: () => void = () => undefined;
+    challenge.mockImplementationOnce(
+      () =>
+        new Promise<'approved'>((resolve) => {
+          approveChallenge = () => resolve('approved');
+        })
+    );
+
+    const component = fixture.componentInstance;
+    const confirmedSpy = jest.fn();
+    component.confirmed.subscribe(confirmedSpy);
+    component.mfaCode = '482931';
+
+    const pendingConfirm = component.confirm();
+    expect(component.status).toBe('verifying');
+
+    component.cancel();
+    approveChallenge();
+    await pendingConfirm;
+
+    expect(component.status).toBe('cancelled');
+    expect(analytics.recordedEvents()).toEqual([]);
+    expect(confirmedSpy).not.toHaveBeenCalled();
+  });
+
   it('has no side effects after a rejected challenge', async () => {
     fixture.componentInstance.mfaCode = '000000';
     await fixture.componentInstance.confirm();

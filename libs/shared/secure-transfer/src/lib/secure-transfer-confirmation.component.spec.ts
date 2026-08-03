@@ -108,4 +108,21 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(fixture.componentInstance.status).toBe('rejected');
     expect(analytics.recordedEvents()).toEqual([]);
   });
+
+  it.each(['error', 'timeout', 'APPROVED', undefined, null])(
+    'treats the unexpected gateway outcome %p as a rejection',
+    async (outcome) => {
+      challenge.mockResolvedValueOnce(
+        outcome as unknown as 'approved' | 'rejected'
+      );
+      const confirmedEmit = jest.fn();
+      fixture.componentInstance.confirmed.subscribe(confirmedEmit);
+      fixture.componentInstance.mfaCode = '482931';
+      await fixture.componentInstance.confirm();
+
+      expect(fixture.componentInstance.status).toBe('rejected');
+      expect(confirmedEmit).not.toHaveBeenCalled();
+      expect(analytics.recordedEvents()).toEqual([]);
+    }
+  );
 });

@@ -61,6 +61,14 @@ test('captures the redesigned desktop and mobile banking journeys', async ({
     fullPage: true,
   });
 
+  await page.setViewportSize({ width: 900, height: 900 });
+  await page.goto('http://127.0.0.1:4300');
+  await expectNoHorizontalOverflow(page);
+  await page.screenshot({
+    path: join(evidenceRoot, 'redesign', 'servicing-medium.png'),
+    fullPage: true,
+  });
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('http://127.0.0.1:4200');
   await page.getByTestId('mfa-code').fill('482931');

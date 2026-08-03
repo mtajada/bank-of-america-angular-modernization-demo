@@ -587,7 +587,7 @@ input:focus-visible {
   }
 
   .service-workspace {
-    grid-template-columns: minmax(460px, 1fr) 250px;
+    grid-template-columns: minmax(0, 1fr) 250px;
   }
 }
 

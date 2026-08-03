@@ -12,7 +12,9 @@ $bofa-demo-theme: mat.define-light-theme(
       primary: $bofa-demo-primary,
       accent: $bofa-demo-accent,
     ),
-    typography: mat.define-typography-config(),
+    typography: mat.define-typography-config(
+        $font-family: "'EB Garamond', Georgia, serif",
+      ),
     density: 0,
   )
 );
@@ -22,9 +24,10 @@ $bofa-demo-theme: mat.define-light-theme(
 
 :root {
   @include bank.semantic-tokens;
-  --space-panel: 26px;
-  --radius-surface: 14px;
-  --elevation-workspace: 0 14px 38px rgba(0, 19, 63, 0.09);
+  --space-panel: 30px;
+  --radius-surface: 4px;
+  --elevation-workspace: 0 2px 0 rgba(28, 36, 64, 0.06),
+    0 18px 40px rgba(28, 22, 12, 0.12);
 }
 
 html,
@@ -34,9 +37,18 @@ body {
 }
 
 body {
-  background: var(--color-surface-canvas);
+  background-color: var(--color-surface-canvas);
+  // Textured off-white paper: laid-paper hairlines + faint fibre speckle.
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(154, 123, 63, 0.035) 0 1px,
+      transparent 1px 5px
+    ),
+    radial-gradient(circle at 20% 15%, rgba(109, 26, 43, 0.03), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(28, 36, 64, 0.035), transparent 50%);
   color: var(--color-text-strong);
   font-family: var(--font-sans);
+  font-size: 17px;
 }
 
 *,
@@ -63,8 +75,9 @@ input:focus-visible {
 }
 
 .skip-link {
-  background: #fff;
-  color: var(--color-brand-navy);
+  background: var(--color-paper-card);
+  border: 1px solid var(--color-ink-navy);
+  color: var(--color-ink-navy);
   font-weight: 700;
   left: 16px;
   padding: 12px 16px;
@@ -80,44 +93,55 @@ input:focus-visible {
 
 .synthetic-banner {
   align-items: center;
-  background: #edf1f5;
-  color: #485566;
+  background: var(--color-ink-navy-deep);
+  color: #d8cba7;
   display: flex;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   gap: 8px;
   justify-content: center;
-  min-height: 30px;
-  padding: 6px 18px;
+  letter-spacing: 0.04em;
+  min-height: 32px;
+  padding: 7px 18px;
 }
 
 .synthetic-banner strong {
-  color: #27364a;
+  color: #f3ead0;
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .environment-dot {
-  background: var(--color-brand-red);
+  background: var(--color-oxblood);
   border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(200, 173, 116, 0.5);
   height: 7px;
   width: 7px;
 }
 
 .bank-header {
-  background: var(--color-brand-navy);
-  color: #fff;
+  background: var(--color-ink-navy);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0 1px,
+    transparent 1px 3px
+  );
+  border-bottom: 1px solid var(--color-brass);
+  color: #f3ead0;
   position: relative;
 }
 
 .bank-header::after {
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     90deg,
-    var(--color-brand-red) 0 34%,
-    #fff 34% 36%,
-    #1783d5 36% 100%
+    var(--color-brass) 0 6px,
+    transparent 6px 12px
   );
-  bottom: 0;
+  bottom: -4px;
   content: '';
-  height: 3px;
+  height: 2px;
   left: 0;
+  opacity: 0.7;
   position: absolute;
   right: 0;
 }
@@ -127,55 +151,72 @@ input:focus-visible {
 .retail-main,
 .retail-footer {
   margin: 0 auto;
-  max-width: 1320px;
+  max-width: 1240px;
 }
 
 .bank-header__top {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  min-height: 82px;
-  padding: 14px 32px 12px;
+  min-height: 88px;
+  padding: 16px 32px 14px;
 }
 
 .bank-brand {
   align-items: center;
-  color: #fff;
+  color: #f3ead0;
   display: inline-flex;
-  gap: 13px;
+  gap: 15px;
   text-decoration: none;
 }
 
 .bank-brand__mark {
   align-items: center;
-  background: #fff;
-  border-bottom: 3px solid #55a7e5;
-  border-radius: 9px;
-  border-top: 3px solid var(--color-brand-red);
-  color: var(--color-brand-navy);
+  background: transparent;
+  border: 1.5px solid var(--color-brass-soft);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 3px var(--color-ink-navy),
+    inset 0 0 0 4px var(--color-brass);
+  color: #f3ead0;
   display: inline-flex;
-  font-size: 0.68rem;
-  font-weight: 850;
-  height: 38px;
+  flex-direction: column;
+  font-family: var(--font-display);
+  height: 52px;
   justify-content: center;
-  letter-spacing: -0.04em;
-  width: 38px;
+  line-height: 1;
+  padding: 4px 0;
+  width: 52px;
+}
+
+.bank-brand__mark strong {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.bank-brand__mark small {
+  color: var(--color-brass-soft);
+  font-size: 0.46rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .bank-brand__name {
   display: grid;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .bank-brand__name strong {
-  font-size: 1.18rem;
-  font-weight: 720;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .bank-brand__name small {
-  color: #cad7ec;
+  color: #c8ad74;
   font-size: 0.72rem;
+  font-style: italic;
   margin-top: 5px;
 }
 
@@ -189,20 +230,27 @@ input:focus-visible {
 .profile-control {
   background: transparent;
   border: 0;
-  color: #e8eef8;
+  color: #e8dcbb;
   cursor: pointer;
   min-height: 44px;
 }
 
 .utility-link {
+  font-style: italic;
   padding: 0 12px;
+}
+
+.utility-link:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .profile-control {
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
+  background: rgba(200, 173, 116, 0.12);
+  border: 1px solid rgba(200, 173, 116, 0.4);
+  border-radius: 3px;
   display: flex;
   gap: 9px;
   padding: 5px 12px 5px 6px;
@@ -210,12 +258,13 @@ input:focus-visible {
 
 .profile-control__avatar {
   align-items: center;
-  background: #fff;
+  background: var(--color-oxblood);
+  border: 1px solid var(--color-brass-soft);
   border-radius: 50%;
-  color: var(--color-brand-navy);
+  color: #f3ead0;
   display: inline-flex;
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   height: 32px;
   justify-content: center;
   width: 32px;
@@ -223,87 +272,100 @@ input:focus-visible {
 
 .primary-nav {
   display: flex;
-  gap: 34px;
+  gap: 36px;
   padding: 0 32px;
 }
 
 .primary-nav a {
-  border-bottom: 3px solid transparent;
-  color: #dfe8f6;
+  border-bottom: 2px solid transparent;
+  color: #dccca4;
   font-size: 0.86rem;
+  letter-spacing: 0.08em;
   min-height: 44px;
   padding: 13px 0 11px;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .primary-nav a:hover,
 .primary-nav a.active {
-  border-bottom-color: var(--color-brand-red);
+  border-bottom-color: var(--color-brass);
   color: #fff;
 }
 
-.primary-nav a.active {
-  position: relative;
-}
-
-.primary-nav a.active::after {
-  background: var(--color-brand-red);
-  bottom: 6px;
-  content: '';
-  height: 3px;
-  left: 0;
-  position: absolute;
-  right: 0;
-}
-
 .retail-main {
-  padding: 26px 32px 54px;
+  padding: 34px 32px 60px;
 }
 
 .breadcrumb {
   color: var(--color-text-muted);
   display: flex;
-  font-size: 0.76rem;
+  font-size: 0.82rem;
+  font-style: italic;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .breadcrumb strong {
-  color: var(--color-text-strong);
+  color: var(--color-ink-navy);
+  font-style: normal;
 }
 
 .retail-intro {
   align-items: end;
+  border-bottom: 1px solid var(--color-brass);
+  box-shadow: 0 3px 0 -1.5px var(--color-brass);
   display: flex;
   gap: 40px;
   justify-content: space-between;
-  margin-bottom: 26px;
+  margin-bottom: 34px;
+  padding-bottom: 26px;
 }
 
 .section-kicker,
 .summary-label,
 .card-label-row > span:first-child {
-  color: var(--color-action-primary);
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.08em;
+  color: var(--color-oxblood);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
 .retail-intro h1 {
-  color: var(--color-brand-navy-deep);
-  font-size: clamp(2rem, 4vw, 2.65rem);
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-  margin: 7px 0 8px;
+  color: var(--color-ink-navy-deep);
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  margin: 10px 0 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 -1px 0 rgba(28, 36, 64, 0.06);
+}
+
+.intro-rule {
+  background: linear-gradient(
+    90deg,
+    var(--color-ink-navy) 0 28%,
+    var(--color-brass) 28% 32%,
+    var(--color-ink-navy) 32% 60%,
+    transparent 60% 100%
+  );
+  display: block;
+  height: 2px;
+  margin: 14px 0 12px;
+  max-width: 320px;
 }
 
 .retail-intro p {
   color: var(--color-text-muted);
-  font-size: 0.98rem;
-  line-height: 1.5;
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.55;
   margin: 0;
-  max-width: 620px;
+  max-width: 560px;
 }
 
 .transfer-progress {
@@ -311,78 +373,80 @@ input:focus-visible {
   grid-template-columns: repeat(3, minmax(86px, 1fr));
   list-style: none;
   margin: 0;
-  min-width: 330px;
+  min-width: 340px;
   padding: 0;
 }
 
 .transfer-progress li {
   align-items: start;
-  color: #7b8795;
+  color: var(--color-text-muted);
   display: grid;
-  font-size: 0.76rem;
-  gap: 6px;
-  grid-template-rows: 28px auto;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  gap: 8px;
+  grid-template-rows: 30px auto;
   justify-items: start;
+  letter-spacing: 0.1em;
   position: relative;
+  text-transform: uppercase;
 }
 
 .transfer-progress li:not(:last-child)::after {
-  background: var(--color-border-subtle);
+  border-top: 1px dashed var(--color-border-strong);
   content: '';
-  height: 1px;
-  left: 28px;
+  left: 30px;
   position: absolute;
-  top: 14px;
-  width: calc(100% - 14px);
+  top: 15px;
+  width: calc(100% - 15px);
 }
 
 .transfer-progress li > span {
   align-items: center;
-  background: #fff;
+  background: var(--color-paper-card);
   border: 1px solid var(--color-border-strong);
   border-radius: 50%;
   display: inline-flex;
-  font-size: 0.7rem;
-  font-weight: 800;
-  height: 28px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  height: 30px;
   justify-content: center;
   position: relative;
-  width: 28px;
+  width: 30px;
   z-index: 1;
 }
 
 .transfer-progress .complete,
 .transfer-progress .current {
-  color: var(--color-brand-navy);
+  color: var(--color-ink-navy);
 }
 
 .transfer-progress .complete > span {
-  background: var(--color-brand-navy);
-  border-color: var(--color-brand-navy);
-  color: #fff;
+  background: var(--color-ink-navy);
+  border-color: var(--color-brass);
+  color: #f3ead0;
 }
 
 .transfer-progress .current > span {
-  border: 2px solid var(--color-brand-red);
-  color: var(--color-brand-red);
+  border: 2px solid var(--color-oxblood);
+  color: var(--color-oxblood);
 }
 
 .transfer-progress .current.complete > span {
-  background: var(--color-brand-red);
-  border-color: var(--color-brand-red);
-  color: #fff;
+  background: var(--color-oxblood);
+  border-color: var(--color-brass);
+  color: #f3ead0;
 }
 
 .retail-workspace {
   align-items: start;
   display: grid;
-  gap: 24px;
-  grid-template-columns: minmax(270px, 0.66fr) minmax(520px, 1.34fr);
+  gap: 26px;
+  grid-template-columns: minmax(270px, 0.62fr) minmax(520px, 1.38fr);
 }
 
 .retail-context {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .account-summary,
@@ -391,25 +455,28 @@ input:focus-visible {
 .relationship-note,
 .consumer-outcome {
   background: var(--color-surface-raised);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-ink-navy);
   border-radius: var(--radius-surface);
+  box-shadow: inset 0 0 0 1px var(--color-surface-raised),
+    inset 0 0 0 2px var(--color-brass);
 }
 
 .account-summary {
   overflow: hidden;
-  padding: 21px 22px 22px;
+  padding: 22px 22px 22px;
   position: relative;
 }
 
 .account-summary::before {
-  background: linear-gradient(
+  background: repeating-linear-gradient(
     90deg,
-    var(--color-brand-red) 0 52%,
-    var(--color-action-primary) 52% 100%
+    var(--color-ink-navy) 0 5px,
+    transparent 5px 10px
   );
   content: '';
-  height: 4px;
+  height: 3px;
   left: 0;
+  opacity: 0.6;
   position: absolute;
   right: 0;
   top: 0;
@@ -426,6 +493,8 @@ input:focus-visible {
   color: var(--color-state-success);
   font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .account-status i {
@@ -438,15 +507,17 @@ input:focus-visible {
 }
 
 .account-name {
-  color: var(--color-brand-navy-deep);
-  font-size: 1rem;
-  font-weight: 720;
-  margin: 17px 0 3px;
+  color: var(--color-ink-navy-deep);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 18px 0 3px;
 }
 
 .account-number {
   color: var(--color-text-muted);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
+  font-style: italic;
   margin: 0 0 22px;
 }
 
@@ -462,36 +533,43 @@ input:focus-visible {
 .balance-row span {
   color: var(--color-text-muted);
   font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .balance-row strong {
-  color: var(--color-brand-navy-deep);
-  font-size: 1.75rem;
+  color: var(--color-ink-navy-deep);
+  font-family: var(--font-display);
+  font-size: 1.85rem;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.035em;
+  letter-spacing: 0.01em;
 }
 
 .balance-row .balance-change {
-  color: #697586;
+  color: var(--color-text-muted);
+  font-style: italic;
   padding-bottom: 4px;
+  text-transform: none;
 }
 
 .recipient-summary {
   align-items: center;
   display: grid;
   gap: 12px;
-  grid-template-columns: 42px 1fr auto;
-  padding: 16px 18px;
+  grid-template-columns: 44px 1fr auto;
+  padding: 18px 18px;
 }
 
 .recipient-avatar {
   align-items: center;
-  background: #e8f0fb;
+  background: var(--color-ink-navy);
+  border: 1px solid var(--color-brass);
   border-radius: 50%;
-  color: var(--color-brand-navy);
+  color: #f3ead0;
   display: flex;
-  font-weight: 800;
-  height: 42px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  height: 44px;
   justify-content: center;
 }
 
@@ -501,18 +579,22 @@ input:focus-visible {
 }
 
 .recipient-summary strong {
-  font-size: 0.9rem;
+  color: var(--color-ink-navy-deep);
+  font-family: var(--font-display);
+  font-size: 0.98rem;
 }
 
 .recipient-summary span:not(.summary-label):not(.verified-mark) {
   color: var(--color-text-muted);
-  font-size: 0.73rem;
+  font-size: 0.78rem;
+  font-style: italic;
 }
 
 .verified-mark,
 .security-note__icon {
   align-items: center;
-  background: var(--color-state-success-bg);
+  background: transparent;
+  border: 1px solid var(--color-state-success);
   border-radius: 50%;
   color: var(--color-state-success);
   display: flex;
@@ -527,7 +609,7 @@ input:focus-visible {
   display: grid;
   gap: 12px;
   grid-template-columns: 32px 1fr;
-  padding: 17px 18px;
+  padding: 18px 18px;
 }
 
 .security-note__icon {
@@ -536,31 +618,84 @@ input:focus-visible {
 }
 
 .security-note strong {
-  color: var(--color-brand-navy-deep);
-  font-size: 0.85rem;
+  color: var(--color-ink-navy-deep);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
 }
 
 .security-note p {
   color: var(--color-text-muted);
-  font-size: 0.76rem;
-  line-height: 1.45;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.5;
   margin: 5px 0 0;
 }
 
+.press-seal {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  padding: 8px 0 4px;
+  text-align: center;
+}
+
+.press-seal__ring {
+  align-items: center;
+  border: 2px solid var(--color-brass);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--color-paper),
+    inset 0 0 0 3px var(--color-oxblood);
+  color: var(--color-oxblood);
+  display: flex;
+  height: 78px;
+  justify-content: center;
+  position: relative;
+  width: 78px;
+}
+
+.press-seal__ring::before {
+  border: 1px dashed var(--color-brass);
+  border-radius: 50%;
+  content: '';
+  inset: 8px;
+  position: absolute;
+}
+
+.press-seal__mark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.press-seal p {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  margin: 0;
+  max-width: 22ch;
+}
+
 .relationship-note {
+  box-shadow: none;
+  border-color: var(--color-border-subtle);
   display: grid;
   gap: 4px;
-  padding: 14px 18px;
+  padding: 15px 18px;
 }
 
 .relationship-note span {
   color: var(--color-text-muted);
   font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .relationship-note strong {
-  color: var(--color-action-primary);
-  font-size: 0.78rem;
+  color: var(--color-ink-navy);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
 }
 
 .transfer-workspace {
@@ -569,29 +704,36 @@ input:focus-visible {
 
 .consumer-outcome {
   align-items: center;
+  box-shadow: none;
+  border-color: var(--color-border-subtle);
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
-  padding: 12px 16px;
+  margin-top: 14px;
+  padding: 14px 18px;
 }
 
 .consumer-outcome span {
   color: var(--color-text-muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .consumer-outcome strong {
-  color: var(--color-brand-navy);
-  font-size: 0.78rem;
+  color: var(--color-ink-navy);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
 }
 
 .retail-footer {
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: 1px solid var(--color-brass);
   color: var(--color-text-muted);
   display: flex;
-  font-size: 0.72rem;
+  font-size: 0.76rem;
+  font-style: italic;
   justify-content: space-between;
-  padding: 22px 32px 28px;
+  margin-top: 20px;
+  padding: 24px 32px 30px;
 }
 
 @media (max-width: 980px) {
@@ -642,7 +784,7 @@ input:focus-visible {
   }
 
   .retail-main {
-    padding-top: 20px;
+    padding-top: 24px;
   }
 
   .transfer-progress {
@@ -662,6 +804,7 @@ input:focus-visible {
     grid-row: auto;
   }
 
+  .press-seal,
   .relationship-note {
     display: none;
   }
@@ -674,23 +817,23 @@ input:focus-visible {
 
 @media (max-width: 420px) {
   .bank-brand__name strong {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .bank-brand__name small {
-    font-size: 0.67rem;
+    font-size: 0.66rem;
   }
 
   .retail-intro h1 {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   .transfer-progress li strong {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
   }
 
   .balance-row strong {
-    font-size: 1.55rem;
+    font-size: 1.6rem;
   }
 }
 

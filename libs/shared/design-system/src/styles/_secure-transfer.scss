@@ -4,315 +4,412 @@
 
     .transfer-card {
       background: var(--color-surface-raised, #fff);
-      border: 1px solid var(--color-border-subtle, #d9dfe6);
-      border-radius: var(--radius-card, 16px);
+      border: 1px solid var(--color-border-subtle, #dde2e8);
+      border-radius: var(--radius-card, 10px);
       box-shadow: var(--elevation-workspace);
+      color: var(--color-text-strong, #121826);
       overflow: hidden;
       padding: 0;
     }
-    .brand-rail {
-      display: grid;
-      grid-template-columns: 44% 56%;
-      height: 4px;
-    }
-    .brand-rail span:first-child {
-      background: var(--color-brand-red, #e31837);
-    }
-    .brand-rail span:last-child {
-      background: var(--color-action-primary, #005eb8);
-    }
+
     form {
-      padding: var(--space-panel, 24px);
+      padding: clamp(22px, 3vw, var(--space-panel, 32px));
     }
+
     .transfer-heading__meta {
-      align-items: center;
+      align-items: baseline;
       display: flex;
+      gap: 20px;
       justify-content: space-between;
     }
+
     .transfer-heading__meta > span:first-child {
-      color: var(--color-action-primary, #005eb8);
-      font-size: 0.72rem;
-      font-weight: 750;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      color: var(--color-text-muted, #596577);
+      font-size: 0.75rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
     }
-    .review-chip {
-      background: #edf3fa;
-      border-radius: 999px;
+
+    .transfer-kind {
+      align-items: center;
+      display: inline-flex;
+      gap: 7px;
+    }
+
+    .transfer-kind bofa-demo-banking-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 1rem;
+    }
+
+    .review-status {
       color: var(--color-brand-navy, #012169);
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 5px 8px;
+      white-space: nowrap;
     }
+
     h2 {
       color: var(--color-brand-navy-deep, #00133f);
-      font-size: clamp(2rem, 4vw, 2.7rem);
+      font-size: clamp(2rem, 4vw, 2.55rem);
       font-variant-numeric: tabular-nums;
-      letter-spacing: -0.045em;
-      line-height: 1.03;
-      margin: 12px 0 7px;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin: 14px 0 7px;
+      text-wrap: balance;
     }
+
     .transfer-heading p {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.84rem;
-      line-height: 1.45;
+      color: var(--color-text-muted, #596577);
+      font-size: 0.93rem;
+      line-height: 1.5;
       margin: 0;
+      text-wrap: pretty;
     }
+
     .account-route {
-      align-items: stretch;
-      background: #f3f6f9;
-      border: 1px solid var(--color-border-subtle, #d9dfe6);
-      border-radius: var(--radius-surface, 12px);
+      align-items: center;
+      border-bottom: 1px solid var(--color-border-subtle, #dde2e8);
+      border-top: 1px solid var(--color-border-subtle, #dde2e8);
       display: grid;
-      gap: 10px;
-      grid-template-columns: 1fr 30px 1fr;
-      margin: 22px 0 0;
-      padding: 14px;
+      gap: 20px;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      margin: 26px 0 0;
+      padding: 19px 0;
     }
+
     .account-route article {
       display: grid;
       gap: 4px;
       min-width: 0;
     }
+
     .route-label {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
-      font-weight: 700;
+      align-items: center;
+      color: var(--color-text-muted, #596577);
+      display: inline-flex;
+      font-size: 0.71rem;
+      font-weight: 650;
+      gap: 6px;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
+
+    .route-label bofa-demo-banking-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 0.95rem;
+    }
+
     .account-route strong {
-      color: var(--color-text-strong, #17212b);
-      font-size: 0.79rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      font-size: 0.92rem;
+      overflow-wrap: break-word;
     }
+
     .account-route small {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
+      color: var(--color-text-muted, #596577);
+      font-size: 0.78rem;
+      line-height: 1.35;
     }
+
     .route-arrow {
-      align-items: center;
-      background: #fff;
-      border: 1px solid var(--color-border-subtle, #d9dfe6);
-      border-radius: 50%;
-      color: var(--color-action-primary, #005eb8);
-      display: flex;
-      font-weight: 800;
-      height: 28px;
-      justify-content: center;
-      margin: auto;
-      width: 28px;
+      color: var(--color-text-muted, #596577);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
     }
+
     .transfer-details {
-      column-gap: 22px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin: 8px 0 0;
-    }
-    .transfer-details div {
-      border-bottom: 1px solid #e4e8ed;
-      display: flex;
-      gap: 12px;
-      justify-content: space-between;
-      padding: 12px 2px;
-    }
-    .transfer-details div:nth-last-child(-n + 2) {
-      border-bottom: 0;
-    }
-    dt {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
-    }
-    dd {
-      color: var(--color-text-strong, #17212b);
-      font-size: 0.74rem;
-      font-weight: 680;
       margin: 0;
-      text-align: right;
     }
+
+    .transfer-details div {
+      align-items: baseline;
+      border-bottom: 1px solid var(--color-border-subtle, #dde2e8);
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 15px 0;
+    }
+
+    .transfer-details div:nth-child(odd) {
+      margin-right: 20px;
+    }
+
+    .transfer-details div:nth-child(even) {
+      margin-left: 20px;
+    }
+
+    .transfer-details dt {
+      color: var(--color-text-muted, #596577);
+      font-size: 0.79rem;
+    }
+
+    .transfer-details dd {
+      font-size: 0.79rem;
+      font-variant-numeric: tabular-nums;
+      font-weight: 650;
+      margin: 0;
+      overflow-wrap: anywhere;
+      text-align: end;
+    }
+
     .mfa-panel {
       align-items: center;
-      background: #edf4fb;
-      border: 1px solid #cbdced;
-      border-radius: var(--radius-surface, 12px);
+      background: #f7f9fc;
+      border-left: 3px solid var(--color-action-primary, #0053a0);
       display: grid;
-      gap: 16px;
+      gap: 24px;
       grid-template-columns: minmax(0, 1fr) 190px;
-      margin-top: 14px;
-      padding: 13px 14px 5px;
+      margin-top: 22px;
+      padding: 16px 18px;
     }
+
     .mfa-copy {
-      align-items: center;
+      align-items: start;
       display: grid;
-      gap: 10px;
-      grid-template-columns: 34px 1fr;
-      padding-bottom: 8px;
+      gap: 11px;
+      grid-template-columns: auto minmax(0, 1fr);
     }
-    .shield-icon {
-      align-items: center;
-      background: #dceafa;
-      border-radius: 50%;
-      color: var(--color-action-primary, #005eb8);
-      display: flex;
-      font-size: 0.75rem;
-      font-weight: 800;
-      height: 34px;
-      justify-content: center;
-    }
-    .mfa-copy div {
+
+    .mfa-copy > div {
       display: grid;
-      gap: 3px;
+      gap: 4px;
     }
+
+    .mfa-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 1.25rem;
+      margin-top: 1px;
+    }
+
     .mfa-copy strong {
-      color: var(--color-brand-navy-deep, #00133f);
+      font-size: 0.88rem;
+    }
+
+    .mfa-copy span {
+      color: var(--color-text-muted, #596577);
       font-size: 0.78rem;
+      line-height: 1.4;
     }
-    .mfa-copy div span {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
-    }
+
     .mfa-copy b {
-      color: var(--color-brand-navy, #012169);
+      color: var(--color-text-strong, #121826);
       font-variant-numeric: tabular-nums;
     }
-    mat-form-field {
+
+    .mfa-panel .mat-mdc-form-field {
       width: 100%;
     }
+
+    .mfa-panel .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mfa-panel .mat-mdc-text-field-wrapper {
+      background: #fff;
+      border-radius: var(--radius-control, 6px);
+    }
+
+    .mfa-panel input {
+      font-size: 1rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.08em;
+    }
+
     .status {
-      align-items: center;
-      border-radius: var(--radius-control, 8px);
-      display: flex;
-      font-size: 0.75rem;
-      font-weight: 650;
-      gap: 9px;
-      line-height: 1.4;
-      margin: 15px 0 0;
-      padding: 12px 13px;
+      border-left: 3px solid currentColor;
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.45;
+      margin: 22px 0 0;
+      padding: 13px 16px;
     }
-    .status span {
-      align-items: center;
-      border: 1px solid currentColor;
-      border-radius: 50%;
-      display: flex;
-      flex: 0 0 22px;
-      height: 22px;
-      justify-content: center;
+
+    .status:focus {
+      outline: 2px solid rgba(113, 169, 225, 0.55);
+      outline-offset: 1px;
     }
-    .status:focus-visible {
-      outline: 3px solid var(--color-focus-ring, #7db7ff);
-      outline-offset: 2px;
-    }
-    .rejected {
-      background: var(--color-state-danger-bg, #fff0f2);
+
+    .status.rejected {
+      background: var(--color-state-danger-bg, #fff3f4);
       color: var(--color-state-danger, #a51c30);
     }
-    .confirmed {
-      background: var(--color-state-success-bg, #e9f7f1);
-      color: var(--color-state-success, #127357);
+
+    .status.confirmed {
+      background: var(--color-state-success-bg, #edf8f4);
+      color: var(--color-state-success, #08765b);
     }
-    .cancelled {
-      background: #eef1f4;
-      color: #445365;
+
+    .status.cancelled {
+      background: var(--color-surface-subtle, #f2f4f7);
+      color: var(--color-text-strong, #121826);
     }
+
     .actions {
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      margin-top: 18px;
-    }
-    .actions button {
-      min-height: 44px;
-      min-width: 145px;
-    }
-    .actions button:last-child {
-      background: var(--color-action-primary, #005eb8);
-    }
-    .actions button:last-child:not(:disabled):hover {
-      background: var(--color-action-hover, #00488f);
-    }
-    .actions button:last-child:disabled {
-      background: #dfe5ec;
-      color: #687687;
-    }
-    .actions button span {
       align-items: center;
-      display: inline-flex;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 22px;
     }
+
+    .actions button {
+      border-radius: var(--radius-control, 6px);
+      min-height: 44px;
+      padding-inline: 18px;
+    }
+
+    .actions .mat-mdc-unelevated-button:not(:disabled) {
+      background: var(--color-action-primary, #0053a0);
+    }
+
+    .actions .mat-mdc-unelevated-button:not(:disabled):hover {
+      background: var(--color-action-hover, #003f7a);
+    }
+
+    .actions .mat-mdc-unelevated-button:disabled {
+      background: #dfe4ea;
+      color: #697586;
+    }
+
     .actions mat-spinner {
       display: inline-block;
       margin-right: 8px;
       vertical-align: middle;
     }
-    .assurance-list {
-      border-top: 1px solid #e2e7ec;
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      list-style: none;
-      margin: 20px 0 0;
-      padding: 15px 0 0;
-    }
-    .assurance-list li {
-      align-items: center;
-      display: grid;
-      gap: 7px;
-      grid-template-columns: 22px 1fr;
-    }
-    .assurance-list li > span {
-      align-items: center;
-      background: var(--color-state-success-bg, #e9f7f1);
-      border-radius: 50%;
-      color: var(--color-state-success, #127357);
-      display: flex;
-      font-size: 0.58rem;
-      font-weight: 800;
-      height: 22px;
-      justify-content: center;
-    }
-    .assurance-list div {
-      display: grid;
-      gap: 1px;
-    }
-    .assurance-list strong {
-      color: var(--color-text-strong, #17212b);
-      font-size: 0.75rem;
-    }
-    .assurance-list small {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
-    }
-  }
 
-  @media (max-width: 640px) {
-    bofa-demo-secure-transfer-confirmation {
+    .actions .mdc-circular-progress__indeterminate-circle-graphic {
+      stroke: currentColor;
+    }
+
+    .assurance-list {
+      border-top: 1px solid var(--color-border-subtle, #dde2e8);
+      display: grid;
+      gap: 0;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 24px 0 0;
+      padding: 18px 0 0;
+    }
+
+    .assurance-list > div {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+      padding: 0 18px;
+    }
+
+    .assurance-list > div:first-child {
+      padding-left: 0;
+    }
+
+    .assurance-list > div + div {
+      border-left: 1px solid var(--color-border-subtle, #dde2e8);
+    }
+
+    .assurance-list dt {
+      align-items: center;
+      color: var(--color-text-muted, #596577);
+      display: flex;
+      font-size: 0.68rem;
+      gap: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .assurance-list dt bofa-demo-banking-icon {
+      color: var(--color-action-primary, #0053a0);
+      font-size: 0.9rem;
+    }
+
+    .assurance-list dd {
+      font-size: 0.79rem;
+      font-weight: 650;
+      margin: 0;
+    }
+
+    .assurance-list small {
+      color: var(--color-text-muted, #596577);
+      font-size: 0.72rem;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 720px) {
       form {
-        padding: 20px;
+        padding: 22px 20px;
       }
+
+      h2 {
+        font-size: 1.75rem;
+      }
+
       .account-route {
+        align-items: start;
+        gap: 12px;
         grid-template-columns: 1fr;
       }
+
       .route-arrow {
-        transform: rotate(90deg);
+        display: none;
       }
+
       .transfer-details {
         grid-template-columns: 1fr;
       }
-      .transfer-details div:nth-last-child(2) {
-        border-bottom: 1px solid #e4e8ed;
+
+      .transfer-details div:nth-child(n) {
+        margin: 0;
       }
+
       .mfa-panel {
+        gap: 14px;
         grid-template-columns: 1fr;
-        padding-bottom: 10px;
       }
+
       .actions {
+        align-items: stretch;
         flex-direction: column-reverse;
       }
+
       .actions button {
         width: 100%;
       }
+
       .assurance-list {
+        gap: 13px;
         grid-template-columns: 1fr;
+      }
+
+      .assurance-list > div:nth-child(n) {
+        border-left: 0;
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 340px) {
+      form {
+        padding: 20px 16px;
+      }
+
+      .transfer-heading__meta {
+        align-items: start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .mfa-panel {
+        padding: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
       }
     }
   }

@@ -14,12 +14,18 @@ import {
   TRANSFER_ANALYTICS,
 } from '@bank-of-america-demo/shared-integrations';
 import { SharedSecureTransferModule } from '@bank-of-america-demo/secure-transfer';
+import { SharedDesignSystemModule } from '@bank-of-america-demo/design-system';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, SharedSecureTransferModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    SharedDesignSystemModule,
+    SharedSecureTransferModule,
+  ],
   providers: [
     { provide: MFA_GATEWAY, useClass: LocalMfaGateway },
     { provide: SSO_SESSION_GATEWAY, useClass: LocalSsoSessionGateway },

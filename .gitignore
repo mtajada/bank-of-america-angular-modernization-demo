@@ -11,9 +11,9 @@ node_modules
 output/
 test-results/
 playwright-report/
-evidence/browser/playwright-report/
-evidence/browser/test-results/
-evidence/browser/results.json
+evidence/browser/
+evidence/implementation-assurance/raw/
+evidence/review-candidate/
 .nx/
 
 # IDEs and editors

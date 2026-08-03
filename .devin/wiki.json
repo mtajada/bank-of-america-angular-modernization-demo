@@ -7,6 +7,10 @@
     {
       "content": "Treat Angular 18 as the checkpoint required by the interview case, not as a current production recommendation. The public main branch is the Angular 14 baseline. Preserve the shared public contract and stop before merge or deployment.",
       "author": "Synthetic demo maintainers"
+    },
+    {
+      "content": "Treat the Angular runtime as browser-based Online Banking. Responsive mobile evidence validates that web surface only. Read config/digital-channel-boundaries.json before describing iOS or Android: both are adjacent channels whose implementations are not asserted and neither consumes the Angular library in this model.",
+      "author": "Synthetic demo maintainers"
     }
   ],
   "pages": [
@@ -17,7 +21,7 @@
     },
     {
       "title": "Transfer confirmation architecture",
-      "purpose": "Document libs/shared/secure-transfer and docs/architecture/transfer-confirmation.md, including the selector, inputs, outputs, two application consumers, downstream contract fixtures and rollback boundary.",
+      "purpose": "Document libs/shared/secure-transfer, docs/architecture/transfer-confirmation.md and config/digital-channel-boundaries.json, including the selector, inputs, outputs, two application consumers, responsive web proof, adjacent native channels, downstream contract fixtures and rollback boundary.",
       "parent": "Architecture overview"
     },
     {
@@ -32,7 +36,7 @@
     },
     {
       "title": "Angular upgrade and downstream compatibility",
-      "purpose": "Describe docs/migration/angular-upgrade-ladder.md, package.json, config/downstream-consumers.json and scripts/gate.sh: the Angular 14 baseline, Angular 18 checkpoint, consumer impact, evidence gates and rollback state.",
+      "purpose": "Describe docs/migration/angular-upgrade-ladder.md, package.json, config/downstream-consumers.json and scripts/gate.sh: the Angular 14 baseline, Angular 18 checkpoint, consumer impact, evidence gates and named rollback points.",
       "parent": "Architecture overview"
     }
   ]

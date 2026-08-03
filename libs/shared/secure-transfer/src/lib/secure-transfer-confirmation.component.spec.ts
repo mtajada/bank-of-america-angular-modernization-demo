@@ -81,15 +81,28 @@ describe('SecureTransferConfirmationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('cancels without starting MFA or emitting analytics', () => {
+  it('keeps a native cancel click free of submission side effects', async () => {
     const button = fixture.debugElement.query(
       By.css('[data-testid="cancel-transfer"]')
     );
-    button.triggerEventHandler('click', new MouseEvent('click'));
+    const cancelled = jest.spyOn(fixture.componentInstance.cancelled, 'emit');
+    fixture.componentInstance.mfaCode = '482931';
+    fixture.detectChanges();
+
+    const nativeButton = button.nativeElement as HTMLButtonElement;
+    expect(nativeButton.type).toBe('button');
+    nativeButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
     expect(challenge).not.toHaveBeenCalled();
     expect(analytics.recordedEvents()).toEqual([]);
     expect(fixture.componentInstance.status).toBe('cancelled');
+    expect(cancelled).toHaveBeenCalledTimes(1);
+    expect(fixture.nativeElement.textContent).toContain('No challenge sent');
+    expect(
+      fixture.debugElement.query(By.css('[data-testid="confirm-transfer"]'))
+    ).toBeNull();
   });
 
   it('requires an approved MFA challenge before confirming', async () => {
@@ -101,11 +114,78 @@ describe('SecureTransferConfirmationComponent', () => {
     expect(analytics.recordedEvents()).toHaveLength(1);
   });
 
+  it('does not start MFA until the SSO session is verified', async () => {
+    const confirmed = jest.spyOn(fixture.componentInstance.confirmed, 'emit');
+    fixture.componentInstance.sessionVerified = false;
+    fixture.componentInstance.mfaCode = '482931';
+    fixture.detectChanges();
+
+    const confirmButton = fixture.debugElement.query(
+      By.css('[data-testid="confirm-transfer"]')
+    ).nativeElement as HTMLButtonElement;
+
+    expect(confirmButton.disabled).toBe(true);
+    await fixture.componentInstance.confirm();
+
+    expect(challenge).not.toHaveBeenCalled();
+    expect(analytics.recordedEvents()).toEqual([]);
+    expect(fixture.componentInstance.status).toBe('ready');
+    expect(confirmed).not.toHaveBeenCalled();
+    expect(fixture.nativeElement.textContent).toContain(
+      'SSO session unavailable'
+    );
+    expect(fixture.nativeElement.textContent).toContain('Confirmation disabled');
+    expect(fixture.nativeElement.textContent).toContain('SSO required');
+  });
+
+  it('keeps cancellation terminal when MFA resolves later', async () => {
+    let resolveChallenge: (outcome: 'approved' | 'rejected') => void = () =>
+      undefined;
+    challenge.mockImplementationOnce(
+      () =>
+        new Promise<'approved' | 'rejected'>((resolve) => {
+          resolveChallenge = resolve;
+        })
+    );
+    const confirmed = jest.spyOn(fixture.componentInstance.confirmed, 'emit');
+    const cancelled = jest.spyOn(fixture.componentInstance.cancelled, 'emit');
+    fixture.componentInstance.mfaCode = '482931';
+
+    const pendingConfirmation = fixture.componentInstance.confirm();
+    expect(fixture.componentInstance.status).toBe('verifying');
+
+    fixture.componentInstance.cancel();
+    resolveChallenge('approved');
+    await pendingConfirmation;
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.status).toBe('cancelled');
+    expect(analytics.recordedEvents()).toEqual([]);
+    expect(confirmed).not.toHaveBeenCalled();
+    expect(cancelled).toHaveBeenCalledTimes(1);
+    expect(fixture.nativeElement.textContent).toContain('Late response ignored');
+  });
+
   it('has no side effects after a rejected challenge', async () => {
     fixture.componentInstance.mfaCode = '000000';
     await fixture.componentInstance.confirm();
 
     expect(fixture.componentInstance.status).toBe('rejected');
     expect(analytics.recordedEvents()).toEqual([]);
+  });
+
+  it('does not report a late response when cancelling after a rejection', async () => {
+    fixture.componentInstance.mfaCode = '000000';
+    await fixture.componentInstance.confirm();
+    expect(fixture.componentInstance.status).toBe('rejected');
+
+    fixture.componentInstance.cancel();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.status).toBe('cancelled');
+    expect(fixture.nativeElement.textContent).not.toContain(
+      'Late response ignored'
+    );
+    expect(fixture.nativeElement.textContent).toContain('No challenge sent');
   });
 });

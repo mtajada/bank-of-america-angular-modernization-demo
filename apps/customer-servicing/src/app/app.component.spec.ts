@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedDesignSystemModule } from '@bank-of-america-demo/design-system';
 import {
   FINANCIAL_DATA_PROVIDER,
   MFA_GATEWAY,
@@ -20,6 +21,7 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
+        SharedDesignSystemModule,
         SharedSecureTransferModule,
       ],
       declarations: [AppComponent],
@@ -68,5 +70,8 @@ describe('AppComponent', () => {
       'Confirm with the customer'
     );
     expect(compiled.textContent).toContain('Synthetic interview simulation');
+    expect(
+      compiled.querySelector('[data-testid="service-brand-icon"] svg')
+    ).toBeTruthy();
   });
 });

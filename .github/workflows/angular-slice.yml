@@ -1,4 +1,4 @@
-name: Bank of America Angular 14 Baseline
+name: Bank of America Angular Modernization Simulation
 
 on:
   pull_request:
@@ -13,12 +13,16 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
       - name: Install locked dependencies
         run: npm ci
+      - name: Enforce framework, consumer and repository policy
+        run: ./scripts/gate.sh compliance
       - name: Typecheck both applications
         run: ./scripts/gate.sh typecheck
       - name: Lint every project
@@ -27,5 +31,19 @@ jobs:
         run: ./scripts/gate.sh unit
       - name: Build both full application consumers
         run: ./scripts/gate.sh build
-      - name: Scan the synthetic repository boundary
-        run: ./scripts/gate.sh security
+      - name: Install the isolated browser runtime
+        run: npx playwright install --with-deps chromium
+      - name: Exercise Retail Banking and Customer Servicing
+        run: ./scripts/gate.sh e2e
+      - name: Record coverage
+        run: ./scripts/gate.sh coverage
+      - name: Preserve browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bank-of-america-demo-browser-evidence
+          path: |
+            evidence/browser
+            coverage
+          if-no-files-found: ignore
+          retention-days: 7

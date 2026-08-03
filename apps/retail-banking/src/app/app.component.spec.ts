@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedDesignSystemModule } from '@bank-of-america-demo/design-system';
 import {
   FINANCIAL_DATA_PROVIDER,
   MFA_GATEWAY,
@@ -16,7 +17,11 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, SharedSecureTransferModule],
+      imports: [
+        BrowserAnimationsModule,
+        SharedDesignSystemModule,
+        SharedSecureTransferModule,
+      ],
       declarations: [AppComponent],
       providers: [
         {
@@ -63,5 +68,8 @@ describe('AppComponent', () => {
       'Review your transfer'
     );
     expect(compiled.textContent).toContain('Synthetic interview simulation');
+    expect(
+      compiled.querySelector('[data-testid="bank-brand-icon"] svg')
+    ).toBeTruthy();
   });
 });

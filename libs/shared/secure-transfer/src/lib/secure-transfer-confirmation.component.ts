@@ -46,6 +46,8 @@ export class SecureTransferConfirmationComponent implements OnInit {
   mfaCode = '';
   status: TransferStatus = 'ready';
   sessionVerified = false;
+  mfaChallengeStarted = false;
+  private mfaChallengePending = false;
 
   constructor(
     @Inject(MFA_GATEWAY) private readonly mfa: MfaGateway,
@@ -65,10 +67,22 @@ export class SecureTransferConfirmationComponent implements OnInit {
   }
 
   async confirm(): Promise<void> {
-    if (this.status === 'verifying' || this.status === 'confirmed') return;
+    if (
+      !this.sessionVerified ||
+      this.status === 'verifying' ||
+      this.status === 'confirmed' ||
+      this.status === 'cancelled'
+    )
+      return;
 
     this.status = 'verifying';
+    this.mfaChallengePending = true;
     const outcome = await this.mfa.challenge(this.mfaCode.trim());
+    this.mfaChallengePending = false;
+
+    // The user can cancel while the asynchronous challenge is in flight.
+    // Never let a late provider response revive a terminally cancelled flow.
+    if (this.isCancelled()) return;
 
     if (outcome === 'rejected') {
       this.status = 'rejected';
@@ -84,11 +98,18 @@ export class SecureTransferConfirmationComponent implements OnInit {
 
   cancel(): void {
     this.status = 'cancelled';
+    // A late response is only ignored when a challenge is still in flight; a
+    // challenge that already settled (e.g. rejected) is not a late response.
+    this.mfaChallengeStarted = this.mfaChallengePending;
     this.cancelled.emit();
     this.focusResult();
   }
 
   private focusResult(): void {
     setTimeout(() => this.statusMessage?.nativeElement.focus());
+  }
+
+  private isCancelled(): boolean {
+    return this.status === 'cancelled';
   }
 }

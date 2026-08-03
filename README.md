@@ -36,6 +36,12 @@ and a compliance policy that does not permit unsupported frameworks in
 production. The lab responds with blast-radius mapping, rollback and consumer
 evidence. It does not claim to reproduce production scale.
 
+The Angular runtime is deliberately a browser-based Online Banking surface.
+Narrow-viewport tests validate responsive web behaviour; they are not presented
+as evidence for Bank of America's native iOS or Android applications. Those
+channels remain adjacent, with only the identity, transaction, analytics and
+provider contracts represented in this lab.
+
 ## Baseline commands
 
 ```bash
@@ -61,6 +67,8 @@ Retail uses `http://localhost:4200`. Customer Servicing uses
 - `libs/shared/design-system`: Material boundary and theme surface.
 - `libs/shared/secure-transfer`: public component and its behaviour.
 - `libs/shared/integrations`: deterministic MFA, analytics and quote adapters.
+- `config/digital-channel-boundaries.json`: executable web, responsive and
+  adjacent-native scope.
 - `docs/requirements`: the customer scenario, scope and acceptance criteria.
 - `docs/architecture`: the dependency and rollback boundaries.
 - `docs/security`: the allowed actions and local-only integration policy.

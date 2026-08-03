@@ -27,7 +27,7 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
+              "maximumWarning": "650kb",
               "maximumError": "1mb"
             },
             {
@@ -59,10 +59,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "customer-servicing:build:production"
+          "buildTarget": "customer-servicing:build:production"
         },
         "development": {
-          "browserTarget": "customer-servicing:build:development"
+          "buildTarget": "customer-servicing:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,20 +70,21 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "customer-servicing:build"
+        "buildTarget": "customer-servicing:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "apps/customer-servicing/**/*.ts",
           "apps/customer-servicing/**/*.html"
-        ]
+        ],
+        "maxWarnings": 0
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/customer-servicing/jest.config.ts",

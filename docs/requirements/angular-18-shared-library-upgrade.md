@@ -25,6 +25,18 @@ The affected flow also crosses four integration boundaries:
 - a proprietary analytics SDK with a strict identifier allowlist;
 - several third-party financial-data providers.
 
+## Digital channel boundary
+
+The Angular slice is a browser-based Online Banking surface. Its desktop and
+narrow-viewport checks cover the same responsive web application. Native iOS
+and Android applications are adjacent channels, not Angular consumers in this
+repository.
+
+The channels may share identity-session assurance, transaction step-up,
+transfer-domain, analytics-event and provider-data contracts. This lab models
+those contracts without asserting the native implementation or reproducing a
+real Bank of America service.
+
 ## Change requested
 
 Move the shared transfer-confirmation slice from the reproducible Angular 14
@@ -58,7 +70,9 @@ can be upgraded in one task.
    is prohibited.
 8. CI records typecheck, lint, unit, contract, application-build and browser
    results.
-9. The pull request remains in draft and stops at a human code-owner decision.
+9. The scenario gate rejects any claim that the Angular browser surface is a
+   native mobile application; a narrow viewport remains responsive web proof.
+10. The pull request remains in draft and stops at a human code-owner decision.
 
 ## Stop conditions
 

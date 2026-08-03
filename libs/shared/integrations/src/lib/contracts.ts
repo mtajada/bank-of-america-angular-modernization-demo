@@ -57,20 +57,16 @@ export interface FinancialDataProvider {
 }
 
 export const MFA_GATEWAY = new InjectionToken<MfaGateway>('MFA_GATEWAY');
-export const SSO_SESSION_GATEWAY = new InjectionToken<SsoSessionGateway>(
-  'SSO_SESSION_GATEWAY'
-);
-export const TRANSFER_ANALYTICS = new InjectionToken<TransferAnalytics>(
-  'TRANSFER_ANALYTICS'
-);
+export const SSO_SESSION_GATEWAY =
+  new InjectionToken<SsoSessionGateway>('SSO_SESSION_GATEWAY');
+export const TRANSFER_ANALYTICS =
+  new InjectionToken<TransferAnalytics>('TRANSFER_ANALYTICS');
 export const PROPRIETARY_ANALYTICS_SDK =
   new InjectionToken<ProprietaryAnalyticsSdk>('PROPRIETARY_ANALYTICS_SDK');
 export const FINANCIAL_DATA_PROVIDER =
   new InjectionToken<FinancialDataProvider>('FINANCIAL_DATA_PROVIDER');
 
-export function amountBand(
-  amount: number
-): TransferAnalyticsEvent['amountBand'] {
+export function amountBand(amount: number): TransferAnalyticsEvent['amountBand'] {
   if (amount < 1000) return 'under-1k';
   if (amount <= 10000) return '1k-10k';
   return 'over-10k';

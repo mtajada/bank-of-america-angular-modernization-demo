@@ -21,6 +21,24 @@ reach into the component implementation. The component accepts a typed
 `TransferSummary`, a consumer channel and two outputs: `confirmed` and
 `cancelled`.
 
+## Digital channel boundary
+
+```text
+Retail Online Banking (browser / responsive web) ── Angular shared slice
+                                            │
+                                            ├── Identity-session assurance
+                                            ├── Transaction step-up
+                                            ├── Transfer and provider contracts
+                                            └── Redacted analytics-event contract
+
+iOS and Android applications ── adjacent channels; runtime not asserted
+```
+
+The 390-pixel browser run validates the Angular application's responsive
+behaviour. It is not a native-app test. Native channels do not import the
+Angular library in this model; only the contracts that would require explicit
+compatibility decisions are visible.
+
 ## Contract that must remain stable
 
 - The component selector, inputs and outputs.

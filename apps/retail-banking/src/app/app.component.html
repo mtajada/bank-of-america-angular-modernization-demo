@@ -19,7 +19,7 @@
       <span class="bank-brand__mark" aria-hidden="true">BA</span>
       <span class="bank-brand__name">
         <strong>Bank of America</strong>
-        <small>Digital Banking</small>
+        <small>Digital Banking · Est. Ledger Hall</small>
       </span>
     </a>
 
@@ -50,14 +50,17 @@
 
 <main id="main-content" class="retail-main">
   <div class="breadcrumb" aria-label="Breadcrumb">
-    <span>Pay &amp; transfer</span><span aria-hidden="true">/</span
+    <span>Pay &amp; transfer</span><span aria-hidden="true">·</span
     ><strong>Review</strong>
   </div>
 
   <section class="retail-intro" aria-labelledby="retail-title">
-    <div>
+    <div class="retail-intro__copy">
       <span class="section-kicker">Between your accounts</span>
       <h1 id="retail-title">Review your transfer</h1>
+      <span class="rule-flourish" aria-hidden="true"
+        ><i></i><b>❧</b><i></i
+      ></span>
       <p>
         Check the amount, recipient and delivery timing before you authorize the
         transfer.
@@ -75,7 +78,7 @@
           outcome !== 'Confirmed by Retail Banking' ? 'step' : null
         "
       >
-        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '2' }}</span
+        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : 'II' }}</span
         ><strong>Review</strong>
       </li>
       <li
@@ -85,7 +88,9 @@
           outcome === 'Confirmed by Retail Banking' ? 'step' : null
         "
       >
-        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '3' }}</span
+        <span>{{
+          outcome === 'Confirmed by Retail Banking' ? '✓' : 'III'
+        }}</span
         ><strong>Complete</strong>
       </li>
     </ol>
@@ -122,7 +127,7 @@
       </article>
 
       <article id="security-note" class="security-note">
-        <span class="security-note__icon" aria-hidden="true">✓</span>
+        <span class="security-note__icon" aria-hidden="true">✦</span>
         <div>
           <strong>Your transfer is protected</strong>
           <p>
@@ -134,6 +139,9 @@
                 : 'We will confirm your identity before the transfer can be scheduled.'
             }}
           </p>
+          <span class="security-note__seal-caption"
+            >Sealed under the house covenant</span
+          >
         </div>
       </article>
 
@@ -144,12 +152,19 @@
     </aside>
 
     <section class="transfer-workspace" aria-label="Transfer confirmation">
-      <bofa-demo-secure-transfer-confirmation
-        [transfer]="transfer"
-        channel="retail"
-        (confirmed)="outcome = 'Confirmed by Retail Banking'"
-        (cancelled)="outcome = 'Cancelled by Retail Banking'"
-      ></bofa-demo-secure-transfer-confirmation>
+      <div class="folio-frame">
+        <span class="folio-corner folio-corner--tl" aria-hidden="true">✦</span>
+        <span class="folio-corner folio-corner--tr" aria-hidden="true">✦</span>
+        <span class="folio-corner folio-corner--bl" aria-hidden="true">✦</span>
+        <span class="folio-corner folio-corner--br" aria-hidden="true">✦</span>
+
+        <bofa-demo-secure-transfer-confirmation
+          [transfer]="transfer"
+          channel="retail"
+          (confirmed)="outcome = 'Confirmed by Retail Banking'"
+          (cancelled)="outcome = 'Cancelled by Retail Banking'"
+        ></bofa-demo-secure-transfer-confirmation>
+      </div>
 
       <div class="consumer-outcome" role="status" aria-live="polite">
         <span>Transfer status</span>
@@ -160,6 +175,11 @@
 </main>
 
 <footer class="retail-footer">
-  <span>Bank of America Angular modernization simulation</span>
-  <span>Retail Banking consumer · Synthetic data</span>
+  <span class="rule-flourish footer-flourish" aria-hidden="true"
+    ><i></i><b>❧</b><i></i
+  ></span>
+  <div class="retail-footer__row">
+    <span>Bank of America Angular modernization simulation</span>
+    <span>Retail Banking consumer · Synthetic data</span>
+  </div>
 </footer>

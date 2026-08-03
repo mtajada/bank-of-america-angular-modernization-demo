@@ -70,6 +70,8 @@ export class SecureTransferConfirmationComponent implements OnInit {
     this.status = 'verifying';
     const outcome = await this.mfa.challenge(this.mfaCode.trim());
 
+    if (this.status !== 'verifying') return;
+
     if (outcome === 'rejected') {
       this.status = 'rejected';
       this.focusResult();

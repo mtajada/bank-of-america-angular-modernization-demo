@@ -1,26 +1,35 @@
 @mixin semantic-tokens {
-  --color-brand-navy: #012169;
-  --color-brand-navy-deep: #00133f;
-  --color-brand-red: #e31837;
-  --color-action-primary: #005eb8;
-  --color-action-hover: #00488f;
-  --color-surface-canvas: #f4f6f8;
-  --color-surface-raised: #ffffff;
-  --color-surface-subtle: #f0f4f8;
-  --color-text-strong: #17212b;
-  --color-text-muted: #5d6977;
-  --color-border-subtle: #d9dfe6;
-  --color-border-strong: #bbc4cf;
-  --color-state-success: #127357;
-  --color-state-success-bg: #e9f7f1;
-  --color-state-danger: #a51c30;
-  --color-state-danger-bg: #fff0f2;
-  --color-focus-ring: #7db7ff;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif;
-  --radius-control: 8px;
-  --radius-surface: 12px;
-  --radius-card: 16px;
+  // "Synth Sunset" — neopunk vaporwave / synthwave palette.
+  --color-brand-navy: #1b0b3b;
+  --color-brand-navy-deep: #0b0420;
+  --color-brand-red: #ff2e88;
+  --color-action-primary: #22e3ff;
+  --color-action-hover: #7cf3ff;
+  --color-neon-magenta: #ff2e88;
+  --color-neon-cyan: #22e3ff;
+  --color-neon-violet: #b26bff;
+  --color-sun-top: #ffe66d;
+  --color-sun-bottom: #ff2e88;
+  --color-surface-canvas: #140630;
+  --color-surface-raised: rgba(37, 15, 74, 0.82);
+  --color-surface-subtle: rgba(58, 25, 106, 0.55);
+  --color-text-strong: #f6ecff;
+  --color-text-muted: #c0a8e8;
+  --color-border-subtle: rgba(178, 107, 255, 0.35);
+  --color-border-strong: rgba(34, 227, 255, 0.55);
+  --color-state-success: #5cffc9;
+  --color-state-success-bg: rgba(28, 122, 99, 0.32);
+  --color-state-danger: #ff8fb0;
+  --color-state-danger-bg: rgba(150, 24, 66, 0.35);
+  --color-focus-ring: #22e3ff;
+  --font-sans: 'Rajdhani', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-display: 'Monoton', 'Rajdhani', cursive;
+  --radius-control: 4px;
+  --radius-surface: 10px;
+  --radius-card: 14px;
   --space-panel: 24px;
-  --elevation-workspace: 0 10px 30px rgba(0, 19, 63, 0.08);
+  --elevation-workspace: 0 0 0 1px rgba(255, 46, 136, 0.35),
+    0 18px 60px rgba(255, 46, 136, 0.28), 0 0 90px rgba(34, 227, 255, 0.14);
+  --glow-cyan: 0 0 12px rgba(34, 227, 255, 0.65);
+  --glow-magenta: 0 0 14px rgba(255, 46, 136, 0.7);
 }

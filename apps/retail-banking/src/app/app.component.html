@@ -23,6 +23,15 @@
       </span>
     </a>
 
+    <nav class="primary-nav" aria-label="Digital Banking">
+      <a href="#account-summary">Accounts</a>
+      <a class="active" href="#main-content" aria-current="page"
+        >Pay &amp; transfer</a
+      >
+      <a href="#security-note">Security</a>
+      <a href="#relationship-summary">Relationship summary</a>
+    </nav>
+
     <div class="header-utilities" aria-label="Session utilities">
       <button class="utility-link" type="button">Security center</button>
       <button class="utility-link" type="button">Help</button>
@@ -37,15 +46,6 @@
       </button>
     </div>
   </div>
-
-  <nav class="primary-nav" aria-label="Digital Banking">
-    <a href="#account-summary">Accounts</a>
-    <a class="active" href="#main-content" aria-current="page"
-      >Pay &amp; transfer</a
-    >
-    <a href="#security-note">Security</a>
-    <a href="#relationship-summary">Relationship summary</a>
-  </nav>
 </header>
 
 <main id="main-content" class="retail-main">
@@ -54,109 +54,112 @@
     ><strong>Review</strong>
   </div>
 
-  <section class="retail-intro" aria-labelledby="retail-title">
-    <div>
+  <div class="bento-grid">
+    <section class="tile tile--hero retail-intro" aria-labelledby="retail-title">
       <span class="section-kicker">Between your accounts</span>
       <h1 id="retail-title">Review your transfer</h1>
       <p>
         Check the amount, recipient and delivery timing before you authorize the
         transfer.
       </p>
-    </div>
 
-    <ol class="transfer-progress" aria-label="Transfer progress">
-      <li class="complete">
-        <span aria-hidden="true">✓</span><strong>Details</strong>
-      </li>
-      <li
-        [class.complete]="outcome === 'Confirmed by Retail Banking'"
-        [class.current]="outcome !== 'Confirmed by Retail Banking'"
-        [attr.aria-current]="
-          outcome !== 'Confirmed by Retail Banking' ? 'step' : null
-        "
-      >
-        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '2' }}</span
-        ><strong>Review</strong>
-      </li>
-      <li
-        [class.complete]="outcome === 'Confirmed by Retail Banking'"
-        [class.current]="outcome === 'Confirmed by Retail Banking'"
-        [attr.aria-current]="
-          outcome === 'Confirmed by Retail Banking' ? 'step' : null
-        "
-      >
-        <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '3' }}</span
-        ><strong>Complete</strong>
-      </li>
-    </ol>
-  </section>
+      <ol class="transfer-progress" aria-label="Transfer progress">
+        <li class="complete">
+          <span aria-hidden="true">✓</span><strong>Details</strong>
+        </li>
+        <li
+          [class.complete]="outcome === 'Confirmed by Retail Banking'"
+          [class.current]="outcome !== 'Confirmed by Retail Banking'"
+          [attr.aria-current]="
+            outcome !== 'Confirmed by Retail Banking' ? 'step' : null
+          "
+        >
+          <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '2' }}</span
+          ><strong>Review</strong>
+        </li>
+        <li
+          [class.complete]="outcome === 'Confirmed by Retail Banking'"
+          [class.current]="outcome === 'Confirmed by Retail Banking'"
+          [attr.aria-current]="
+            outcome === 'Confirmed by Retail Banking' ? 'step' : null
+          "
+        >
+          <span>{{ outcome === 'Confirmed by Retail Banking' ? '✓' : '3' }}</span
+          ><strong>Complete</strong>
+        </li>
+      </ol>
+    </section>
 
-  <section class="retail-workspace">
-    <aside class="retail-context" aria-label="Account and recipient context">
-      <article id="account-summary" class="account-summary">
-        <div class="card-label-row">
-          <span>From</span>
-          <span class="account-status"
-            ><i aria-hidden="true"></i> Available</span
-          >
-        </div>
-        <p class="account-name">Advantage Banking</p>
-        <p class="account-number">Checking · •••• 2201</p>
-        <div class="balance-row">
-          <div>
-            <span>Available balance</span>
-            <strong>$18,420.86</strong>
-          </div>
-          <span class="balance-change">Updated now</span>
-        </div>
-      </article>
-
-      <article class="recipient-summary">
-        <div class="recipient-avatar" aria-hidden="true">M</div>
-        <div>
-          <span class="summary-label">Recipient</span>
-          <strong>Morgan Household</strong>
-          <span>Verified account · •••• 8842</span>
-        </div>
-        <span class="verified-mark" aria-label="Verified recipient">✓</span>
-      </article>
-
-      <article id="security-note" class="security-note">
-        <span class="security-note__icon" aria-hidden="true">✓</span>
-        <div>
-          <strong>Your transfer is protected</strong>
-          <p>
-            {{
-              outcome === 'Confirmed by Retail Banking'
-                ? 'Your identity was verified before this transfer was scheduled.'
-                : outcome === 'Cancelled by Retail Banking'
-                ? 'No transfer was scheduled and no identity challenge was sent.'
-                : 'We will confirm your identity before the transfer can be scheduled.'
-            }}
-          </p>
-        </div>
-      </article>
-
-      <div id="relationship-summary" class="relationship-note">
-        <span>Relationship summary</span>
-        <strong>Banking and credit accounts connected</strong>
+    <article id="account-summary" class="tile tile--balance account-summary">
+      <div class="card-label-row">
+        <span>From</span>
+        <span class="account-status"><i aria-hidden="true"></i> Available</span>
       </div>
-    </aside>
+      <p class="account-name">Advantage Banking</p>
+      <p class="account-number">Checking · •••• 2201</p>
+      <div class="balance-row">
+        <div>
+          <span>Available balance</span>
+          <strong>$18,420.86</strong>
+        </div>
+        <span class="balance-change">Updated now</span>
+      </div>
+    </article>
 
-    <section class="transfer-workspace" aria-label="Transfer confirmation">
+    <section
+      class="tile tile--transfer transfer-workspace"
+      aria-label="Transfer confirmation"
+    >
       <bofa-demo-secure-transfer-confirmation
         [transfer]="transfer"
         channel="retail"
         (confirmed)="outcome = 'Confirmed by Retail Banking'"
         (cancelled)="outcome = 'Cancelled by Retail Banking'"
       ></bofa-demo-secure-transfer-confirmation>
-
-      <div class="consumer-outcome" role="status" aria-live="polite">
-        <span>Transfer status</span>
-        <strong data-testid="consumer-status">{{ outcome }}</strong>
-      </div>
     </section>
-  </section>
+
+    <article class="tile tile--recipient recipient-summary">
+      <div class="recipient-avatar" aria-hidden="true">M</div>
+      <div>
+        <span class="summary-label">Recipient</span>
+        <strong>Morgan Household</strong>
+        <span>Verified account · •••• 8842</span>
+      </div>
+      <span class="verified-mark" aria-label="Verified recipient">✓</span>
+    </article>
+
+    <article id="security-note" class="tile tile--security security-note">
+      <span class="security-note__icon" aria-hidden="true">✓</span>
+      <div>
+        <strong>Your transfer is protected</strong>
+        <p>
+          {{
+            outcome === 'Confirmed by Retail Banking'
+              ? 'Your identity was verified before this transfer was scheduled.'
+              : outcome === 'Cancelled by Retail Banking'
+              ? 'No transfer was scheduled and no identity challenge was sent.'
+              : 'We will confirm your identity before the transfer can be scheduled.'
+          }}
+        </p>
+      </div>
+    </article>
+
+    <div
+      class="tile tile--status consumer-outcome"
+      role="status"
+      aria-live="polite"
+      [class.is-confirmed]="outcome === 'Confirmed by Retail Banking'"
+      [class.is-cancelled]="outcome === 'Cancelled by Retail Banking'"
+    >
+      <span>Transfer status</span>
+      <strong data-testid="consumer-status">{{ outcome }}</strong>
+    </div>
+
+    <div id="relationship-summary" class="tile tile--relationship relationship-note">
+      <span>Relationship summary</span>
+      <strong>Banking and credit accounts connected</strong>
+    </div>
+  </div>
 </main>
 
 <footer class="retail-footer">

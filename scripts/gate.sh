@@ -31,6 +31,7 @@ case "${1:-all}" in
     ;;
   unit|integration)
     "$BOA_NPM" run test
+    "$BOA_NPM" run test:devin-api
     ;;
   coverage)
     "$BOA_NPX" nx run-many --target=test --all --coverage --runInBand

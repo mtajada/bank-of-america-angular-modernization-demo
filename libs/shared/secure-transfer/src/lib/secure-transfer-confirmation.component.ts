@@ -80,10 +80,6 @@ export class SecureTransferConfirmationComponent implements OnInit {
     const outcome = await this.mfa.challenge(this.mfaCode.trim());
     this.mfaChallengePending = false;
 
-    // The user can cancel while the asynchronous challenge is in flight.
-    // Never let a late provider response revive a terminally cancelled flow.
-    if (this.isCancelled()) return;
-
     if (outcome === 'rejected') {
       this.status = 'rejected';
       this.focusResult();

@@ -76,3 +76,9 @@ Retail uses `http://localhost:4200`. Customer Servicing uses
 Start with [the architecture map](docs/architecture/transfer-confirmation.md)
 and [the security boundary](docs/security/demo-boundary.md), then read the
 [Angular 18 upgrade requirements](docs/requirements/angular-18-shared-library-upgrade.md).
+
+The isolated API-remediation rehearsal is documented in the
+[Devin API autotest runbook](docs/demo/devin-api-autotest-runbook.md). Its
+scenario branch deliberately fails the late-MFA cancellation contract so an
+existing automation can start a bounded Devin session and return a tested draft
+pull request. It is not a deployment or autonomous merge path.

@@ -1,0 +1,136 @@
+mode: IMPLEMENT_TRACK
+max_iterations: 3
+plan_source: docs/demo/devin-api-autotest-plan.md
+cleanup:
+  enabled: true
+  output_dir: output/implementation-assurance
+  report_json: output/implementation-assurance/report.json
+  archive_dir: evidence/implementation-assurance
+
+plan_points:
+  - id: POINT-001
+    text: Keep the demonstration synthetic and isolated from real systems and data.
+    mapped_plan_item_ids: [PLAN-001, PLAN-004]
+  - id: POINT-002
+    text: Create a reproducible late-MFA regression on an isolated demo branch.
+    mapped_plan_item_ids: [PLAN-002]
+  - id: POINT-003
+    text: Provide a bounded and testable Devin API kickoff contract.
+    mapped_plan_item_ids: [PLAN-003]
+  - id: POINT-004
+    text: Provide a GitHub Actions route that reads credentials only from secrets.
+    mapped_plan_item_ids: [PLAN-004]
+  - id: POINT-005
+    text: Require the complete repository validation sequence before a draft PR.
+    mapped_plan_item_ids: [PLAN-003, PLAN-005]
+  - id: POINT-006
+    text: Preserve failing-seed, repaired-PR and presentation evidence.
+    mapped_plan_item_ids: [PLAN-005, PLAN-006]
+
+plan_items:
+  - id: PLAN-001
+    description: Preserve the synthetic security and data boundary.
+    acceptance_criteria:
+      - No production access, data, credentials, logos or runtime integrations.
+      - Human review remains mandatory.
+    requires_visual: false
+    requires_text_eval: false
+    status: PENDING
+  - id: PLAN-002
+    description: Seed the late-MFA cancellation regression.
+    acceptance_criteria:
+      - The focused contract test fails for the intended reason before remediation.
+      - Unrelated contract tests remain intact.
+    requires_visual: false
+    requires_text_eval: false
+    status: PENDING
+  - id: PLAN-003
+    description: Implement and unit-test the v3 session kickoff payload.
+    acceptance_criteria:
+      - Dry-run exposes no credential.
+      - Payload contains repository, budget, tests, stop conditions and structured output.
+    requires_visual: false
+    requires_text_eval: false
+    status: PENDING
+  - id: PLAN-004
+    description: Add the bounded GitHub Actions dispatch route.
+    acceptance_criteria:
+      - Workflow accepts only the synthetic source branch.
+      - Credentials come only from GitHub Actions secrets.
+    requires_visual: false
+    requires_text_eval: false
+    status: PENDING
+  - id: PLAN-005
+    description: Obtain a repaired draft PR with complete validation evidence.
+    acceptance_criteria:
+      - Typecheck, lint, unit, integration, build, security, E2E and coverage pass.
+      - Draft PR is not merged or deployed.
+    requires_visual: true
+    requires_text_eval: false
+    status: PENDING
+  - id: PLAN-006
+    description: Produce presentation-ready runbook and evidence.
+    acceptance_criteria:
+      - Runbook distinguishes control plane, execution and human decision.
+      - Evidence paths and remaining risks are explicit.
+    requires_visual: false
+    requires_text_eval: true
+    status: PENDING
+
+checks:
+  build:
+    required: true
+    command: ./scripts/gate.sh build
+  typecheck:
+    required: true
+    command: ./scripts/gate.sh typecheck
+  lint:
+    required: true
+    command: ./scripts/gate.sh lint
+    fix_command: ./scripts/gate.sh lint-fix
+  unit:
+    required: true
+    command: ./scripts/gate.sh unit
+  integration:
+    required: true
+    command: npm run test:shared
+  e2e:
+    required: true
+    command: ./scripts/gate.sh e2e
+  coverage:
+    required: true
+    command: ./scripts/gate.sh coverage
+  security:
+    required: true
+    command: ./scripts/gate.sh security
+  diff:
+    required: true
+    command: git diff --check
+
+visual_checks:
+  - id: VIS-001
+    tool: playwright
+    target: http://127.0.0.1:4200
+    scenario: Confirm, cancel and rejected-MFA paths execute in both synthetic consumers.
+    success_criteria: E2E passes and produces screenshots, traces and videos without external application traffic.
+    before_command: test -f evidence/browser/retail-cancelled.png
+    after_command: test -f evidence/browser/results.json
+    before_artifact: evidence/browser/retail-cancelled.png
+    after_artifact: evidence/browser/results.json
+    artifact_paths:
+      - evidence/browser/retail-confirmed.png
+      - evidence/browser/servicing-confirmed.png
+    required_artifacts: 4
+
+text_checks:
+  - id: TXT-001
+    fixture_path: docs/demo/devin-api-autotest-runbook.md
+    threshold: 0.9
+    rubric:
+      min_words: 180
+      max_words: 650
+      required_terms: [synthetic, service user, evidence, draft pull request, human]
+      forbidden_terms: [lorem ipsum, TODO, production credential]
+      regex_must_match: ['(?i)automated validation', '(?i)meeting narration']
+      regex_must_not_match: ['cog_[A-Za-z0-9]+', 'ghp_[A-Za-z0-9]+']
+      sections_required: [Scenario, Governed kickoff, Automated validation, Evidence and decision, Meeting narration]

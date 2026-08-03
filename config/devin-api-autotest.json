@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "repository": "mtajada/bank-of-america-angular-modernization-demo",
+  "sourceBranch": "demo/devin-api-autotest-scenario",
+  "title": "Synthetic banking regression — late MFA response after cancellation",
+  "maxAcuLimit": 5,
+  "tags": ["bofa-synthetic-demo", "api-kickoff", "autotest"],
+  "task": "A delayed approved MFA response can revive a transfer after the user has cancelled it. Reproduce the failure, identify the root cause, implement the smallest backward-compatible correction and preserve the public component contract for all five consumers.",
+  "acceptanceCriteria": [
+    "Cancellation remains terminal when an in-flight MFA challenge resolves later.",
+    "A cancelled or rejected flow emits no confirmation event and no analytics event.",
+    "Retail Banking and Customer Servicing remain green.",
+    "Existing tests may not be skipped, weakened or deleted.",
+    "The final result is a draft pull request targeting the scenario branch; do not merge or deploy."
+  ],
+  "validationCommands": [
+    "./scripts/gate.sh typecheck",
+    "./scripts/gate.sh lint",
+    "./scripts/gate.sh unit",
+    "./scripts/gate.sh build",
+    "./scripts/gate.sh security",
+    "./scripts/gate.sh e2e",
+    "./scripts/gate.sh coverage"
+  ],
+  "stopConditions": [
+    "Stop if production access, real credentials, customer data or an external application runtime call is required.",
+    "Stop if the public component contract must change.",
+    "Stop at a draft pull request and leave merge authority with the human code owner."
+  ]
+}

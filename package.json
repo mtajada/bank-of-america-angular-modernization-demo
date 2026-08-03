@@ -13,6 +13,9 @@
     "test:shared": "nx run-many --target=test --projects=shared-integrations,shared-secure-transfer --runInBand",
     "test:e2e": "playwright test",
     "test:e2e:video": "playwright test --project=bank-of-america-demo-video",
+    "test:devin-api": "node --test scripts/kickoff-devin-api.test.mjs",
+    "devin:dry-run": "node scripts/kickoff-devin-api.mjs",
+    "devin:kickoff": "node scripts/kickoff-devin-api.mjs --submit",
     "graph": "nx graph"
   },
   "private": true,

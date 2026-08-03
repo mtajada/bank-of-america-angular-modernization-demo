@@ -1,0 +1,39 @@
+name: Devin API Autoremediation Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: Synthetic failing branch to hand to Devin
+        required: true
+        default: demo/devin-api-autotest-scenario
+
+permissions:
+  contents: read
+
+jobs:
+  kickoff:
+    if: ${{ inputs.source_branch == 'demo/devin-api-autotest-scenario' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Validate the API request contract
+        run: node --test scripts/kickoff-devin-api.test.mjs
+      - name: Start the bounded Devin session
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          DEVIN_ORG_ID: ${{ secrets.DEVIN_ORG_ID }}
+        run: node scripts/kickoff-devin-api.mjs --submit
+      - name: Preserve the session reference
+        uses: actions/upload-artifact@v4
+        with:
+          name: devin-api-session-reference
+          path: evidence/devin-api/session.json
+          if-no-files-found: error
+          retention-days: 7

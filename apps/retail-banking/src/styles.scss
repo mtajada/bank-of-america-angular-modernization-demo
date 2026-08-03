@@ -5,7 +5,7 @@
 @include mat.core();
 
 $bofa-demo-primary: mat.define-palette(mat.$blue-palette, 800, 600, 900);
-$bofa-demo-accent: mat.define-palette(mat.$red-palette, 600, 400, 800);
+$bofa-demo-accent: mat.define-palette(mat.$amber-palette, 600, 400, 800);
 $bofa-demo-theme: mat.define-light-theme(
   (
     color: (
@@ -22,9 +22,12 @@ $bofa-demo-theme: mat.define-light-theme(
 
 :root {
   @include bank.semantic-tokens;
-  --space-panel: 26px;
-  --radius-surface: 14px;
-  --elevation-workspace: 0 14px 38px rgba(0, 19, 63, 0.09);
+  --space-panel: 28px;
+  --radius-surface: 3px;
+  --elevation-workspace: 0 18px 48px rgba(0, 0, 0, 0.55);
+  // Reusable gold hairline "double frame" for panels.
+  --deco-frame: 0 0 0 1px rgba(200, 169, 78, 0.55),
+    0 0 0 4px var(--color-surface-canvas), 0 0 0 5px rgba(200, 169, 78, 0.22);
 }
 
 html,
@@ -34,9 +37,29 @@ body {
 }
 
 body {
-  background: var(--color-surface-canvas);
+  background-color: var(--color-surface-canvas);
+  // Layered Deco backdrop: a central gold sunburst glow over a fine
+  // symmetric chevron lattice.
+  background-image: radial-gradient(
+      circle at 50% -8%,
+      rgba(200, 169, 78, 0.16) 0%,
+      rgba(200, 169, 78, 0) 42%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(200, 169, 78, 0.05) 0 1px,
+      transparent 1px 22px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(200, 169, 78, 0.05) 0 1px,
+      transparent 1px 22px
+    ),
+    linear-gradient(180deg, #070b18 0%, #05070f 100%);
+  background-attachment: fixed;
   color: var(--color-text-strong);
   font-family: var(--font-sans);
+  font-weight: 300;
 }
 
 *,
@@ -63,12 +86,14 @@ input:focus-visible {
 }
 
 .skip-link {
-  background: #fff;
-  color: var(--color-brand-navy);
+  background: var(--color-gold);
+  color: var(--color-vault-black);
   font-weight: 700;
   left: 16px;
+  letter-spacing: 0.12em;
   padding: 12px 16px;
   position: absolute;
+  text-transform: uppercase;
   top: -100px;
   transition: top 160ms ease;
   z-index: 100;
@@ -80,43 +105,51 @@ input:focus-visible {
 
 .synthetic-banner {
   align-items: center;
-  background: #edf1f5;
-  color: #485566;
+  background: var(--color-vault-black);
+  border-bottom: 1px solid rgba(200, 169, 78, 0.3);
+  color: #c8cee0;
   display: flex;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   gap: 8px;
   justify-content: center;
-  min-height: 30px;
+  letter-spacing: 0.12em;
+  min-height: 32px;
   padding: 6px 18px;
+  text-transform: uppercase;
 }
 
 .synthetic-banner strong {
-  color: #27364a;
+  color: var(--color-gold-bright);
+  font-weight: 600;
 }
 
 .environment-dot {
-  background: var(--color-brand-red);
+  background: var(--color-gold-bright);
   border-radius: 50%;
+  box-shadow: 0 0 6px rgba(242, 217, 138, 0.8);
   height: 7px;
   width: 7px;
 }
 
 .bank-header {
-  background: var(--color-brand-navy);
-  color: #fff;
+  background: linear-gradient(180deg, #0a1428 0%, #05070f 100%);
+  border-bottom: 1px solid rgba(200, 169, 78, 0.35);
+  color: var(--color-ivory);
   position: relative;
 }
 
 .bank-header::after {
   background: linear-gradient(
     90deg,
-    var(--color-brand-red) 0 34%,
-    #fff 34% 36%,
-    #1783d5 36% 100%
+    transparent 0%,
+    var(--color-gold-deep) 15%,
+    var(--color-gold-bright) 50%,
+    var(--color-gold-deep) 85%,
+    transparent 100%
   );
   bottom: 0;
   content: '';
-  height: 3px;
+  height: 2px;
   left: 0;
   position: absolute;
   right: 0;
@@ -134,49 +167,56 @@ input:focus-visible {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  min-height: 82px;
-  padding: 14px 32px 12px;
+  min-height: 88px;
+  padding: 16px 32px 14px;
 }
 
 .bank-brand {
   align-items: center;
-  color: #fff;
+  color: var(--color-ivory);
   display: inline-flex;
-  gap: 13px;
+  gap: 14px;
   text-decoration: none;
 }
 
 .bank-brand__mark {
   align-items: center;
-  background: #fff;
-  border-bottom: 3px solid #55a7e5;
-  border-radius: 9px;
-  border-top: 3px solid var(--color-brand-red);
-  color: var(--color-brand-navy);
+  background: radial-gradient(circle at 50% 30%, #1a2c52 0%, #0a142c 70%);
+  border: 1px solid var(--color-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #05070f, 0 0 0 4px rgba(200, 169, 78, 0.4);
+  color: var(--color-gold-bright);
   display: inline-flex;
-  font-size: 0.68rem;
-  font-weight: 850;
-  height: 38px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  height: 44px;
   justify-content: center;
-  letter-spacing: -0.04em;
-  width: 38px;
+  letter-spacing: 0.04em;
+  width: 44px;
 }
 
 .bank-brand__name {
   display: grid;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .bank-brand__name strong {
-  font-size: 1.18rem;
-  font-weight: 720;
-  letter-spacing: -0.015em;
+  color: var(--color-ivory);
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .bank-brand__name small {
-  color: #cad7ec;
-  font-size: 0.72rem;
+  color: var(--color-gold);
+  font-family: var(--font-deco);
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
   margin-top: 5px;
+  text-transform: uppercase;
 }
 
 .header-utilities {
@@ -189,33 +229,43 @@ input:focus-visible {
 .profile-control {
   background: transparent;
   border: 0;
-  color: #e8eef8;
+  color: #d7deee;
   cursor: pointer;
+  font-family: var(--font-deco);
+  letter-spacing: 0.14em;
   min-height: 44px;
+  text-transform: uppercase;
 }
 
 .utility-link {
+  font-size: 0.74rem;
   padding: 0 12px;
+}
+
+.utility-link:hover {
+  color: var(--color-gold-bright);
 }
 
 .profile-control {
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
+  background: rgba(200, 169, 78, 0.08);
+  border: 1px solid rgba(200, 169, 78, 0.4);
+  border-radius: 2px;
   display: flex;
+  font-size: 0.74rem;
   gap: 9px;
   padding: 5px 12px 5px 6px;
 }
 
 .profile-control__avatar {
   align-items: center;
-  background: #fff;
+  background: var(--color-vault-black);
+  border: 1px solid var(--color-gold);
   border-radius: 50%;
-  color: var(--color-brand-navy);
+  color: var(--color-gold-bright);
   display: inline-flex;
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   height: 32px;
   justify-content: center;
   width: 32px;
@@ -223,53 +273,46 @@ input:focus-visible {
 
 .primary-nav {
   display: flex;
-  gap: 34px;
+  gap: 36px;
   padding: 0 32px;
 }
 
 .primary-nav a {
-  border-bottom: 3px solid transparent;
-  color: #dfe8f6;
-  font-size: 0.86rem;
+  border-bottom: 2px solid transparent;
+  color: #cdd5e6;
+  font-family: var(--font-deco);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
   min-height: 44px;
-  padding: 13px 0 11px;
+  padding: 15px 0 12px;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .primary-nav a:hover,
 .primary-nav a.active {
-  border-bottom-color: var(--color-brand-red);
-  color: #fff;
-}
-
-.primary-nav a.active {
-  position: relative;
-}
-
-.primary-nav a.active::after {
-  background: var(--color-brand-red);
-  bottom: 6px;
-  content: '';
-  height: 3px;
-  left: 0;
-  position: absolute;
-  right: 0;
+  border-bottom-color: var(--color-gold);
+  color: var(--color-gold-bright);
 }
 
 .retail-main {
-  padding: 26px 32px 54px;
+  padding: 30px 32px 60px;
 }
 
 .breadcrumb {
   color: var(--color-text-muted);
   display: flex;
-  font-size: 0.76rem;
+  font-family: var(--font-deco);
+  font-size: 0.72rem;
   gap: 8px;
-  margin-bottom: 20px;
+  letter-spacing: 0.16em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
 }
 
 .breadcrumb strong {
-  color: var(--color-text-strong);
+  color: var(--color-gold);
+  font-weight: 400;
 }
 
 .retail-intro {
@@ -277,31 +320,116 @@ input:focus-visible {
   display: flex;
   gap: 40px;
   justify-content: space-between;
-  margin-bottom: 26px;
+  margin-bottom: 32px;
 }
 
 .section-kicker,
 .summary-label,
 .card-label-row > span:first-child {
-  color: var(--color-action-primary);
+  color: var(--color-gold);
+  font-family: var(--font-deco);
   font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.08em;
+  font-weight: 400;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
 }
 
+// Deco sunburst medallion above the page title.
+.deco-medallion {
+  background: conic-gradient(
+    from 0deg,
+    var(--color-gold) 0deg 5deg,
+    transparent 5deg 15deg,
+    var(--color-gold) 15deg 20deg,
+    transparent 20deg 30deg,
+    var(--color-gold) 30deg 35deg,
+    transparent 35deg 45deg,
+    var(--color-gold) 45deg 50deg,
+    transparent 50deg 60deg,
+    var(--color-gold) 60deg 65deg,
+    transparent 65deg 75deg,
+    var(--color-gold) 75deg 80deg,
+    transparent 80deg 90deg,
+    var(--color-gold) 90deg 95deg,
+    transparent 95deg 105deg,
+    var(--color-gold) 105deg 110deg,
+    transparent 110deg 120deg,
+    var(--color-gold) 120deg 125deg,
+    transparent 125deg 135deg,
+    var(--color-gold) 135deg 140deg,
+    transparent 140deg 150deg,
+    var(--color-gold) 150deg 155deg,
+    transparent 155deg 165deg,
+    var(--color-gold) 165deg 170deg,
+    transparent 170deg 180deg,
+    var(--color-gold) 180deg 185deg,
+    transparent 185deg 195deg,
+    var(--color-gold) 195deg 200deg,
+    transparent 200deg 210deg,
+    var(--color-gold) 210deg 215deg,
+    transparent 215deg 225deg,
+    var(--color-gold) 225deg 230deg,
+    transparent 230deg 240deg,
+    var(--color-gold) 240deg 245deg,
+    transparent 245deg 255deg,
+    var(--color-gold) 255deg 260deg,
+    transparent 260deg 270deg,
+    var(--color-gold) 270deg 275deg,
+    transparent 275deg 285deg,
+    var(--color-gold) 285deg 290deg,
+    transparent 290deg 300deg,
+    var(--color-gold) 300deg 305deg,
+    transparent 305deg 315deg,
+    var(--color-gold) 315deg 320deg,
+    transparent 320deg 330deg,
+    var(--color-gold) 330deg 335deg,
+    transparent 335deg 345deg,
+    var(--color-gold) 345deg 350deg,
+    transparent 350deg 360deg
+  );
+  border-radius: 50%;
+  display: block;
+  height: 48px;
+  margin-bottom: 12px;
+  opacity: 0.85;
+  width: 48px;
+  -webkit-mask-image: radial-gradient(
+    closest-side,
+    #000 0%,
+    #000 30%,
+    transparent 34%,
+    transparent 52%,
+    #000 55%,
+    #000 70%,
+    transparent 74%
+  );
+  mask-image: radial-gradient(
+    closest-side,
+    #000 0%,
+    #000 30%,
+    transparent 34%,
+    transparent 52%,
+    #000 55%,
+    #000 70%,
+    transparent 74%
+  );
+}
+
 .retail-intro h1 {
-  color: var(--color-brand-navy-deep);
-  font-size: clamp(2rem, 4vw, 2.65rem);
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-  margin: 7px 0 8px;
+  color: var(--color-ivory);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin: 8px 0 10px;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 .retail-intro p {
   color: var(--color-text-muted);
   font-size: 0.98rem;
-  line-height: 1.5;
+  line-height: 1.55;
   margin: 0;
   max-width: 620px;
 }
@@ -317,72 +445,76 @@ input:focus-visible {
 
 .transfer-progress li {
   align-items: start;
-  color: #7b8795;
+  color: var(--color-text-muted);
   display: grid;
-  font-size: 0.76rem;
-  gap: 6px;
-  grid-template-rows: 28px auto;
+  font-family: var(--font-deco);
+  font-size: 0.72rem;
+  gap: 8px;
+  grid-template-rows: 30px auto;
   justify-items: start;
+  letter-spacing: 0.16em;
   position: relative;
+  text-transform: uppercase;
 }
 
 .transfer-progress li:not(:last-child)::after {
-  background: var(--color-border-subtle);
+  background: rgba(200, 169, 78, 0.35);
   content: '';
   height: 1px;
-  left: 28px;
+  left: 30px;
   position: absolute;
-  top: 14px;
-  width: calc(100% - 14px);
+  top: 15px;
+  width: calc(100% - 16px);
 }
 
 .transfer-progress li > span {
   align-items: center;
-  background: #fff;
-  border: 1px solid var(--color-border-strong);
+  background: var(--color-vault-black);
+  border: 1px solid rgba(200, 169, 78, 0.4);
   border-radius: 50%;
+  color: var(--color-text-muted);
   display: inline-flex;
-  font-size: 0.7rem;
-  font-weight: 800;
-  height: 28px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  height: 30px;
   justify-content: center;
   position: relative;
-  width: 28px;
+  width: 30px;
   z-index: 1;
 }
 
 .transfer-progress .complete,
 .transfer-progress .current {
-  color: var(--color-brand-navy);
+  color: var(--color-gold-bright);
 }
 
 .transfer-progress .complete > span {
-  background: var(--color-brand-navy);
-  border-color: var(--color-brand-navy);
-  color: #fff;
+  background: var(--color-gold);
+  border-color: var(--color-gold-bright);
+  color: var(--color-vault-black);
 }
 
 .transfer-progress .current > span {
-  border: 2px solid var(--color-brand-red);
-  color: var(--color-brand-red);
+  border: 2px solid var(--color-gold-bright);
+  color: var(--color-gold-bright);
 }
 
 .transfer-progress .current.complete > span {
-  background: var(--color-brand-red);
-  border-color: var(--color-brand-red);
-  color: #fff;
+  background: var(--color-gold-bright);
+  border-color: var(--color-gold-bright);
+  color: var(--color-vault-black);
 }
 
 .retail-workspace {
   align-items: start;
   display: grid;
-  gap: 24px;
+  gap: 26px;
   grid-template-columns: minmax(270px, 0.66fr) minmax(520px, 1.34fr);
 }
 
 .retail-context {
   display: grid;
-  gap: 14px;
+  gap: 20px;
 }
 
 .account-summary,
@@ -390,25 +522,29 @@ input:focus-visible {
 .security-note,
 .relationship-note,
 .consumer-outcome {
-  background: var(--color-surface-raised);
-  border: 1px solid var(--color-border-subtle);
+  background: linear-gradient(180deg, #0f1c3a 0%, #0a142c 100%);
+  border: 1px solid rgba(200, 169, 78, 0.45);
   border-radius: var(--radius-surface);
+  box-shadow: var(--deco-frame);
 }
 
 .account-summary {
   overflow: hidden;
-  padding: 21px 22px 22px;
+  padding: 22px 22px 24px;
   position: relative;
 }
 
 .account-summary::before {
   background: linear-gradient(
     90deg,
-    var(--color-brand-red) 0 52%,
-    var(--color-action-primary) 52% 100%
+    transparent 0%,
+    var(--color-gold-deep) 12%,
+    var(--color-gold-bright) 50%,
+    var(--color-gold-deep) 88%,
+    transparent 100%
   );
   content: '';
-  height: 4px;
+  height: 2px;
   left: 0;
   position: absolute;
   right: 0;
@@ -424,8 +560,10 @@ input:focus-visible {
 
 .account-status {
   color: var(--color-state-success);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .account-status i {
@@ -438,10 +576,12 @@ input:focus-visible {
 }
 
 .account-name {
-  color: var(--color-brand-navy-deep);
-  font-size: 1rem;
-  font-weight: 720;
-  margin: 17px 0 3px;
+  color: var(--color-ivory);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin: 18px 0 4px;
 }
 
 .account-number {
@@ -461,37 +601,44 @@ input:focus-visible {
 
 .balance-row span {
   color: var(--color-text-muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .balance-row strong {
-  color: var(--color-brand-navy-deep);
-  font-size: 1.75rem;
+  color: var(--color-gold-bright);
+  font-family: var(--font-display);
+  font-size: 1.7rem;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.035em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .balance-row .balance-change {
-  color: #697586;
+  color: var(--color-text-muted);
   padding-bottom: 4px;
+  text-transform: none;
 }
 
 .recipient-summary {
   align-items: center;
   display: grid;
   gap: 12px;
-  grid-template-columns: 42px 1fr auto;
-  padding: 16px 18px;
+  grid-template-columns: 44px 1fr auto;
+  padding: 18px;
 }
 
 .recipient-avatar {
   align-items: center;
-  background: #e8f0fb;
+  background: var(--color-vault-black);
+  border: 1px solid var(--color-gold);
   border-radius: 50%;
-  color: var(--color-brand-navy);
+  color: var(--color-gold-bright);
   display: flex;
-  font-weight: 800;
-  height: 42px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  height: 44px;
   justify-content: center;
 }
 
@@ -501,7 +648,8 @@ input:focus-visible {
 }
 
 .recipient-summary strong {
-  font-size: 0.9rem;
+  color: var(--color-ivory);
+  font-size: 0.92rem;
 }
 
 .recipient-summary span:not(.summary-label):not(.verified-mark) {
@@ -512,11 +660,12 @@ input:focus-visible {
 .verified-mark,
 .security-note__icon {
   align-items: center;
-  background: var(--color-state-success-bg);
+  background: var(--color-vault-black);
+  border: 1px solid var(--color-gold);
   border-radius: 50%;
-  color: var(--color-state-success);
+  color: var(--color-gold-bright);
   display: flex;
-  font-weight: 800;
+  font-weight: 700;
   height: 28px;
   justify-content: center;
   width: 28px;
@@ -527,7 +676,7 @@ input:focus-visible {
   display: grid;
   gap: 12px;
   grid-template-columns: 32px 1fr;
-  padding: 17px 18px;
+  padding: 18px;
 }
 
 .security-note__icon {
@@ -536,31 +685,35 @@ input:focus-visible {
 }
 
 .security-note strong {
-  color: var(--color-brand-navy-deep);
-  font-size: 0.85rem;
+  color: var(--color-ivory);
+  font-size: 0.86rem;
 }
 
 .security-note p {
   color: var(--color-text-muted);
-  font-size: 0.76rem;
-  line-height: 1.45;
+  font-size: 0.77rem;
+  line-height: 1.5;
   margin: 5px 0 0;
 }
 
 .relationship-note {
   display: grid;
-  gap: 4px;
-  padding: 14px 18px;
+  gap: 5px;
+  padding: 16px 18px;
 }
 
 .relationship-note span {
-  color: var(--color-text-muted);
-  font-size: 0.7rem;
+  color: var(--color-gold);
+  font-family: var(--font-deco);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .relationship-note strong {
-  color: var(--color-action-primary);
-  font-size: 0.78rem;
+  color: var(--color-ivory);
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .transfer-workspace {
@@ -571,27 +724,33 @@ input:focus-visible {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
-  padding: 12px 16px;
+  margin-top: 16px;
+  padding: 14px 18px;
 }
 
 .consumer-outcome span {
-  color: var(--color-text-muted);
-  font-size: 0.72rem;
+  color: var(--color-gold);
+  font-family: var(--font-deco);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .consumer-outcome strong {
-  color: var(--color-brand-navy);
-  font-size: 0.78rem;
+  color: var(--color-ivory);
+  font-size: 0.82rem;
 }
 
 .retail-footer {
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: 1px solid rgba(200, 169, 78, 0.28);
   color: var(--color-text-muted);
   display: flex;
+  font-family: var(--font-deco);
   font-size: 0.72rem;
   justify-content: space-between;
-  padding: 22px 32px 28px;
+  letter-spacing: 0.14em;
+  padding: 26px 32px 32px;
+  text-transform: uppercase;
 }
 
 @media (max-width: 980px) {
@@ -642,7 +801,7 @@ input:focus-visible {
   }
 
   .retail-main {
-    padding-top: 20px;
+    padding-top: 22px;
   }
 
   .transfer-progress {
@@ -678,7 +837,7 @@ input:focus-visible {
   }
 
   .bank-brand__name small {
-    font-size: 0.67rem;
+    font-size: 0.62rem;
   }
 
   .retail-intro h1 {
@@ -686,11 +845,11 @@ input:focus-visible {
   }
 
   .transfer-progress li strong {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
   }
 
   .balance-row strong {
-    font-size: 1.55rem;
+    font-size: 1.5rem;
   }
 }
 

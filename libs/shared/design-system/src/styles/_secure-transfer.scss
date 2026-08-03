@@ -3,161 +3,296 @@
     display: block;
 
     .transfer-card {
-      background: var(--color-surface-raised, #fff);
-      border: 1px solid var(--color-border-subtle, #d9dfe6);
-      border-radius: var(--radius-card, 16px);
-      box-shadow: var(--elevation-workspace);
+      background: radial-gradient(
+          130% 90% at 50% -10%,
+          rgba(200, 169, 78, 0.16) 0%,
+          rgba(200, 169, 78, 0) 55%
+        ),
+        linear-gradient(180deg, #10203f 0%, #0a142c 100%),
+        var(--color-surface-raised, #0e1a34);
+      border: 1px solid var(--color-gold, #c8a94e);
+      border-radius: var(--radius-card, 4px);
+      box-shadow: var(--elevation-workspace), 0 0 0 1px rgba(0, 0, 0, 0.6) inset,
+        0 0 0 6px #0a142c, 0 0 0 7px rgba(200, 169, 78, 0.55);
+      color: var(--color-text-strong, #f4ecd2);
       overflow: hidden;
       padding: 0;
+      position: relative;
     }
+
+    // Symmetrical gold sunburst medallion crowning the vault.
+    .transfer-card::before {
+      background: conic-gradient(
+        from 0deg,
+        rgba(200, 169, 78, 0.9) 0deg 6deg,
+        transparent 6deg 15deg,
+        rgba(200, 169, 78, 0.9) 15deg 21deg,
+        transparent 21deg 30deg,
+        rgba(200, 169, 78, 0.9) 30deg 36deg,
+        transparent 36deg 45deg,
+        rgba(200, 169, 78, 0.9) 45deg 51deg,
+        transparent 51deg 60deg,
+        rgba(200, 169, 78, 0.9) 60deg 66deg,
+        transparent 66deg 75deg,
+        rgba(200, 169, 78, 0.9) 75deg 81deg,
+        transparent 81deg 90deg,
+        rgba(200, 169, 78, 0.9) 90deg 96deg,
+        transparent 96deg 105deg,
+        rgba(200, 169, 78, 0.9) 105deg 111deg,
+        transparent 111deg 120deg,
+        rgba(200, 169, 78, 0.9) 120deg 126deg,
+        transparent 126deg 135deg,
+        rgba(200, 169, 78, 0.9) 135deg 141deg,
+        transparent 141deg 150deg,
+        rgba(200, 169, 78, 0.9) 150deg 156deg,
+        transparent 156deg 165deg,
+        rgba(200, 169, 78, 0.9) 165deg 171deg,
+        transparent 171deg 180deg,
+        rgba(200, 169, 78, 0.9) 180deg 186deg,
+        transparent 186deg 195deg,
+        rgba(200, 169, 78, 0.9) 195deg 201deg,
+        transparent 201deg 210deg,
+        rgba(200, 169, 78, 0.9) 210deg 216deg,
+        transparent 216deg 225deg,
+        rgba(200, 169, 78, 0.9) 225deg 231deg,
+        transparent 231deg 240deg,
+        rgba(200, 169, 78, 0.9) 240deg 246deg,
+        transparent 246deg 255deg,
+        rgba(200, 169, 78, 0.9) 255deg 261deg,
+        transparent 261deg 270deg,
+        rgba(200, 169, 78, 0.9) 270deg 276deg,
+        transparent 276deg 285deg,
+        rgba(200, 169, 78, 0.9) 285deg 291deg,
+        transparent 291deg 300deg,
+        rgba(200, 169, 78, 0.9) 300deg 306deg,
+        transparent 306deg 315deg,
+        rgba(200, 169, 78, 0.9) 315deg 321deg,
+        transparent 321deg 330deg,
+        rgba(200, 169, 78, 0.9) 330deg 336deg,
+        transparent 336deg 345deg,
+        rgba(200, 169, 78, 0.9) 345deg 351deg,
+        transparent 351deg 360deg
+      );
+      border-radius: 50%;
+      content: '';
+      height: 190px;
+      left: 50%;
+      opacity: 0.28;
+      pointer-events: none;
+      position: absolute;
+      top: -95px;
+      transform: translateX(-50%);
+      width: 190px;
+      -webkit-mask-image: radial-gradient(
+        closest-side,
+        transparent 44%,
+        #000 45%,
+        #000 60%,
+        transparent 62%
+      );
+      mask-image: radial-gradient(
+        closest-side,
+        transparent 44%,
+        #000 45%,
+        #000 60%,
+        transparent 62%
+      );
+    }
+
     .brand-rail {
       display: grid;
-      grid-template-columns: 44% 56%;
-      height: 4px;
+      grid-template-columns: 1fr;
+      height: 3px;
+      position: relative;
+      z-index: 1;
     }
-    .brand-rail span:first-child {
-      background: var(--color-brand-red, #e31837);
+    .brand-rail span:first-child,
+    .brand-rail span:last-child {
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--color-gold-deep, #9c7d2f) 12%,
+        var(--color-gold-bright, #f2d98a) 50%,
+        var(--color-gold-deep, #9c7d2f) 88%,
+        transparent 100%
+      );
     }
     .brand-rail span:last-child {
-      background: var(--color-action-primary, #005eb8);
+      display: none;
     }
+
     form {
-      padding: var(--space-panel, 24px);
+      padding: 30px var(--space-panel, 24px) var(--space-panel, 24px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .transfer-heading {
+      text-align: center;
     }
     .transfer-heading__meta {
       align-items: center;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 14px;
     }
     .transfer-heading__meta > span:first-child {
-      color: var(--color-action-primary, #005eb8);
-      font-size: 0.72rem;
-      font-weight: 750;
-      letter-spacing: 0.08em;
+      color: var(--color-gold, #c8a94e);
+      font-family: var(--font-deco);
+      font-size: 0.74rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
     }
     .review-chip {
-      background: #edf3fa;
-      border-radius: 999px;
-      color: var(--color-brand-navy, #012169);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 5px 8px;
+      background: transparent;
+      border: 1px solid var(--color-gold, #c8a94e);
+      border-radius: 2px;
+      color: var(--color-gold-bright, #f2d98a);
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      padding: 5px 10px;
+      text-transform: uppercase;
     }
     h2 {
-      color: var(--color-brand-navy-deep, #00133f);
+      color: var(--color-ivory, #f4ecd2);
+      font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 2.7rem);
       font-variant-numeric: tabular-nums;
-      letter-spacing: -0.045em;
-      line-height: 1.03;
-      margin: 12px 0 7px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.06;
+      margin: 16px 0 8px;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
     }
     .transfer-heading p {
-      color: var(--color-text-muted, #5d6977);
+      color: var(--color-text-muted, #aeb8ce);
       font-size: 0.84rem;
-      line-height: 1.45;
-      margin: 0;
+      line-height: 1.5;
+      margin: 0 auto;
+      max-width: 46ch;
     }
+    // Chevron divider under the heading (Deco motif).
+    .transfer-heading::after {
+      color: var(--color-gold, #c8a94e);
+      content: '◆ ▬▬▬ ◆';
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      margin: 14px auto 0;
+      opacity: 0.75;
+    }
+
     .account-route {
       align-items: stretch;
-      background: #f3f6f9;
-      border: 1px solid var(--color-border-subtle, #d9dfe6);
-      border-radius: var(--radius-surface, 12px);
+      background: rgba(4, 9, 22, 0.55);
+      border: 1px solid var(--color-border-strong, rgba(200, 169, 78, 0.6));
+      border-radius: var(--radius-surface, 3px);
       display: grid;
       gap: 10px;
       grid-template-columns: 1fr 30px 1fr;
-      margin: 22px 0 0;
-      padding: 14px;
+      margin: 24px 0 0;
+      padding: 16px;
     }
     .account-route article {
       display: grid;
-      gap: 4px;
+      gap: 5px;
       min-width: 0;
     }
+    .account-route article:last-child {
+      text-align: right;
+    }
     .route-label {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
-      font-weight: 700;
+      color: var(--color-gold, #c8a94e);
+      font-family: var(--font-deco);
+      font-size: 0.66rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
     }
     .account-route strong {
-      color: var(--color-text-strong, #17212b);
-      font-size: 0.79rem;
+      color: var(--color-ivory, #f4ecd2);
+      font-size: 0.82rem;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
     .account-route small {
-      color: var(--color-text-muted, #5d6977);
+      color: var(--color-text-muted, #aeb8ce);
       font-size: 0.72rem;
     }
     .route-arrow {
       align-items: center;
-      background: #fff;
-      border: 1px solid var(--color-border-subtle, #d9dfe6);
+      background: var(--color-vault-black, #05070f);
+      border: 1px solid var(--color-gold, #c8a94e);
       border-radius: 50%;
-      color: var(--color-action-primary, #005eb8);
+      color: var(--color-gold-bright, #f2d98a);
       display: flex;
       font-weight: 800;
-      height: 28px;
+      height: 30px;
       justify-content: center;
       margin: auto;
-      width: 28px;
+      width: 30px;
     }
     .transfer-details {
-      column-gap: 22px;
+      column-gap: 26px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin: 8px 0 0;
+      margin: 10px 0 0;
     }
     .transfer-details div {
-      border-bottom: 1px solid #e4e8ed;
+      border-bottom: 1px solid rgba(200, 169, 78, 0.22);
       display: flex;
       gap: 12px;
       justify-content: space-between;
-      padding: 12px 2px;
+      padding: 13px 2px;
     }
     .transfer-details div:nth-last-child(-n + 2) {
       border-bottom: 0;
     }
     dt {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
+      color: var(--color-text-muted, #aeb8ce);
+      font-family: var(--font-deco);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
     dd {
-      color: var(--color-text-strong, #17212b);
-      font-size: 0.74rem;
-      font-weight: 680;
+      color: var(--color-ivory, #f4ecd2);
+      font-size: 0.78rem;
+      font-weight: 600;
       margin: 0;
       text-align: right;
     }
     .mfa-panel {
       align-items: center;
-      background: #edf4fb;
-      border: 1px solid #cbdced;
-      border-radius: var(--radius-surface, 12px);
+      background: rgba(4, 9, 22, 0.5);
+      border: 1px solid var(--color-border-subtle, rgba(200, 169, 78, 0.34));
+      border-radius: var(--radius-surface, 3px);
       display: grid;
       gap: 16px;
       grid-template-columns: minmax(0, 1fr) 190px;
-      margin-top: 14px;
-      padding: 13px 14px 5px;
+      margin-top: 18px;
+      padding: 15px 16px 6px;
     }
     .mfa-copy {
       align-items: center;
       display: grid;
-      gap: 10px;
-      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      grid-template-columns: 36px 1fr;
       padding-bottom: 8px;
     }
     .shield-icon {
       align-items: center;
-      background: #dceafa;
+      background: var(--color-vault-black, #05070f);
+      border: 1px solid var(--color-gold, #c8a94e);
       border-radius: 50%;
-      color: var(--color-action-primary, #005eb8);
+      color: var(--color-gold-bright, #f2d98a);
       display: flex;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 800;
-      height: 34px;
+      height: 36px;
       justify-content: center;
     }
     .mfa-copy div {
@@ -165,30 +300,49 @@
       gap: 3px;
     }
     .mfa-copy strong {
-      color: var(--color-brand-navy-deep, #00133f);
-      font-size: 0.78rem;
+      color: var(--color-ivory, #f4ecd2);
+      font-size: 0.8rem;
     }
     .mfa-copy div span {
-      color: var(--color-text-muted, #5d6977);
+      color: var(--color-text-muted, #aeb8ce);
       font-size: 0.72rem;
     }
     .mfa-copy b {
-      color: var(--color-brand-navy, #012169);
+      color: var(--color-gold-bright, #f2d98a);
       font-variant-numeric: tabular-nums;
+      letter-spacing: 0.12em;
     }
     mat-form-field {
       width: 100%;
     }
+
+    // Material outline form-field tuned for the dark vault surface.
+    .mat-mdc-form-field {
+      --mdc-outlined-text-field-outline-color: rgba(200, 169, 78, 0.5);
+      --mdc-outlined-text-field-hover-outline-color: rgba(200, 169, 78, 0.8);
+      --mdc-outlined-text-field-focus-outline-color: #f2d98a;
+      --mdc-outlined-text-field-label-text-color: #aeb8ce;
+      --mdc-outlined-text-field-focus-label-text-color: #f2d98a;
+      --mdc-outlined-text-field-input-text-color: #f4ecd2;
+      --mdc-outlined-text-field-caret-color: #f2d98a;
+    }
+    .mat-mdc-form-field .mat-mdc-input-element {
+      caret-color: #f2d98a;
+      color: #f4ecd2;
+    }
+
     .status {
       align-items: center;
-      border-radius: var(--radius-control, 8px);
+      border: 1px solid currentColor;
+      border-radius: var(--radius-control, 2px);
       display: flex;
-      font-size: 0.75rem;
-      font-weight: 650;
-      gap: 9px;
-      line-height: 1.4;
-      margin: 15px 0 0;
-      padding: 12px 13px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      gap: 10px;
+      letter-spacing: 0.02em;
+      line-height: 1.45;
+      margin: 18px 0 0;
+      padding: 13px 14px;
     }
     .status span {
       align-items: center;
@@ -200,40 +354,63 @@
       justify-content: center;
     }
     .status:focus-visible {
-      outline: 3px solid var(--color-focus-ring, #7db7ff);
+      outline: 3px solid var(--color-focus-ring, #f2d98a);
       outline-offset: 2px;
     }
     .rejected {
-      background: var(--color-state-danger-bg, #fff0f2);
-      color: var(--color-state-danger, #a51c30);
+      background: var(--color-state-danger-bg, rgba(240, 146, 159, 0.13));
+      color: var(--color-state-danger, #f0929f);
     }
     .confirmed {
-      background: var(--color-state-success-bg, #e9f7f1);
-      color: var(--color-state-success, #127357);
+      background: var(--color-state-success-bg, rgba(123, 214, 163, 0.12));
+      color: var(--color-state-success, #7bd6a3);
     }
     .cancelled {
-      background: #eef1f4;
-      color: #445365;
+      background: rgba(174, 184, 206, 0.1);
+      color: #c3ccdd;
     }
     .actions {
       display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      margin-top: 18px;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 22px;
     }
     .actions button {
-      min-height: 44px;
-      min-width: 145px;
+      border-radius: var(--radius-control, 2px);
+      font-family: var(--font-deco);
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      min-height: 46px;
+      min-width: 165px;
+      text-transform: uppercase;
     }
+    // Cancel — gold hairline outline.
+    .actions button:first-child {
+      background: transparent;
+      border: 1px solid var(--color-gold, #c8a94e);
+      color: var(--color-gold-bright, #f2d98a);
+    }
+    // Confirm — lustrous gold fill on deep navy text.
     .actions button:last-child {
-      background: var(--color-action-primary, #005eb8);
+      background: linear-gradient(
+        180deg,
+        var(--color-gold-bright, #f2d98a) 0%,
+        var(--color-gold, #c8a94e) 100%
+      );
+      border: 1px solid var(--color-gold-bright, #f2d98a);
+      color: #0a142c;
     }
     .actions button:last-child:not(:disabled):hover {
-      background: var(--color-action-hover, #00488f);
+      background: linear-gradient(
+        180deg,
+        #fbe6a6 0%,
+        var(--color-gold-bright, #f2d98a) 100%
+      );
     }
     .actions button:last-child:disabled {
-      background: #dfe5ec;
-      color: #687687;
+      background: rgba(200, 169, 78, 0.22);
+      border-color: rgba(200, 169, 78, 0.3);
+      color: rgba(244, 236, 210, 0.55);
     }
     .actions button span {
       align-items: center;
@@ -245,52 +422,57 @@
       vertical-align: middle;
     }
     .assurance-list {
-      border-top: 1px solid #e2e7ec;
+      border-top: 1px solid rgba(200, 169, 78, 0.28);
       display: grid;
-      gap: 10px;
+      gap: 12px;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       list-style: none;
-      margin: 20px 0 0;
-      padding: 15px 0 0;
+      margin: 24px 0 0;
+      padding: 18px 0 0;
     }
     .assurance-list li {
       align-items: center;
       display: grid;
-      gap: 7px;
-      grid-template-columns: 22px 1fr;
+      gap: 9px;
+      grid-template-columns: 24px 1fr;
     }
     .assurance-list li > span {
       align-items: center;
-      background: var(--color-state-success-bg, #e9f7f1);
+      background: var(--color-vault-black, #05070f);
+      border: 1px solid var(--color-gold, #c8a94e);
       border-radius: 50%;
-      color: var(--color-state-success, #127357);
+      color: var(--color-gold-bright, #f2d98a);
       display: flex;
       font-size: 0.58rem;
       font-weight: 800;
-      height: 22px;
+      height: 24px;
       justify-content: center;
+      width: 24px;
     }
     .assurance-list div {
       display: grid;
-      gap: 1px;
+      gap: 2px;
     }
     .assurance-list strong {
-      color: var(--color-text-strong, #17212b);
-      font-size: 0.75rem;
+      color: var(--color-ivory, #f4ecd2);
+      font-size: 0.74rem;
     }
     .assurance-list small {
-      color: var(--color-text-muted, #5d6977);
-      font-size: 0.72rem;
+      color: var(--color-text-muted, #aeb8ce);
+      font-size: 0.7rem;
     }
   }
 
   @media (max-width: 640px) {
     bofa-demo-secure-transfer-confirmation {
       form {
-        padding: 20px;
+        padding: 26px 20px 20px;
       }
       .account-route {
         grid-template-columns: 1fr;
+      }
+      .account-route article:last-child {
+        text-align: left;
       }
       .route-arrow {
         transform: rotate(90deg);
@@ -299,11 +481,11 @@
         grid-template-columns: 1fr;
       }
       .transfer-details div:nth-last-child(2) {
-        border-bottom: 1px solid #e4e8ed;
+        border-bottom: 1px solid rgba(200, 169, 78, 0.22);
       }
       .mfa-panel {
         grid-template-columns: 1fr;
-        padding-bottom: 10px;
+        padding-bottom: 12px;
       }
       .actions {
         flex-direction: column-reverse;

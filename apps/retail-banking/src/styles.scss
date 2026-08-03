@@ -1080,6 +1080,12 @@ bofa-demo-secure-transfer-confirmation {
     border-color: var(--term-green) !important;
   }
 
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-outline-gap,
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-gap {
+    border-top-color: transparent !important;
+  }
+
   .mat-form-field-label,
   .mat-form-field.mat-focused .mat-form-field-label,
   .mat-mdc-floating-label {

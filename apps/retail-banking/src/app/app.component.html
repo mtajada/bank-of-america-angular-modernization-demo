@@ -19,21 +19,21 @@
       <span class="bank-brand__mark" aria-hidden="true">BA</span>
       <span class="bank-brand__name">
         <strong>Bank of America</strong>
-        <small>Digital Banking</small>
+        <small>&gt;_ Digital Banking // tty0</small>
       </span>
     </a>
 
     <div class="header-utilities" aria-label="Session utilities">
-      <button class="utility-link" type="button">Security center</button>
-      <button class="utility-link" type="button">Help</button>
+      <button class="utility-link" type="button">[ Security center ]</button>
+      <button class="utility-link" type="button">[ Help ]</button>
       <button
         class="profile-control"
         type="button"
         aria-label="Open profile for Alex Morgan"
       >
         <span class="profile-control__avatar" aria-hidden="true">AM</span>
-        <span>Alex Morgan</span>
-        <span aria-hidden="true">⌄</span>
+        <span>alex.morgan</span>
+        <span aria-hidden="true">▾</span>
       </button>
     </div>
   </div>
@@ -46,21 +46,29 @@
     <a href="#security-note">Security</a>
     <a href="#relationship-summary">Relationship summary</a>
   </nav>
+  <div class="ascii-rule" aria-hidden="true">
+    ══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  </div>
 </header>
 
 <main id="main-content" class="retail-main">
   <div class="breadcrumb" aria-label="Breadcrumb">
-    <span>Pay &amp; transfer</span><span aria-hidden="true">/</span
-    ><strong>Review</strong>
+    <span>~/pay-and-transfer</span><span aria-hidden="true">/</span
+    ><strong>review</strong>
   </div>
 
   <section class="retail-intro" aria-labelledby="retail-title">
-    <div>
-      <span class="section-kicker">Between your accounts</span>
-      <h1 id="retail-title">Review your transfer</h1>
+    <div class="retail-intro__copy">
+      <span class="section-kicker">// between your accounts</span>
+      <h1 id="retail-title">
+        Review your transfer<span class="caret" aria-hidden="true"></span>
+      </h1>
       <p>
         Check the amount, recipient and delivery timing before you authorize the
         transfer.
+      </p>
+      <p class="terminal-echo" aria-hidden="true">
+        $ transfer --review --channel=retail --fixtures=local
       </p>
     </div>
 
@@ -141,9 +149,24 @@
         <span>Relationship summary</span>
         <strong>Banking and credit accounts connected</strong>
       </div>
+
+      <pre class="ascii-sigil" aria-hidden="true">
+ ┌───────────────┐
+ │ SYS: LOCAL    │
+ │ ENV: FIXTURE  │
+ │ NET: OFFLINE  │
+ └───────────────┘</pre
+      >
     </aside>
 
     <section class="transfer-workspace" aria-label="Transfer confirmation">
+      <div class="workspace-chrome" aria-hidden="true">
+        <span class="workspace-chrome__title"
+          >/dev/transfer — secure-transfer-confirmation</span
+        >
+        <span class="workspace-chrome__dots">■ ■ ■</span>
+      </div>
+
       <bofa-demo-secure-transfer-confirmation
         [transfer]="transfer"
         channel="retail"
@@ -160,6 +183,6 @@
 </main>
 
 <footer class="retail-footer">
-  <span>Bank of America Angular modernization simulation</span>
+  <span>[ Bank of America Angular modernization simulation ]</span>
   <span>Retail Banking consumer · Synthetic data</span>
 </footer>
